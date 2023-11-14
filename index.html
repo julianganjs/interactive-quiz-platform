@@ -93,7 +93,7 @@
 				const endpoint = '/data-api/rest/Person';
 				const response = await fetch(endpoint);
 				const data = await response.json();
-				alert(data.value);
+				alert(JSON.stringify(data.value));
 			}
 			
 		} );
