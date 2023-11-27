@@ -37,6 +37,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "QuestionList": {
+      "source": "dbo.QuestionList",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
