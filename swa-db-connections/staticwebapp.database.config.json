@@ -5,7 +5,7 @@
     "options": {
       "set-session-context": false 
     },
-    "connection-string": "Server=tcp:gjsquiz.database.windows.net,1433;Initial Catalog=QuizDB;Persist Security Info=False;User ID=ganjs;Password=pass1.23;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')"
   },
   "runtime": {
     "rest": {
