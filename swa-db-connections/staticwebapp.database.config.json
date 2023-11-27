@@ -46,6 +46,24 @@
           "role": "anonymous"
         }
       ]
+    },
+    "mc_Questions": {
+      "source": "dbo.mc_Questions",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "mc_Answers": {
+      "source": "dbo.mc_Answers",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
