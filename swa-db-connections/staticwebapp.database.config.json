@@ -29,14 +29,14 @@
     }
   },
   "entities": {
-      "QuestionList": {
-        "source": "QuestionList",
-        "permissions": [
-          {
-            "actions": ["*"],
-            "role": "anonymous"
-          }
-        ]
-      }
+    "Person": {
+      "source": "dbo.MyTestPersonTable",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    }
   }
 }
