@@ -37,7 +37,7 @@
 				if(qtype == "multi_choice"){
 					mc_question_no += 1;
 					$("#question_list").append('<div class="row" id="ques_list_item_'+mc_question_no+'">'+
-					'<div class="col ms-3 me-3 mt-2">'+
+						'<div class="col ms-3 me-3 mt-2">'+
 						'<hr style="color: #bbbbbb;">'+
 						'<div class="row mt-4">'+
 							'<div class="col-auto">'+
@@ -56,18 +56,67 @@
 							'</div>'+
 							'<div class="col">'+
 								'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7">'+
-									'<label for="exampleFormControlTextarea1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
-									'<textarea class="form-control" id="exampleFormControlTextarea1" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="5"></textarea>'+
+									'<label for="mc_question_'+mc_question_no+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+									'<textarea class="form-control" id="mc_question_'+mc_question_no+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="5"></textarea>'+
 								'</div>'+
 								'<div class="card shadow-none p-3 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8">'+
-									'<label for="exampleFormControlTextarea2" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">1st Answer Choice</label>'+
-									'<textarea class="form-control mb-3" id="exampleFormControlTextarea2" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
-									'<label for="exampleFormControlTextarea1=3" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">2nd Answer Choice</label>'+
-									'<textarea class="form-control mb-3" id="exampleFormControlTextarea3" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
-									'<label for="exampleFormControlTextarea4" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">3rd Answer Choice</label>'+
-									'<textarea class="form-control mb-3" id="exampleFormControlTextarea4" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
-									'<label for="exampleFormControlTextarea5" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">4th Answer Choice</label>'+
-									'<textarea class="form-control" id="exampleFormControlTextarea5" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
+									'<div class="row">'+
+										'<div class="col-auto">'+
+											'<label for="mc_ans_1_'+mc_question_no+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">1st Answer Choice</label>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="form-check">'+
+											  '<input class="form-check-input" type="radio" name="mc_correct_radio_'+mc_question_no+'" id="mc_correct_ans_1_'+mc_question_no+'" checked>'+
+											  '<label class="form-check-label" for="mc_correct_ans_1_'+mc_question_no+'" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+
+												'Correct Answer'+
+											  '</label>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<textarea class="form-control mb-3" id="mc_ans_1_'+mc_question_no+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
+									'<div class="row">'+
+										'<div class="col-auto">'+
+											'<label for="mc_ans_2_'+mc_question_no+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">2nd Answer Choice</label>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="form-check">'+
+											  '<input class="form-check-input" type="radio" name="mc_correct_radio_'+mc_question_no+'" id="mc_correct_ans_2_'+mc_question_no+'">'+
+											  '<label class="form-check-label" for="mc_correct_ans_2_'+mc_question_no+'" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+												'Correct Answer'+
+											  '</label>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<textarea class="form-control mb-3" id="mc_ans_2_'+mc_question_no+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
+									'<div class="row">'+
+										'<div class="col-auto">'+
+											'<label for="mc_ans_3_'+mc_question_no+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">3rd Answer Choice</label>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="form-check">'+
+											  '<input class="form-check-input" type="radio" name="mc_correct_radio_'+mc_question_no+'" id="mc_correct_ans_3_'+mc_question_no+'">'+
+											  '<label class="form-check-label" for="mc_correct_ans_3_'+mc_question_no+'" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+												'Correct Answer'+
+											  '</label>'+
+											'</div>'+
+											
+										'</div>'+
+									'</div>'+
+									'<textarea class="form-control mb-3" id="mc_ans_3_'+mc_question_no+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
+									'<div class="row">'+
+										'<div class="col-auto">'+
+											'<label for="mc_ans_4_'+mc_question_no+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">4th Answer Choice</label>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="form-check">'+
+											  '<input class="form-check-input" type="radio" name="mc_correct_radio_'+mc_question_no+'" id="mc_correct_ans_4_'+mc_question_no+'">'+
+											  '<label class="form-check-label" for="mc_correct_ans_4_'+mc_question_no+'" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+												'Correct Answer'+
+											  '</label>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<textarea class="form-control" id="mc_ans_4_'+mc_question_no+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" rows="1"></textarea>'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
@@ -83,6 +132,16 @@
 				if (mc_question_no == 0){
 					$("#submit_button").prop('disabled', true);
 				}
+			});
+
+			$(document).on('change', 'input[type=radio]', function(e) {
+				$(document).find("input[type=radio]").each(function(){
+					if ($(this).is(':checked')){
+						$(this).next('label').attr("hidden",false);
+					} else {
+						$(this).next('label').attr("hidden",true);
+					}
+				});
 			});
 			
 			$('#submit_button').on('click', function(e){
