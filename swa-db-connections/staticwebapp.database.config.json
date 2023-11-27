@@ -30,7 +30,7 @@
   },
   "entities": {
       "QuestionList": {
-        "source": "[dbo].[QuestionList]",
+        "source": "QuestionList",
         "permissions": [
           {
             "actions": ["*"],
