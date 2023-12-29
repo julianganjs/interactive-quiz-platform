@@ -149,7 +149,7 @@
 			});
 
 			async function list() {
-				const endpoint = '/data-api/rest/Person';
+				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
 				const data = await response.json();
 				alert(JSON.stringify(data.value));
