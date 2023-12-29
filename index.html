@@ -145,23 +145,27 @@
 				});
 			});
 			
-			data = {
+			data_1 = {
 				course_id: course_id,
-				quiz_id: "TEST2",
-				q_id: 2,
-				q_type: "mc1",
+				quiz_id: "TEST31",
+				q_id: 31,
+				q_type: "mc31"
+			};
+
+			data_2 = {
 				course_id: course_id,
-				quiz_id: "TEST3",
-				q_id: 3,
-				q_type: "mc3"
-			 };
+				quiz_id: "TEST32",
+				q_id: 32,
+				q_type: "mc32"
+			};
 			
 			
 			$('#submit_button').on('click', function(e){
-				list();
+				list(data_1);
+				list(data_2);
 			});
 
-			async function list() {
+			async function list(data) {
 				const endpoint = '/data-api/rest/QuestionList/';
 				const response = await fetch(endpoint, {
 					method: "POST",
