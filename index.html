@@ -146,8 +146,6 @@
 				});
 			});
 			
-			var quiz_id = "nigger";
-			
 			$('#submit_button').on('click', function(e){
 				for (let i = 1; i <= total_question_no; i++) {
 					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
@@ -221,17 +219,30 @@
 				alert(JSON.stringify(result.value));
 			}
 			
-			async function get() {
+			async function get_quizid() {
 
-			  const endpoint = '/data-api/rest/QuestionList/id?limit=5';
+			  const endpoint = '/data-api/rest/QuestionList/';
 			  const response = await fetch(endpoint, {
-				method: "GET"
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data)
 			  });
 			  const result = await response.json();
-			  alert(JSON.stringify(result.value));
+			  return result;
 			}
 			
-			get();
+			var quiz_id = "";
+			
+			quizid_object = get_quizid();
+			quizid_string = quizid_object.value[quizid_object.value.length-1].quiz_id.replace(/\D/g,'');
+			if (quizid_string){
+				quiz_num = Number(quizid_string) + 1;
+				quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
+				
+			} else {
+				quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+"1";
+			}
+			alert(quiz_id);
 			
 		} );
 	</script>
