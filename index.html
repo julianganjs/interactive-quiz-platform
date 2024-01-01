@@ -221,20 +221,16 @@
 			
 			async function get_quizid() {
 
-			  const endpoint = '/data-api/rest/QuestionList/';
-			  const response = await fetch(endpoint, {
-				method: "GET",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data)
-			  });
-			  const result = await response.json();
-			  return result;
+				const endpoint = '/data-api/rest/QuestionList';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				return data.value;
 			}
 			
 			var quiz_id = "";
 			
 			quizid_object = get_quizid();
-			quizid_string = quizid_object.value[quizid_object.value.length-1].quiz_id.replace(/\D/g,'');
+			quizid_string = quizid_object[quizid_object.length-1].quiz_id.replace(/\D/g,'');
 			if (quizid_string){
 				quiz_num = Number(quizid_string) + 1;
 				quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
