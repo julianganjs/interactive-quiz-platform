@@ -226,19 +226,22 @@
 				const data = await response.json();
 				return data.value;
 			}
-			
-			var quiz_id = "";
-			
-			quizid_object = get_quizid();
-			quizid_string = quizid_object[quizid_object.length-1].quiz_id.replace(/\D/g,'');
-			if (quizid_string){
-				quiz_num = Number(quizid_string) + 1;
-				quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
-				
-			} else {
-				quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+"1";
+
+			function get_quizid_not_async() {
+				quizid_object = get_quizid();
+				quizid_string = quizid_object[quizid_object.length-1].quiz_id.replace(/\D/g,'');
+				if (quizid_string){
+					quiz_num = Number(quizid_string) + 1;
+					quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
+					
+				} else {
+					quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+"1";
+				}
+				alert(quiz_id);
+				return quiz_id;
 			}
-			alert(quiz_id);
+
+			var quiz_id = get_quizid_not_async();
 			
 		} );
 	</script>
