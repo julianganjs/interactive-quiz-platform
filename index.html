@@ -150,18 +150,18 @@
 			
 			$('#submit_button').on('click', function(e){
 				for (let i = 1; i <= total_question_no; i++) {
-					data1 = '{course_id: "'+course_id+'", quiz_id: "'+quiz_id+'", q_id: '+i+', q_type: "';
+					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
 					if ( quest_type == "multi_choice") {
 						data1 += 'mc"}';
 					}
 					QuestionList(JSON.parse(data1));
 					
-					data2 = '{course_id: "'+course_id+'", quiz_id: "'+quiz_id+'", q_id: '+i+', question: "';
+					data2 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "question": "';
 					if ( quest_type == "multi_choice") {
 						ques = $(document).find("#mc_question_"+i).val();
 						data2 += ques;
-						data2 += '", correct_ans_id: ';
+						data2 += '", "correct_ans_id": ';
 						
 						correct_ans_id = "";
 						
@@ -177,7 +177,7 @@
 						mc_Questions(JSON.parse(data2));
 						
 						for (let j = 1; j <= 4; j++) {
-							data3 = '{course_id: "'+course_id+'", quiz_id: "'+quiz_id+'", ans_id: '+j+', answer: "';
+							data3 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "ans_id": '+j+', "answer": "';
 							ans = $(document).find("#mc_ans_"+j+"_"+i).val();
 							data3 += ans;
 							data3 += '"}';
