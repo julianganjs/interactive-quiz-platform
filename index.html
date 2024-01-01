@@ -228,13 +228,13 @@
 				quizid_string = data.value[data.value.length-1].quiz_id.replace(/\D/g,'');
 				if (quizid_string){
 					quiz_num = Number(quizid_string) + 1;
-					quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
+					quiz = 'QZ'+course_id.replace(/[0-9]/g,'')+quiz_num;
 					
 				} else {
-					quiz_id = 'QZ'+course_id.replace(/[0-9]/g,'')+"1";
+					quiz = 'QZ'+course_id.replace(/[0-9]/g,'')+"1";
 				}
 
-				return quiz_id;
+				return quiz;
 			}
 
 			var quiz_id = get_quizid();
