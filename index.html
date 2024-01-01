@@ -175,7 +175,7 @@
 						mc_Questions(JSON.parse(data2));
 						
 						for (let j = 1; j <= 4; j++) {
-							data3 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "ans_id": '+j+', "answer": "';
+							data3 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "ans_id": '+j+', "answer": "';
 							ans = $(document).find("#mc_ans_"+j+"_"+i).val();
 							data3 += ans;
 							data3 += '"}';
