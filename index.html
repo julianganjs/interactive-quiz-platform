@@ -225,9 +225,7 @@
 
 			  const endpoint = '/data-api/rest/QuestionList/id?limit=5';
 			  const response = await fetch(endpoint, {
-				method: "GET",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data)
+				method: "GET"
 			  });
 			  const result = await response.json();
 			  alert(JSON.stringify(result.value));
