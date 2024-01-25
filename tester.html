@@ -41,7 +41,7 @@
                 const name = "Sunny";
 
 				const gql = `
-					query getById($name: String!) {
+					query getByName($name: String) {
 						person_by_pk(where: {Name: $name}) {
 							Id
 							Name
@@ -51,7 +51,7 @@
 				const query = {
 					query: gql,
 					variables: {
-						name: name,
+						"name": name,
 					},
 				};
 
