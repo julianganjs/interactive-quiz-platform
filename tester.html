@@ -22,13 +22,14 @@
 		$(document).ready( function () {
 			
 			var course_id = "ENG1";
-			
-			$('.qtype_menu_item').on('click', function () {
-				$("#qtype_menu").find(".qtype_menu_item").removeClass("active");
+            var quiz_id_selection = "";
+
+            $(document).on('click', '.qtype_menu_item', function(e) {
+                $("#qtype_menu").find(".qtype_menu_item").removeClass("active");
 				$(this).addClass("active");
-				qtype = $(this).attr('id');
+				quiz_id_selection = $(this).attr('id');
 				$("#qtype_text").html($(this).html());
-			} );
+			});
 
 			
 			$('#submit_button').on('click', function(e){
