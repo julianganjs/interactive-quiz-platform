@@ -38,11 +38,11 @@
 
 			async function get_quizid() {
 
-                const id = 1;
+                const name = "Sunny";
 
 				const gql = `
-					query getById($id: Int!) {
-						person_by_pk(Id: $id) {
+					query getById($name: Int!) {
+						person_by_pk(Name: $name) {
 							Id
 							Name
 						}
@@ -51,7 +51,7 @@
 				const query = {
 					query: gql,
 					variables: {
-						id: id,
+						name: name,
 					},
 				};
 
