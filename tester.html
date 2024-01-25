@@ -21,7 +21,7 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
-			var course_id = "ENG1";
+			var course_id = "11";
 			
 			$('.qtype_menu_item').on('click', function () {
 				$("#qtype_menu").find(".qtype_menu_item").removeClass("active");
@@ -40,8 +40,8 @@
 
 				const gql = `
 					query getByCourseID($CID: Int!) {
-						values(course_id: $CID) {
-							course_id
+						values(id: $CID) {
+							id
 							quiz_id
 						}
 					}`;
