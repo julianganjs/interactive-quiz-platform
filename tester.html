@@ -38,21 +38,16 @@
 
 			async function get_quizid() {
 
-                const id = 1;
+                var name = "Sunny";
 
-                const gql = `
-                    query nigger($id: Int!) {
-                        fuckyourself(Id: $id) {
-                            Id
-                            Name
-                        }
+                var query = `query GetName($name: String!) {
+                    getName(Name: $name)
                     }`;
 
+
                 const query = {
-                    query: gql,
-                    variables: {
-                    id: id,
-                    },
+                    query,
+                    variables: { name },
                 };
 
 				const endpoint = '/data-api/graphql/haha';
