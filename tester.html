@@ -43,9 +43,10 @@
 				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
 				const data = await response.json();
-				
-				quizid_string = data.value.quiz_id;
-				console.table(quizid_string);
+
+                for (var i = 0; i < data.value.length; i++) {
+                    console.log(data.value[i].quiz_id);
+                }
 			}
 
 			get_quizid();
