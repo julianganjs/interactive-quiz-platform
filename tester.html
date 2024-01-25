@@ -21,7 +21,7 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
-			var course_id = "11";
+			var course_id = "ENG1";
 			
 			$('.qtype_menu_item').on('click', function () {
 				$("#qtype_menu").find(".qtype_menu_item").removeClass("active");
@@ -34,9 +34,6 @@
 			$('#submit_button').on('click', function(e){
 
 			});
-			
-
-			var quiz_id;
 
 			async function get_quizid() {
 
@@ -44,9 +41,23 @@
 				const response = await fetch(endpoint);
 				const data = await response.json();
 
+                var prev = "";
+
                 for (var i = 0; i < data.value.length; i++) {
-                    console.log(data.value[i].quiz_id);
+                    
+                    if (data.value[i].quiz_id == prev) {
+                        prev = data.value[i].quiz_id;
+                    } else {
+                        if (i == 0){
+                            $("#qtype_text").html(data.value[i].quiz_id);
+                            $("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+                        } else {
+                            $("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+                        }
+                        prev = data.value[i].quiz_id;
+                    }
                 }
+                $("#dropdownMenuButton1").prop('disabled', false);
 			}
 
 			get_quizid();
@@ -103,14 +114,14 @@
 			<div class="row ms-2 mt-1 me-2">
 				<div class="col">
 					<div class="dropdown">
-					  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; text-align: right; font-size: 0.9rem; border: 1px solid #bbbbbb; border-radius: 0px;">
-						<span style="float:left; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100;" id="qtype_text"><i class="fas fa-list-ul" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Multiple Choice</span>
+					  <button class="btn dropdown-toggle" type="button" disabled id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; text-align: right; font-size: 0.9rem; border: 1px solid #bbbbbb; border-radius: 0px;">
+						<span style="float:left; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100;" id="qtype_text"></span>
 					  </button>
 					  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 100%; font-size: 0.9rem; line-height: 30px; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; border-radius: 0px;" id="qtype_menu">
 						<li><h6 class="dropdown-header mb-1">Available Quizzes</h6></li>
-						<li><a class="dropdown-item active qtype_menu_item" id="multi_choice"><i class="fas fa-list-ul" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Multiple Choice</a></li>
+						
 						<li><a class="dropdown-item qtype_menu_item" id="true_false"><i class="fas fa-times-circle" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;True/False</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="short_ans"><i class="fas fa-grip-lines" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Short Answer</a></li>
+						
 						<li><a class="dropdown-item qtype_menu_item" id="essay"><i class="fas fa-edit" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Essay</a></li>
 						<li><a class="dropdown-item qtype_menu_item" id="calc"><i class="fas fa-calculator" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated</a></li>
 						<li><a class="dropdown-item qtype_menu_item" id="calc_multi"><i class="fas fa-sort-numeric-down" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated Multichoice</a></li>
