@@ -41,8 +41,8 @@
                 const name = "Sunny";
 
 				const gql = `
-					query getByName($name: String!) {
-						person_by_pk(Name: $name) {
+					query getByName(where: {$name: String!}) {
+						person_by_pk(where: {Name: $name}) {
 							Id
 							Name
 						}
@@ -62,6 +62,8 @@
 					body: JSON.stringify(query)
 				});
 				const result = await response.json();
+                console.log(result);
+                console.log(result.data.person_by_pk);
 				console.table(result.data.person_by_pk);
 				
 			}
