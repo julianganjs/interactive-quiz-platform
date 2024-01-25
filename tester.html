@@ -35,19 +35,29 @@
 
 			});
 			
-			var quiz_id;
 
 			async function get_quizid() {
 
-				const data = {
-					course_id: course_id
-				 };
+				const gql = `
+					query getByCourseID($CID: Int!) {
+						values(course_id: $CID) {
+							course_id
+							quiz_id
+						}
+					}`;
+				
+				const query = {
+					query: gql,
+					variables: {
+						CID: course_id,
+					},
+				};
 
-				const endpoint = '/data-api/rest/QuestionList';
+				const endpoint = '/data-api/graphql/QuestionList';
 				const response = await fetch(endpoint, {
-					method: "GET",
+					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(data)
+					body: JSON.stringify(query)
 				});
 				const result = await response.json();
 				alert(result.value);
