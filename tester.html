@@ -36,31 +36,16 @@
 			});
 			
 
+			var quiz_id;
+
 			async function get_quizid() {
 
-                var name = "Sunny";
-
-                var query = `query GetName($name: String!) {
-                    getName(Name: $name)
-                    }`;
-
-
-                const query = {
-                    query,
-                    variables: { name },
-                };
-
-				const endpoint = '/data-api/graphql/haha';
-				const response = await fetch(endpoint, {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(query)
-				});
-				const result = await response.json();
-                console.log(result);
-                console.log(result.data.fuckyourself);
-				console.table(result.data.fuckyourself);
+				const endpoint = '/data-api/rest/QuestionList';
+				const response = await fetch(endpoint);
+				const data = await response.json();
 				
+				quizid_string = data.value.quiz_id;
+				console.table(quizid_string);
 			}
 
 			get_quizid();
