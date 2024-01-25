@@ -31,6 +31,9 @@
   "entities": {
     "Person": {
       "source": "dbo.MyTestPersonTable",
+      "rest": {
+        "path": "haha"
+      },
       "permissions": [
         {
           "actions": ["*"],
