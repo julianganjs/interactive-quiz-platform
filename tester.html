@@ -38,29 +38,31 @@
 
 			async function get_quizid() {
 
+                const id = 1;
+
 				const gql = `
-					query getByCourseID($CID: Int!) {
-						values(id: $CID) {
-							id
-							quiz_id
+					query getById($id: Int!) {
+						person_by_pk(Id: $id) {
+							Id
+							Name
 						}
 					}`;
 				
 				const query = {
 					query: gql,
 					variables: {
-						CID: course_id,
+						id: id,
 					},
 				};
 
-				const endpoint = '/data-api/graphql/QuestionList';
+				const endpoint = '/data-api/graphql/haha';
 				const response = await fetch(endpoint, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(query)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				console.table(result.data.person_by_pk);
 				
 			}
 
