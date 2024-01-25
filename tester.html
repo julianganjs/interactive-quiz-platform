@@ -42,7 +42,7 @@
 
 				const gql = `
 					query getByName($comment: String!) {
-						person_by_pk(Name: $comment) {
+						person_by_pk(where {Name: $comment}) {
 							Id
 							Name
 						}
