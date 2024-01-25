@@ -41,8 +41,8 @@
                 const name = "Sunny";
 
 				const gql = `
-					query getByName(where: {$name: String!}) {
-						person_by_pk(Name: $name) {
+					query getByName($comment: String!) {
+						person_by_pk(Name: $comment) {
 							Id
 							Name
 						}
@@ -51,7 +51,7 @@
 				const query = {
 					query: gql,
 					variables: {
-						name: name
+						comment: name
 					}
 				};
 
