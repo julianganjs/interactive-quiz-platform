@@ -33,12 +33,20 @@
 
 			
 			$('#submit_button').on('click', function(e){
+				$("#modal_message").html('Are you sure you want to attempt the quiz with ID "'+quiz_id_selection+'"?');
+				$('#confirmModal').modal('toggle');
+				
+			});
+			
+			$('#confirm_button').on('click', function(e){
 				localStorage.setItem('quiz_ID', quiz_id_selection);
 				window.location.href = 'quiz_test.html';
 			});
+			
+			
 
 			async function get_quizid() {
-
+			
 				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
 				const data = await response.json();
@@ -60,6 +68,8 @@
                         prev = data.value[i].quiz_id;
                     }
                 }
+
+
                 $("#dropdownMenuButton1").prop('disabled', false);
 				$("#submit_button").prop('disabled', false);
 			}
@@ -71,6 +81,24 @@
 </head>
 
 <body style="background: white; background-size: cover; ">
+
+	<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="border-radius: 0px;">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;"> Quiz Confirmation</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+		  </div>
+		  <div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">
+			
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn ps-4 pe-4 pt-2 pb-2" data-bs-dismiss="modal" id="confirm_button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">Yes</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
 	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
 		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
 			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
