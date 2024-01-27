@@ -21,14 +21,226 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
-			function test() {
+			var quizID = localStorage.getItem('quiz_ID');
+			<!-- var quizID = "QZENG1"; -->
 			
-				var value = localStorage.getItem('quiz_ID');
-				alert(value);
+			var current_quest = 0;
+			var points = 0;
+			
+			question_types = [];
+			questions = [];
+			answers = [[],[]];
+			correct_answers = [];
+			selected = [];
+			
+			async function get_questions() {
+			
+				const endpoint = '/data-api/rest/QuestionList';
+				const response = await fetch(endpoint);
+				const data = await response.json();
 				
+				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"mc"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"mc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"mc"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"mc"}]}'); -->
+				
+				for (var i = 0; i < data.value.length; i++) { 
+                    if (data.value[i].quiz_id == quizID) {
+						question_types[data.value[i].q_id-1] = data.value[i].q_type;
+					}
+                }
+				
+				for (var i = 0; i < question_types.length; i++) { 
+					$("#quiz_navigation").append('<div class="card shadow-none p-0 ms-2 mb-2 nav_card" id="nav'+i+'" style="height: auto; border: 1px solid #e5e5e5; background-color: white; border-radius: 0px; width: auto;">'+
+										'<span class="pt-1 ps-2 pe-2 pb-1" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin: auto;">'+(i+1)+'</span>'+
+										'<div class="card shadow-none p-2" style="height: auto; border-top: 1px solid #e5e5e5; background-color: white; border-radius: 0px; width: auto; border-bottom: 0px; border-right: 0px; border-left: 0px;" id="icon_card_'+i+'">'+
+											'<i class="fas fa-times" style="color:black; font-size: 0.8rem; margin: auto;" id="icon_'+i+'"></i>'+
+										'</div>'+
+									'</div>');
+					
+					answers[i] = [];
+					
+					if (question_types[i] == "mc") {
+						const endpoint2 = '/data-api/rest/mc_Questions';
+						const response2 = await fetch(endpoint2);
+						const data2 = await response2.json();
+						
+						<!-- data2 = JSON.parse('{"value":[{"id":19,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"This is Question 1?","correct_ans_id":"2"},{"id":20,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","question":"This is Question 3?","correct_ans_id":"4"},{"id":21,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"This is Question 2?","correct_ans_id":"3"},{"id":22,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","question":"This is Question 4?","correct_ans_id":"1"}]}'); -->
+						
+						for (var j = 0; j < data2.value.length; j++) {
+							if(data2.value[j].quiz_id == quizID && Number(data2.value[j].q_id) == i+1){
+								questions[i] = data2.value[j].question;
+								correct_answers[i] = data2.value[j].correct_ans_id;
+								break;
+							}
+						}
+						
+						const endpoint3 = '/data-api/rest/mc_Answers';
+						const response3 = await fetch(endpoint3);
+						const data3 = await response3.json();
+						
+						<!-- data3 = JSON.parse('{"value":[{"id":73,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","ans_id":"2","answer":"haha hoho answer 1 of 2 korek"},{"id":74,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","ans_id":"4","answer":"haha hoho answer 1 of 4"},{"id":75,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","ans_id":"3","answer":"haha hoho answer 1 of 3"},{"id":76,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","ans_id":"1","answer":"haha hoho answer 1 of 1"},{"id":77,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","ans_id":"2","answer":"haha hoho answer 3 of 2"},{"id":78,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","ans_id":"1","answer":"haha hoho answer 2 of 1"},{"id":79,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","ans_id":"3","answer":"haha hoho answer 3 of 3"},{"id":80,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","ans_id":"2","answer":"haha hoho answer 4 of 2"},{"id":81,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","ans_id":"3","answer":"haha hoho answer 2 of 3 korek"},{"id":82,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","ans_id":"3","answer":"haha hoho answer 4 of 3"},{"id":83,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","ans_id":"1","answer":"haha hoho answer 3 of 1"},{"id":84,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","ans_id":"4","answer":"haha hoho answer 4 of 4"},{"id":85,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","ans_id":"4","answer":"haha hoho answer 2 of 4"},{"id":86,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","ans_id":"4","answer":"haha hoho answer 3 of 4 korek"},{"id":87,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","ans_id":"1","answer":"haha hoho answer 4 of 1 korek"},{"id":88,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","ans_id":"2","answer":"haha hoho answer 2 of 2"}]}'); -->
+						
+						for (var j = 0; j < data3.value.length; j++) {
+							if(data3.value[j].quiz_id == quizID && Number(data3.value[j].q_id) == i+1){
+								answers[i][Number(data3.value[j].ans_id)-1] = data3.value[j].answer;
+							}
+						}
+						
+					}
+                }
+				
+				
+				
+				$("#question").html(questions[0]);
+				
+				$("#answers").html("");
+				for (var i = 0; i < answers[0].length; i++) { 
+					$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_1_'+(i+1)+'">'+
+										'<label class="form-check-label" for="mc_ans_1_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[0][i]+'</label>'+
+									'</div>');
+				}
+				
+				if (question_types[0] == "mc") {
+					$("#question_type").html("Multiple Choice");
+				}
+				
+				$(document).find("#nav0").css('border', '1px solid black');
+				
+				$(document).find("#quiz_title").html("Quiz (#"+quizID+")");
+				
+                $("#next_button").prop('disabled', false);
 			}
-
-            test();
+			
+			get_questions();
+			
+			$('#next_button').on('click', function(e){
+			
+				current_quest += 1;
+			
+				if(current_quest == question_types.length-1){
+					$("#next_button").prop('hidden', true);
+					$("#finish_button").prop('hidden', false);
+				}
+			
+				$("#previous_button").prop('hidden', false);
+				
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+				}
+				$("#question_num").html(current_quest+1);
+				$("#question").html("");
+				$("#question").html(questions[current_quest]);
+				$("#answers").html("");
+				for (var i = 0; i < answers[current_quest].length; i++) { 
+					$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+									'</div>');
+				}
+				
+				if (selected[current_quest] != "") {
+					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+				}
+				
+				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
+				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+				
+			});
+			
+			$('#previous_button').on('click', function(e){
+				current_quest -= 1;
+				
+				$("#finish_button").prop('hidden', true);
+				$("#next_button").prop('hidden', false);
+				
+				if(current_quest == 0) {
+					$("#previous_button").prop('hidden', true);
+				}
+				
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+				}
+				$("#question_num").html(current_quest+1);
+				$("#question").html("");
+				$("#question").html(questions[current_quest]);
+				$("#answers").html("");
+				for (var i = 0; i < answers[current_quest].length; i++) { 
+					$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+									'</div>');
+				}
+				
+				if (selected[current_quest] != "") {
+					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+				}
+				
+				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
+				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+			});
+			
+			$('#finish_button').on('click', function(e){
+				points = 0;
+				for (var i = 0; i < correct_answers.length; i++) {
+					if(selected[i] == correct_answers[i]) {
+						points += 1;
+					}
+				}
+				alert("You answered "+points+"/"+correct_answers.length+" questions correctly!");
+			});
+			
+			$(document).on('change', 'input[type=radio]', function(e) {
+				$(document).find("#icon_"+current_quest).attr('class', 'fas fa-check');
+				$(document).find("#icon_"+current_quest).css('color', 'white');
+				$(document).find("#icon_card_"+current_quest).css('background-color', 'green');
+				$(document).find("input[type=radio]").each(function(){
+					if ($(this).is(':checked')){
+						var checked_id = $(this).attr("id");
+						var checked_num = checked_id.substr(checked_id.indexOf("_",7)+1,checked_id.length);
+						selected[current_quest] = checked_num;
+					} 
+				});
+			});
+			
+			$(document).on('click', '.nav_card', function(e) {
+				var selected_quest = Number($(this).attr("id").replace(/\D/g,''));
+				
+				current_quest = selected_quest;
+				
+				if(current_quest == question_types.length-1){
+					$("#next_button").prop('hidden', true);
+					$("#finish_button").prop('hidden', false);
+					$("#previous_button").prop('hidden', false);
+				} else if (current_quest == 0) {
+					$("#previous_button").prop('hidden', true);
+					$("#next_button").prop('hidden', false);
+					$("#finish_button").prop('hidden', true);
+				} else {
+					$("#previous_button").prop('hidden', false);
+					$("#next_button").prop('hidden', false);
+					$("#finish_button").prop('hidden', true);
+				}
+				
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+				}
+				$("#question_num").html(current_quest+1);
+				$("#question").html("");
+				$("#question").html(questions[current_quest]);
+				$("#answers").html("");
+				for (var i = 0; i < answers[current_quest].length; i++) { 
+					$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+									'</div>');
+				}
+				
+				if (selected[current_quest] != "") {
+					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+				}
+				
+				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
+				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+			});
 			
 		} );
 	</script>
@@ -53,62 +265,59 @@
 		</div>
 	</div>
 	<div class="row ms-4 me-4 mt-3 mb-2">
-		<div class="card" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
-			<div class="row ms-2 mt-3 me-2 mb-0">
-				<div class="col-auto p-0">
-					<span class="fa-stack fa-2x">
-					  <i class="fas fa-square-full fa-stack-1x" style="color:rgba(0,85,151,0.2); font-size: 3.3rem;"></i>
-					  <i class="fas fa-graduation-cap fa-stack-1x" style="color:rgba(0,85,151,1); font-size: 1.4rem;"></i>
-					</span>
-				</div>
-				<div class="col">
-					<div class=""><span style="font-size: 2.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Creator<span></div>
+		<span style="font-size: 1.8rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="quiz_title">Quiz (#)</span>
+	</div>
+	<div class="row ms-4 me-4 mt-3">
+		<div class="card pb-3" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
+			<div class="row mb-4" id="ques_list_item_1">
+				<input class="quest_type" type="hidden" value="multi_choice">
+				<div class="col ms-3 me-3 mt-2">
+					<div class="row mt-4">
+						<div class="col-auto">
+							<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">
+								<div class="row mb-2">
+									<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question_num">1</span></span>
+								</div>
+								<div class="row">
+									<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question_type">Multiple Choice</span>
+								</div>
+								<div class="row">
+									<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.</span>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">
+								<div class="row mb-4">
+									<span class="" style="font-size: 1rem; font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question"></span>
+								</div>
+								<div class="row ms-1" id="answers">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px; cursor: pointer;">
+								<div class="row mb-3">
+									<span style="font-size: 1.3rem; color:black; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Navigation</span>
+								</div>
+								<div class="row me-2" id="quiz_navigation">
+									
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row ms-2 mt-2 me-2 mb-4">
-				<div class="col">
-					<div class=""><span style="font-size: 0.92rem; color:#1568ac; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; cursor: pointer;" onclick="location.href = 'dashboard.html';"><u>Dashboard</u></span><span style="font-size: 0.92rem; color:#5b595f; font-weight: 500;">&nbsp;&nbsp;>&nbsp;&nbsp;Quiz Creator</span></div>
+			<div class="row ms-3 mt-4 me-3 p-0">
+				<hr style="color: #bbbbbb;">
+				<div class="col-auto" style="margin-left: auto; margin-right: 0;">
+					<button type="button" hidden class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="previous_button">Previous Question</button>
+					<button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2 ms-3" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="next_button">Next Question</button>
+					<button type="button" hidden class="btn ps-4 pe-4 pt-2 pb-2 ms-3" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="finish_button">Finish Attempt</button>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row ms-4 me-4 mt-3 mb-2">
-		<div class="card pb-4" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
-			<div class="row ms-2 mt-4 me-2 mb-2">
-				<div class="col">
-					<div class=""><span style="font-size: 0.95rem; color:rgb(0,0,0); font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Select a question type to add.<span></div>
-				</div>
-			</div>
-			<div class="row ms-2 mt-1 me-2">
-				<div class="col">
-					<div class="dropdown">
-					  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; text-align: right; font-size: 0.9rem; border: 1px solid #bbbbbb; border-radius: 0px;">
-						<span style="float:left; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100;" id="qtype_text"><i class="fas fa-list-ul" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Multiple Choice</span>
-					  </button>
-					  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 100%; font-size: 0.9rem; line-height: 30px; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; border-radius: 0px;" id="qtype_menu">
-						<li><h6 class="dropdown-header mb-1">Question Types</h6></li>
-						<li><a class="dropdown-item active qtype_menu_item" id="multi_choice"><i class="fas fa-list-ul" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Multiple Choice</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="true_false"><i class="fas fa-times-circle" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;True/False</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="short_ans"><i class="fas fa-grip-lines" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Short Answer</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="essay"><i class="fas fa-edit" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Essay</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="calc"><i class="fas fa-calculator" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated</a></li>
-						<li><a class="dropdown-item qtype_menu_item" id="calc_multi"><i class="fas fa-sort-numeric-down" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated Multichoice</a></li>
-					  </ul>
-					</div>
-				</div>
-				<div class="col-auto">
-				  <button type="button" class="btn" type="button" style="background-color:rgba(0,85,151,1); color: white; border-radius: 0px;" id="add_button"><i class="fas fa-plus" style="font-size: 0.9rem;"></i></button>
-				</div>
-			</div>
-			<div id="question_list">
-			</div>
-			<hr style="color: #bbbbbb;">
-			<div class="row ms-2 mt-1 me-2">
-				<div class="col-auto">
-				  <button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="submit_button">Submit</button>
-				</div>
-			</div>
-		</div>	
 	</div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
