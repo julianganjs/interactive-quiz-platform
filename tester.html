@@ -47,7 +47,7 @@
 
 			async function get_quizid() {
 
-				$('#loadingModal').modal('toggle');
+				$('#loadingModal').modal('show');
 			
 				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
@@ -75,7 +75,7 @@
                 $("#dropdownMenuButton1").prop('disabled', false);
 				$("#submit_button").prop('disabled', false);
 
-				$('#loadingModal').modal('toggle');
+				$('#loadingModal').modal('hide');
 			}
 
 			get_quizid();
