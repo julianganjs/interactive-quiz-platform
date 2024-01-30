@@ -46,6 +46,8 @@
 			
 
 			async function get_quizid() {
+
+				$('#loadingModal').modal('toggle');
 			
 				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
@@ -72,6 +74,8 @@
 
                 $("#dropdownMenuButton1").prop('disabled', false);
 				$("#submit_button").prop('disabled', false);
+
+				$('#loadingModal').modal('toggle');
 			}
 
 			get_quizid();
@@ -81,6 +85,16 @@
 </head>
 
 <body style="background: white; background-size: cover; ">
+
+	<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="margin: auto; width: auto; height: auto; border-radius: 0; border:0;">
+            <div class="modal-body">
+              <img src="assets/images/loading.gif" style="height: 4rem;">
+            </div>
+          </div>
+        </div>
+    </div>
 
 	<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
