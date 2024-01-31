@@ -36,7 +36,6 @@
 			$('#add_button').on('click', function () {
 				total_question_no += 1;
 				$(document).find("#ques_remove").remove();
-				$("#submit_button").prop('disabled', false);
 				if(qtype == "multi_choice"){
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 						'<input class="quest_type" type="hidden" value="'+qtype+'">'+
@@ -251,6 +250,10 @@
 			}
 
 			get_quizid();
+
+			$(document).on('change keyup paste', 'textarea', function(e) {
+				$("#submit_button").prop('disabled', false);
+			});
 			
 		} );
 	</script>
