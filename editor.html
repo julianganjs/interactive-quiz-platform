@@ -33,7 +33,7 @@
 
 			
 			$('#submit_button').on('click', function(e){
-				$("#modal_message").html('Are you sure you want to attempt the quiz with ID "'+quiz_id_selection+'" ?');
+				$("#modal_message").html('Are you sure you want to edit the quiz with ID "'+quiz_id_selection+'" ?');
 				$('#confirmModal').modal('toggle');
 				
 			});
@@ -131,12 +131,12 @@
 			<div class="row ms-2 mt-3 me-2 mb-0">
 				<div class="col-auto p-0">
 					<span class="fa-stack fa-2x">
-					  <i class="fas fa-square-full fa-stack-1x" style="color:rgba(128,128,128,1); font-size: 3.3rem;"></i>
-					  <i class="fas fa-clipboard-check fa-stack-1x" style="color:rgba(255,255,255,1); font-size: 1.4rem;"></i>
+					  <i class="fas fa-square-full fa-stack-1x" style="color:rgba(147,213,0,1); font-size: 3.3rem;"></i>
+					  <i class="far fa-edit fa-stack-1x" style="color:rgba(255,255,255,1); font-size: 1.4rem;"></i>
 					</span>
 				</div>
 				<div class="col">
-					<div class=""><span style="font-size: 2.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Tester<span></div>
+					<div class=""><span style="font-size: 2.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Editor<span></div>
 				</div>
 			</div>
 			<div class="row ms-2 mt-2 me-2 mb-4">
@@ -150,7 +150,7 @@
 		<div class="card pb-4" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
 			<div class="row ms-2 mt-4 me-2 mb-2">
 				<div class="col">
-					<div class=""><span style="font-size: 0.95rem; color:rgb(0,0,0); font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Select a quiz to attempt.<span></div>
+					<div class=""><span style="font-size: 0.95rem; color:rgb(0,0,0); font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Select a quiz to edit.<span></div>
 				</div>
 			</div>
 			<div class="row ms-2 mt-1 me-2">
@@ -170,7 +170,7 @@
 			<hr style="color: #bbbbbb;">
 			<div class="row ms-2 mt-1 me-2">
 				<div class="col-auto" style="margin: auto;">
-				  <button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="submit_button">Attempt Quiz</button>
+				  <button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="submit_button">Edit Quiz</button>
 				</div>
 			</div>
 		</div>	
