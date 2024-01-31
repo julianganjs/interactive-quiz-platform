@@ -52,26 +52,30 @@
 				const data = await response.json();
 
                 var prev = "";
+				
+				if (data.value == '') {
+					$("#qtype_text").html("No quizzes available.");
+				} else {
+					for (var i = 0; i < data.value.length; i++) {
+						
+						if (data.value[i].quiz_id == prev) {
+							prev = data.value[i].quiz_id;
+						} else {
+							if (i == 0){
+								quiz_id_selection = data.value[i].quiz_id;
+								$("#qtype_text").html(data.value[i].quiz_id);
+								$("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+							} else {
+								$("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+							}
+							prev = data.value[i].quiz_id;
+						}
+					}
 
-                for (var i = 0; i < data.value.length; i++) {
-                    
-                    if (data.value[i].quiz_id == prev) {
-                        prev = data.value[i].quiz_id;
-                    } else {
-                        if (i == 0){
-							quiz_id_selection = data.value[i].quiz_id;
-                            $("#qtype_text").html(data.value[i].quiz_id);
-                            $("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
-                        } else {
-                            $("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
-                        }
-                        prev = data.value[i].quiz_id;
-                    }
-                }
 
-
-                $("#dropdownMenuButton1").prop('disabled', false);
-				$("#submit_button").prop('disabled', false);
+					$("#dropdownMenuButton1").prop('disabled', false);
+					$("#submit_button").prop('disabled', false);
+				}
 			}
 
 			get_quizid();
@@ -141,7 +145,7 @@
 			</div>
 			<div class="row ms-2 mt-2 me-2 mb-4">
 				<div class="col">
-					<div class=""><span style="font-size: 0.92rem; color:#1568ac; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; cursor: pointer;" onclick="location.href = 'dashboard.html';"><u>Dashboard</u></span><span style="font-size: 0.92rem; color:#5b595f; font-weight: 500;">&nbsp;&nbsp;>&nbsp;&nbsp;Quiz Tester</span></div>
+					<div class=""><span style="font-size: 0.92rem; color:#1568ac; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; cursor: pointer;" onclick="location.href = 'dashboard.html';"><u>Dashboard</u></span><span style="font-size: 0.92rem; color:#5b595f; font-weight: 500;">&nbsp;&nbsp;>&nbsp;&nbsp;Quiz Editor</span></div>
 				</div>
 			</div>
 		</div>

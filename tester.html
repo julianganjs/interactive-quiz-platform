@@ -52,26 +52,30 @@
 				const data = await response.json();
 
                 var prev = "";
+				
+				if (data.value == '') {
+					$("#qtype_text").html("No quizzes available.");
+				} else {
+					for (var i = 0; i < data.value.length; i++) {
+						
+						if (data.value[i].quiz_id == prev) {
+							prev = data.value[i].quiz_id;
+						} else {
+							if (i == 0){
+								quiz_id_selection = data.value[i].quiz_id;
+								$("#qtype_text").html(data.value[i].quiz_id);
+								$("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+							} else {
+								$("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
+							}
+							prev = data.value[i].quiz_id;
+						}
+					}
 
-                for (var i = 0; i < data.value.length; i++) {
-                    
-                    if (data.value[i].quiz_id == prev) {
-                        prev = data.value[i].quiz_id;
-                    } else {
-                        if (i == 0){
-							quiz_id_selection = data.value[i].quiz_id;
-                            $("#qtype_text").html(data.value[i].quiz_id);
-                            $("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
-                        } else {
-                            $("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+data.value[i].quiz_id+'">'+data.value[i].quiz_id+'</a></li>');
-                        }
-                        prev = data.value[i].quiz_id;
-                    }
-                }
 
-
-                $("#dropdownMenuButton1").prop('disabled', false);
-				$("#submit_button").prop('disabled', false);
+					$("#dropdownMenuButton1").prop('disabled', false);
+					$("#submit_button").prop('disabled', false);
+				}
 			}
 
 			get_quizid();
