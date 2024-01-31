@@ -210,6 +210,10 @@
 			});
 			
 			$('#submit_button').on('click', function(e){
+				$('#confirmModal').modal('toggle');
+			});
+			
+			$('#confirm_button').on('click', function(e){
 				for (let i = 1; i <= total_question_no; i++) {
 					data4 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
@@ -253,7 +257,12 @@
 				}
 			});
 			
-			$('#delete_button').on('click', function(e){
+			$('#deleteModal').on('click', function(e){
+				$("#delete_modal_message").html('Are you sure you want to delete the quiz with ID "'+quiz_id+'" ?');
+				$('#loadingModal').modal('toggle');
+			});
+			
+			$('#delete_modal').on('click', function(e){
 				for (var i = 0; i < question_types.length; i++) {
 
 					<!-- alert(qlist_id[i]); -->
@@ -335,6 +344,39 @@
 </head>
 
 <body style="background: white; background-size: cover; ">
+
+	<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="border-radius: 0px; border:0;">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Update Confirmation</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+		  </div>
+		  <div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">Are you sure you want to upload the current changes?</div>
+		  <div class="modal-footer">
+			<button type="button" class="btn ps-4 pe-4 pt-2 pb-2" data-bs-dismiss="modal" id="confirm_button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">Yes</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="border-radius: 0px; border:0;">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Delete Confirmation</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+		  </div>
+		  <div id="delete_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">
+			
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn ps-4 pe-4 pt-2 pb-2" data-bs-dismiss="modal" id="delete_modal" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">Yes</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
 	<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content" style="margin: auto; width: auto; height: auto; border-radius: 0; border:0;">
@@ -344,6 +386,7 @@
 		</div>
 	  </div>
 	</div>
+	
 	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
 		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
 			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
