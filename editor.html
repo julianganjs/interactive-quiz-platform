@@ -24,6 +24,8 @@
 			var course_id = "ENG1";
             var quiz_id_selection = "";
 
+            $('#loadingModal').modal('toggle');
+
             $(document).on('click', '.qtype_menu_item', function(e) {
                 $("#qtype_menu").find(".qtype_menu_item").removeClass("active");
 				$(this).addClass("active");
@@ -76,6 +78,10 @@
 					$("#dropdownMenuButton1").prop('disabled', false);
 					$("#submit_button").prop('disabled', false);
 				}
+
+                setTimeout(()=> {
+					$('#loadingModal').modal('toggle');
+				},500);
 			}
 
 			get_quizid();

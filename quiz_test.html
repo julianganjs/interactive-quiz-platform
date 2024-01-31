@@ -23,6 +23,8 @@
 			
 			var quizID = localStorage.getItem('quiz_ID');
 			<!-- var quizID = "QZENG1"; -->
+
+			$('#loadingModal').modal('toggle');
 			
 			var current_quest = 0;
 			var points = 0;
@@ -34,8 +36,6 @@
 			selected = [];
 			
 			async function get_questions() {
-
-                $('#loadingModal').modal('toggle');
 			
 				const endpoint = '/data-api/rest/QuestionList';
 				const response = await fetch(endpoint);
@@ -111,7 +111,9 @@
 				
                 $("#next_button").prop('disabled', false);
 
-                $('#loadingModal').modal('toggle');
+                setTimeout(()=> {
+					$('#loadingModal').modal('toggle');
+				},500);
 			}
 			
 			get_questions();
