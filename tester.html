@@ -20,6 +20,8 @@
 	<script src="assets/js/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
+
+			$('#loadingModal').modal('toggle');
 			
 			var course_id = "ENG1";
             var quiz_id_selection = "";
@@ -76,6 +78,10 @@
 					$("#dropdownMenuButton1").prop('disabled', false);
 					$("#submit_button").prop('disabled', false);
 				}
+
+				setTimeout(()=> {
+					$('#loadingModal').modal('toggle');
+				},500);
 			}
 
 			get_quizid();
