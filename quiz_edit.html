@@ -320,7 +320,7 @@
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(response);	
+				alert(JSON.stringify(response));	
 			}
 			
 			async function delete_mc_Questions(id) {
@@ -328,7 +328,7 @@
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(response);
+				alert(JSON.stringify(response));
 			}
 			
 			async function delete_mc_Answers(id) {
@@ -336,7 +336,7 @@
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(response);
+				alert(JSON.stringify(response));
 			}
 			
 		} );
