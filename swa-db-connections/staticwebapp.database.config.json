@@ -67,6 +67,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "InteractiveQuiz": {
+      "source": "dbo.InteractiveQuiz",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
