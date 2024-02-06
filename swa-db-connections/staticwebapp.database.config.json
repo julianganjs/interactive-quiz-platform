@@ -76,6 +76,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "IntPlayers": {
+      "source": "dbo.IntPlayers",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
