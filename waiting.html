@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alata&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika+New+Basic&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Atkinson+Hyperlegible&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow&amp;display=swap">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		
+			var int_quizID = localStorage.getItem('int_quiz_ID');
+			var player_name = localStorage.getItem('player_name');
+			
+			if (int_quizID == null || player_name == null || !(int_quizID.includes("INTQZ"))) {
+				window.location.href = 'interactive.html';
+			}
+			
+		
+			$('#play_music').on('click', function(e){
+				if ($(this).attr('class') == 'fas fa-volume-mute') {
+					$('#lobby_music')[0].play();
+					$(this).attr('class', 'fas fa-volume-up');
+				} else {
+					$('#lobby_music')[0].pause();
+					$(this).attr('class', 'fas fa-volume-mute');
+				}
+				
+			});
+			
+			dot_num = 1;
+			
+			async function check_started(int_quizID) {
+				const endpoint = '/data-api/rest/InteractiveQuiz';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"0","current_player":"0","started":"N","ended":"N"}]}; -->
+				
+				if (data.value == '') {
+					window.location.href = 'interactive.html';
+				} else {
+					got_flag = "N";
+					for (var i = 0; i < data.value.length; i++) {
+						if (data.value[i].quiz_id == int_quizID && data.value[i].started == "Y" && data.value[i].ended == "N") {
+							got_flag = "Y";
+						} else if (data.value[i].quiz_id == int_quizID && data.value[i].started == "Y" && data.value[i].ended == "Y") {
+							got_flag = "E";
+						}
+					}
+					
+					if (got_flag == "Y") {
+						
+					} else if (got_flag == "E") {
+						window.location.href = 'interactive.html';
+					}
+				}
+				
+				setTimeout(()=> {
+					check_started(int_quizID);
+				},500);
+			}
+			
+			check_started(int_quizID);
+			
+			
+			
+		});
+	</script>
+</head>
+
+<body style="background: url('assets/images/purple.jpg'); background-size: 100% 100%; height: 80vh; width: 99vw;">
+
+	<audio id="lobby_music" loop src="assets/music/kahoot_lobby.mp3"></audio>
+	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
+		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
+			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-bell" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-comment" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="text-align: right; margin-top: auto; margin-bottom: auto;">
+			<i class="fas fa-user-circle" style="color:#792d85; font-size: 2.2rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto; margin-right: 25px; margin-left: -15px">
+			<i class="fas fa-chevron-down" style="color:black; font-size: 0.6rem;"></i>
+		</div>
+	</div>
+	<div class="row mt-4 mb-0" style="text-align: right; margin-right: 20px;">
+		<i class="fas fa-volume-mute" style="color:white; font-size: 2rem; cursor: pointer;" id="play_music"></i>
+	</div>
+	<div class="row mt-0 mb-0" style="text-align: center; height: 100%;">
+		<div class="col d-flex align-items-center justify-content-center waviy" style="position: relative;">
+			<div class="loader" style="position: absolute;"></div>	
+			<span style="--i:1; font-size: 6rem; color: white; font-family: 'Lilita One', sans-serif; position: absolute; z-index: 9;" id="waiting_host">WAITING FOR HOST <span style="--i:2">. <span style="--i:3">. <span style="--i:4">.</span></span></span></span>
+		</div>
+	</div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

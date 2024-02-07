@@ -32,6 +32,8 @@
 			var duration_per_question = "5";
 			var max_num_of_players = "5";
 			
+			var join_quiz_id = "";
+			
 			$(document).on('click', '.qtype_menu_item', function(e) {
                 $("#qtype_menu").find(".qtype_menu_item").removeClass("active");
 				$(this).addClass("active");
@@ -155,9 +157,9 @@
 					}
 					
 					if (got_flag == "Y") {
-						localStorage.setItem('int_quiz_ID', pin);
-						alert('');
-						<!-- window.location.href = ''; -->
+						join_quiz_id = pin;
+						$('#nameModal').modal('toggle');
+						$("#error_message").prop('hidden', true);
 					} else if (got_flag == "YS") {
 						$("#error_message").prop('hidden', false);
 						$("#error_message").html('The quiz has already started.');
@@ -213,6 +215,40 @@
 					window.location.href = 'lobby.html';
 				}
 			}
+			
+			async function check_name(name) {
+				const endpoint = '/data-api/rest/IntPlayers';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"0"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"0"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"0"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"0"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"0"}]}; -->
+				
+				
+				if (data.value == '') {
+					$("#name_error").prop('hidden', true);
+					localStorage.setItem('int_quiz_ID', join_quiz_id);
+					localStorage.setItem('player_name', name);
+					window.location.href = 'waiting.html';
+				} else {
+					got_flag = "N"
+					for (var i = 0; i < data.value.length; i++) {
+						if (data.value[i].player_name == name && data.value[i].int_quiz_id == join_quiz_id) {
+							got_flag = "Y"
+							break;
+						}
+					}
+					
+					if (got_flag == "N") {
+						$("#name_error").prop('hidden', true);
+						localStorage.setItem('int_quiz_ID', join_quiz_id);
+						localStorage.setItem('player_name', name);
+						window.location.href = 'waiting.html';
+					} else {
+						$("#name_error").prop('hidden', false);
+					}
+				}
+
+			}
 
 			
 			$('#play_music').on('click', function(e){
@@ -239,6 +275,11 @@
 				} else {
 					check_quiz(int_quiz_id);
 				}
+			});
+			
+			$('#join_button').on('click', function(e){
+				name = $("#player_name").val();
+				check_name(name);
 			});
 			
 			$('#start_button').on('click', function(e){
@@ -301,6 +342,34 @@
 		  </div>
 		  <div class="modal-footer" style="padding-left: 24px; padding-right: 24px;">
 			<button type="button" class="btn btn-magick btn-lg btn3d" style="width: 100%; font-size: 1.2rem; font-family: 'Lilita One', sans-serif;" id="start_button">START QUIZ</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="nameModal1" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="nameModal1" style="font-size: 1.5rem; color:rgb(0,0,0); padding-top: 3px; padding-bottom: 3px; padding-left: 8px; font-weight: bold;">Player Name</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+		  </div>
+		  <div class="modal-body" style="color:rgb(0,0,0); padding-left: 24px; font-weight: bold; padding-right: 24px;">
+			  <div class="row">
+				<form id="edit_data">
+					<div class="form-group mb-2">
+						<input type="text" class="form-control" style="font-size: 0.9rem; color:rgb(0,0,0);" placeholder="Please enter your name." id="player_name">
+					</div>
+				</form>
+			  </div>
+			  <div class="row mb-0">
+				<div class="col">
+					<span hidden style="font-size: 1.2rem; color: red; font-family: 'Amatic SC', sans-serif; line-height: 0;" id="name_error">That name has already been taken.</span>
+				</div>
+			  </div>
+		  </div>
+		  <div class="modal-footer" style="padding-left: 24px; padding-right: 24px;">
+			<button type="button" class="btn btn-magick btn-lg btn3d" style="width: 100%; font-size: 1.2rem; font-family: 'Lilita One', sans-serif;" id="join_button">JOIN QUIZ</button>
 		  </div>
 		</div>
 	  </div>

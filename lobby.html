@@ -32,6 +32,7 @@
 			var quiz_ID = "";
 			var ques_duration = "";
 			var max_player = "";
+			var row_id = "";
 			
 			
 			async function check_exist(int_quizID) {
@@ -50,6 +51,7 @@
 							quiz_ID = data.value[i].quiz_id_short;
 							ques_duration = data.value[i].ques_duration;
 							max_player = data.value[i].max_player;
+							row_id = data.value[i].id;
 							got_flag = "Y"
 							break;
 						}
