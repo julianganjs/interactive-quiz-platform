@@ -80,9 +80,11 @@
 				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"0"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"0"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"0"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"0"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"0"}]}; -->
 				
 				names = "";
+				player_num = 0;
 				
 				if (data.value == '') {
 					$("#player_names").html('');
+					$("#current_players_text").html(0);
 				} else {
 					got_flag = "N";
 					for (var i = 0; i < data.value.length; i++) {
@@ -90,13 +92,16 @@
 							got_flag = "Y";
 							names +=  data.value[i].player_name;
 							names += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+							player_num += 1;
 						}
 					}
 					
 					if (got_flag == "N") {
 						$("#player_names").html('');
+						$("#current_players_text").html(0);
 					} else {
 						$("#player_names").html(names);
+						$("#current_players_text").html(player_num);
 					}
 				}
 				
