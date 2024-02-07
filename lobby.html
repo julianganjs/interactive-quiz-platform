@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alata&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika+New+Basic&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Atkinson+Hyperlegible&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow&amp;display=swap">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		
+			var int_quizID = localStorage.getItem('int_quiz_ID');
+			<!-- var int_quizID = "INTQZENG1A1"; -->
+
+			var quiz_ID = "";
+			var ques_duration = "";
+			var max_player = "";
+			
+			
+			async function check_exist(int_quizID) {
+				const endpoint = '/data-api/rest/InteractiveQuiz';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"20","current_player":"0","started":"N","ended":"N"}]}; -->
+				
+				if (data.value == '') {
+					window.location.href = 'interactive.html';
+				} else {
+					got_flag = "N";
+					for (var i = data.value.length-1; i >= 0; i--) {
+						if (data.value[i].quiz_id==int_quizID && data.value[i].started=="N" && data.value[i].ended=="N") {
+							quiz_ID = data.value[i].quiz_id_short;
+							ques_duration = data.value[i].ques_duration;
+							max_player = data.value[i].max_player;
+							got_flag = "Y"
+							break;
+						}
+					}
+					
+					if (got_flag == "N") {
+						window.location.href = 'interactive.html';
+					} else {
+						$("#wavy_id").html(int_quizID);
+						$("#duration_text").html(ques_duration+" seconds");
+						if (max_player == "0") {
+							$("#max_players_text").html("Unlimited");
+						} else {
+							$("#max_players_text").html(max_player);
+						}
+						
+					}
+				}
+			}
+			
+			check_exist(int_quizID);
+			
+			async function get_players(int_quizID) {
+				const endpoint = '/data-api/rest/IntPlayers';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"0"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"0"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"0"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"0"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"0"}]}; -->
+				
+				names = "";
+				
+				if (data.value == '') {
+					$("#player_names").html('');
+				} else {
+					got_flag = "N";
+					for (var i = 0; i < data.value.length; i++) {
+						if (data.value[i].int_quiz_id == int_quizID) {
+							got_flag = "Y";
+							names +=  data.value[i].player_name;
+							names += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+						}
+					}
+					
+					if (got_flag == "N") {
+						$("#player_names").html('');
+					} else {
+						$("#player_names").html(names);
+					}
+				}
+				
+				setTimeout(()=> {
+					get_players(int_quizID);
+				},1000);
+			}
+			
+			get_players(int_quizID);
+		
+		
+			$('#play_music').on('click', function(e){
+				if ($(this).attr('class') == 'fas fa-volume-mute') {
+					$('#lobby_music')[0].play();
+					$(this).attr('class', 'fas fa-volume-up');
+				} else {
+					$('#lobby_music')[0].pause();
+					$(this).attr('class', 'fas fa-volume-mute');
+				}
+				
+			});
+		} );
+	</script>
+</head>
+
+<body style="background: url('assets/images/purple.jpg'); background-size: 100% 100%; height: 80vh;">
+
+	<div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="margin: auto; width: auto; height: auto; border-radius: 0; border:0;">
+            <div class="modal-body">
+              <img src="assets/images/loading.gif" style="height: 4rem;">
+            </div>
+          </div>
+        </div>
+    </div>
+	<audio id="lobby_music" loop src="assets/music/kahoot_lobby.mp3"></audio>
+	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
+		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
+			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-bell" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-comment" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="text-align: right; margin-top: auto; margin-bottom: auto;">
+			<i class="fas fa-user-circle" style="color:#792d85; font-size: 2.2rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto; margin-right: 25px; margin-left: -15px">
+			<i class="fas fa-chevron-down" style="color:black; font-size: 0.6rem;"></i>
+		</div>
+	</div>
+	<div class="row mt-4 mb-0" style="text-align: right; margin-right: 20px;">
+		<i class="fas fa-volume-mute" style="color:white; font-size: 2rem; cursor: pointer;" id="play_music"></i>
+	</div>
+	<div class="row mt-0 mb-0" style="text-align: center;">
+		<span style="font-size: 3rem; color: white; font-family: 'Amatic SC', sans-serif;">Join This Quiz Using The ID</span></i>
+	</div>
+	<div class="row mt-0 mb-4" style="text-align: center;">
+		<span class="zoom-in-zoom-out" style="font-size: 3.8rem; color: white; font-family: 'Lilita One', sans-serif;" id="wavy_id"></span></i>
+	</div>
+	<div class="row mt-2">
+		<div class="col-sm-4 d-flex align-items-center">
+			<div class="card" style="height: auto; border: 2px solid #808080; border-radius: 10px; width: 22rem; background: rgba(91,91,91,0.8); margin-left: 80px; margin-top: -100px;">
+				<div class="row ms-4 mt-4 me-4 mb-2">
+					<span style="font-size: 1.7rem; color: white; font-family: 'Lilita One', sans-serif;">Quiz Settings</span>
+				</div>
+				<div class="row ms-4 mt-4 me-4 mb-0">
+					<span style="font-size: 1rem; color: white; font-weight: bold;">Duration per Question</span>
+				</div>
+				<div class="row ms-4 mt-0 me-4 mb-2">
+					<span style="font-size: 0.9rem; color: white;" id="duration_text"></span>
+				</div>
+				<div class="row ms-4 mt-4 me-4 mb-0">
+					<span style="font-size: 1rem; color: white; font-weight: bold;">Max No. of Players</span>
+				</div>
+				<div class="row ms-4 mt-0 me-4 mb-2">
+					<span style="font-size: 0.9rem; color: white;" id="max_players_text"></span>
+				</div>
+				<div class="row ms-4 mt-4 me-4 mb-0">
+					<span style="font-size: 1rem; color: white; font-weight: bold;">Current No. of Players</span>
+				</div>
+				<div class="row ms-4 mt-0 me-4 mb-4">
+					<span style="font-size: 0.9rem; color: white;" id="current_players_text">0</span>
+				</div>
+				<div class="row ms-4 mt-0 me-4 mb-3">
+					<button type="button" class="btn btn-magick btn-lg btn3d" style="width: 100%; font-size: 1.2rem; font-family: 'Lilita One', sans-serif;" id="start_button">START QUIZ</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8 ps-4 pe-4">
+			<div class="row mt-4 mb-4">
+				<span style="font-size: 1.7rem; color: yellow; font-family: 'Lilita One', sans-serif; text-align: center;">Players</span>
+			</div>
+			<div class="row mt-2 mb-2">
+				<span style="font-size: 1.3rem; color: gray; font-family: 'Lilita One', sans-serif; word-wrap:break-word; width:90%;" id="player_names"></span>
+			</div>
+		</div>
+	</div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

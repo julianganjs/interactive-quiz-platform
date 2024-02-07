@@ -197,10 +197,10 @@
 				
 				alert(interactive_id);
 				data1 = '{"quiz_id": "'+interactive_id+'", "quiz_id_short": "'+selection+'", "ques_duration": "'+duration_per_question+'", "max_player": '+max_num_of_players+', "current_player": "0", "started":"N","ended":"N"}';
-				start_quiz(JSON.parse(data1));
+				start_quiz(JSON.parse(data1),interactive_id);
 			}
 			
-			async function start_quiz(data) {
+			async function start_quiz(data, quiz_pin) {
 				const endpoint = '/data-api/rest/InteractiveQuiz';
 				const response = await fetch(endpoint, {
 					method: "POST",
@@ -208,7 +208,10 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (result.value) {
+					localStorage.setItem('int_quiz_ID', quiz_pin);
+					window.location.href = 'lobby.html';
+				}
 			}
 
 			
