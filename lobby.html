@@ -38,11 +38,11 @@
 			
 			
 			async function check_exist(int_quizID) {
-				const endpoint = '/data-api/rest/InteractiveQuiz';
-				const response = await fetch(endpoint);
-				const data = await response.json();
+				<!-- const endpoint = '/data-api/rest/InteractiveQuiz'; -->
+				<!-- const response = await fetch(endpoint); -->
+				<!-- const data = await response.json(); -->
 				
-				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"20","current_player":"0","started":"N","ended":"N"}]}; -->
+				data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"20","current_player":"0","started":"N","ended":"N"}]};
 				
 				if (data.value == '') {
 					window.location.href = 'interactive.html';
