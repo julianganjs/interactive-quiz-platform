@@ -131,7 +131,7 @@
 			});
 			
 			$('#confirm_button').on('click', function(e){
-				data1 = '{"started": "Y"}';
+				data1 = '{"quiz_id":"'+int_quizID+'","quiz_id_short":"'+quiz_ID+'","ques_duration":"'+ques_duration+'","max_player":"'+max_player+'","current_player":"'+$("#current_players_text").html()+'","started":"Y","ended":"N"}';
 				update_Y(row_id,JSON.parse(data1));
 			});
 			
