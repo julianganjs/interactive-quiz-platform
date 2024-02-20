@@ -145,7 +145,11 @@
 					for (var i = 0; i < data.value.length; i++) {
 						if (data.value[i].quiz_id == pin) {
 							if (data.value[i].started == "N" && data.value[i].ended == "N") {
-								got_flag = "Y";
+								if (data.value[i].max_player != "0" && data.value[i].max_player == data.value[i].current_player) {
+									got_flag = "F";
+								} else {
+									got_flag = "Y";
+								}
 							} else if (data.value[i].started == "Y" && data.value[i].ended == "N") {
 								got_flag = "YS";
 							} else {
@@ -163,6 +167,9 @@
 					} else if (got_flag == "YS") {
 						$("#error_message").prop('hidden', false);
 						$("#error_message").html('The quiz has already started.');
+					} else if (got_flag == "F") {
+						$("#error_message").prop('hidden', false);
+						$("#error_message").html('The maximum number of players has been reached.');
 					} else {
 						$("#error_message").prop('hidden', false);
 						$("#error_message").html('The Quiz PIN is invalid.');
