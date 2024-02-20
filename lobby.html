@@ -35,7 +35,7 @@
 			var row_id = "";
 			
 			var started = "N";
-			
+			var prev_player_num = 0;
 			
 			async function check_exist(int_quizID) {
 				<!-- const endpoint = '/data-api/rest/InteractiveQuiz'; -->
@@ -106,9 +106,15 @@
 					} else {
 						$("#player_names").html(names);
 						$("#current_players_text").html(player_num);
-						data1 = '{"quiz_id":"'+int_quizID+'","quiz_id_short":"'+quiz_ID+'","ques_duration":"'+ques_duration+'","max_player":"'+max_player+'","current_player":"'+player_num+'","started":"'+started+'","ended":"N"}';
-						update_Y(row_id,JSON.parse(data1));
+						
 					}
+					
+					if (prev_player_num != player_num) {
+						data2 = '{"quiz_id":"'+int_quizID+'","quiz_id_short":"'+quiz_ID+'","ques_duration":"'+ques_duration+'","max_player":"'+max_player+'","current_player":"'+player_num+'","started":"'+started+'","ended":"N"}';
+						update_Y2(row_id,JSON.parse(data2));
+						prev_player_num = player_num;
+					}
+					
 				}
 				
 				setTimeout(()=> {
@@ -153,6 +159,16 @@
 				});
 				const result = await response.json();
 				alert(JSON.stringify(result.value));			
+			}
+			
+			async function update_Y2(id,data) {
+				const endpoint = '/data-api/rest/InteractiveQuiz/id';
+				const response = await fetch(`${endpoint}/${id}`, {
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(data)
+				});
+				const result = await response.json();	
 			}
 			
 			
