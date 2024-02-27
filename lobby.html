@@ -45,7 +45,7 @@
 				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"20","current_player":"0","started":"N","ended":"N"}]}; -->
 				
 				if (data.value == '') {
-					window.location.href = 'interactive.html';
+					window.location.replace('interactive.html');
 				} else {
 					got_flag = "N";
 					for (var i = data.value.length-1; i >= 0; i--) {
@@ -60,7 +60,7 @@
 					}
 					
 					if (got_flag == "N") {
-						window.location.href = 'interactive.html';
+						window.location.replace('interactive.html');
 					} else {
 						$("#wavy_id").html(int_quizID);
 						$("#duration_text").html(ques_duration+" seconds");
