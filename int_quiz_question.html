@@ -155,7 +155,7 @@
 				} else {
 					got_flag = "N";
 					for (var i = data.value.length-1; i >= 0; i--) {
-						if (data.value[i].quiz_id==int_quizID && data.value[i].started=="N" && data.value[i].ended=="N") {
+						if (data.value[i].quiz_id==int_quizID && data.value[i].started=="Y" && data.value[i].ended=="N") {
 							ques_duration = data.value[i].ques_duration;
 							row_id = data.value[i].id;
 							max_player = data.value[i].max_player;
