@@ -132,7 +132,7 @@
 
 .loader {
   border: 3px solid rgba(91,91,91,0); /* Light grey */
-  border-top: 3px solid #bb39d7; /* Blue */
+  border-top: 3px solid #ff10f0; /* Blue */
   border-radius: 50%;
   width: 450px;
   height: 450px;
@@ -158,4 +158,29 @@
   20% {
     transform: translateY(-20px)
   }
+}
+
+.animation-waviy2 {
+  animation: waviy 1s;
+}
+
+.hithere {
+  animation: hithere 1s ease;
+}
+@keyframes hithere {
+  30% { transform: scale(1.2); }
+  40%, 60% { transform: rotate(-10deg) scale(1.2); }
+  50% { transform: rotate(10deg) scale(1.2); }
+  70% { transform: rotate(0deg) scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+#confetti{
+  background: rgba(0,0,0,0);
+  height: 100%;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: -1;
 }
