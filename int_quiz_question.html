@@ -35,7 +35,7 @@
 			<!-- var int_quizID = 'INTQZENG1A1'; -->
 			<!-- var main_quizID = 'QZENG1'; -->
 			
-			if (int_quizID == null || main_quizID == null) {
+			if (int_quizID == null || main_quizID == null || !(int_quizID.includes("INTQZ"))) {
 				window.location.replace('interactive.html');
 			}
 			
@@ -160,7 +160,7 @@
 							row_id = data.value[i].id;
 							max_player = data.value[i].max_player;
 							current_player = data.value[i].current_player;
-							got_flag = "Y"
+							got_flag = "Y";
 							break;
 						}
 					}
