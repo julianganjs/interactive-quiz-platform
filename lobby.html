@@ -148,6 +148,7 @@
 				started = "Y";
 				data1 = '{"quiz_id":"'+int_quizID+'","quiz_id_short":"'+quiz_ID+'","ques_duration":"'+ques_duration+'","max_player":"'+max_player+'","current_player":"'+$("#current_players_text").html()+'","started":"'+started+'","ended":"N"}';
 				update_Y(row_id,JSON.parse(data1));
+				
 			});
 			
 			async function update_Y(id,data) {
@@ -158,7 +159,11 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));			
+				if (result) {
+					localStorage.setItem('int_quiz_ID', int_quizID);
+					localStorage.setItem('main_quiz_ID', quiz_ID);
+					window.location.href = 'int_quiz_question.html';
+				}				
 			}
 			
 			async function update_Y2(id,data) {
