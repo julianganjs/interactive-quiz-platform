@@ -142,7 +142,7 @@
 			}
 			
 			function start_round() {
-				delay = 5000;
+				delay = 5300;
 				<!-- delay = 2000; -->
 				setTimeout(()=> {
 					$("#ready_round").css("margin-left", "-2000px");
@@ -298,7 +298,7 @@
 					$("#waiting").prop("hidden", true);
 					$("#waiting").css("right", "-2000px");
 				},delay);
-				delay += 7900;
+				delay += 8000;
 				setTimeout(()=> {
 					$("#check_correct").css("right", "2000px");
 					$("#answer_button").prop("hidden", false);
@@ -417,6 +417,10 @@
 					$("#answer_button").prop("hidden", true);
 					$("#waiting").css("right", "0px");
 				},500);
+			});
+
+            $('#menu_button').on('click', function(e){
+				window.location.replace('interactive.html');
 			});
 			
 			$('#play_music').on('click', function(e){
