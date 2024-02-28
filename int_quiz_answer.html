@@ -337,14 +337,15 @@
 					for (var i = 0; i < data.value.length; i++) {
 						if (data.value[i].int_quiz_id == int_quizID) {
 							player_names.push(data.value[i].player_name);
-							player_points.push(data.value[i].points);
+							player_points.push(Number(data.value[i].points));
 						}
 					}
 					
 					if (player_points.length != 0 && player_names.length != 0) {
 						var list = [];
-						for (var j = 0; j < player_names.length; j++) 
+						for (var j = 0; j < player_names.length; j++) {
 							list.push({'name': player_names[j], 'point': player_points[j]});
+                        }
 
 						list.sort(function(a, b) {
 							return ((a.point < b.point) ? -1 : ((a.point == b.point) ? 0 : 1));
