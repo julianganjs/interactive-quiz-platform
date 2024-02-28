@@ -83,6 +83,7 @@
 .btn3d.btn-warning {
 	box-shadow: 0 0 0 1px #d79a47 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #D79A34, 0 8px 8px 1px rgba(0, 0, 0, 0.5);
 	background-color: #FEAF20;
+	color: white;
 }
 
 .btn3d.btn-warning:active,
@@ -164,6 +165,10 @@
   animation: waviy 1s;
 }
 
+.animation-waviy3 {
+  animation: waviy 1s infinite;
+}
+
 .hithere {
   animation: hithere 1s ease;
 }
@@ -183,4 +188,20 @@
   top: 0px;
   width: 100%;
   z-index: -1;
+}
+
+.loader2 { /* Light grey */
+  border: 7px solid rgba(91,91,91,0); /* Light grey */
+  border-top: 7px solid #ffffff; /* Blue */
+  border-right: 7px solid #ffffff; /* Blue */
+  border-radius: 50%;
+  animation: elastic-spin 1s infinite;
+}
+
+.elastic-spin {
+  animation: elastic-spin 1s infinite ease;
+}
+@keyframes elastic-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

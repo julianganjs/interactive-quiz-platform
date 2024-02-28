@@ -30,7 +30,7 @@
 			var player_name = localStorage.getItem('player_name');
 			
 			if (int_quizID == null || player_name == null || !(int_quizID.includes("INTQZ"))) {
-				window.location.href = 'interactive.html';
+				window.location.replace('interactive.html');
 			}
 			
 		
@@ -55,7 +55,7 @@
 				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"20","max_player":"0","current_player":"0","started":"N","ended":"N"}]}; -->
 				
 				if (data.value == '') {
-					window.location.href = 'interactive.html';
+					window.location.replace('interactive.html');
 				} else {
 					got_flag = "N";
 					for (var i = 0; i < data.value.length; i++) {
@@ -67,9 +67,11 @@
 					}
 					
 					if (got_flag == "Y") {
-
+						localStorage.setItem('int_quiz_ID', int_quizID);
+						localStorage.setItem('player_name', player_name);
+						window.location.replace('int_quiz_answer.html');
 					} else if (got_flag == "E") {
-						window.location.href = 'interactive.html';
+						window.location.replace('interactive.html');
 					}
 				}
 				

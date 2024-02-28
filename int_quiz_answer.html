@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alata&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika+New+Basic&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Atkinson+Hyperlegible&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow&amp;display=swap">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/progressbar.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+			var int_quizID = localStorage.getItem('int_quiz_ID');
+			var player_name = localStorage.getItem('player_name');
+
+			<!-- var int_quizID = 'INTQZENG1A1'; -->
+			<!-- var player_name = 'Tommy'; -->
+			
+			if (int_quizID == null || !(int_quizID.includes("INTQZ")) || player_name == null) {
+				window.location.replace('interactive.html');
+			}
+			
+			question_types = [];
+			questions = [];
+			correct_answers = [];
+			var ques_duration = "";
+			var player_row_id = "";
+			var main_quizID = "";
+			
+			var bar;
+			
+			async function check_exist() {
+				const endpoint = '/data-api/rest/InteractiveQuiz';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":6,"quiz_id":"INTQZENG1A1","quiz_id_short":"QZENG1","ques_duration":"5","max_player":"20","current_player":"0","started":"Y","ended":"N"}]}; -->
+				
+				if (data.value == '') {
+					window.location.replace('interactive.html');
+				} else {
+					got_flag = "N";
+					for (var i = data.value.length-1; i >= 0; i--) {
+						if (data.value[i].quiz_id==int_quizID && data.value[i].started=="Y" && data.value[i].ended=="N") {
+							ques_duration = data.value[i].ques_duration;
+							main_quizID = data.value[i].quiz_id_short;
+							got_flag = "Y";
+							break;
+						}
+					}
+					
+					if (got_flag == "N") {
+						window.location.replace('interactive.html');
+					} else {
+						get_questions();
+					}
+				}
+			}
+			
+			check_exist();
+			
+			async function get_questions() {
+			
+				const endpoint = '/data-api/rest/QuestionList';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"mc"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"mc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"mc"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"mc"}]}'); -->
+				
+				for (var i = 0; i < data.value.length; i++) { 
+                    if (data.value[i].quiz_id == main_quizID) {
+						question_types[data.value[i].q_id-1] = data.value[i].q_type;
+					}
+                }
+				
+				for (var i = 0; i < question_types.length; i++) { 
+					
+					if (question_types[i] == "mc") {
+						const endpoint2 = '/data-api/rest/mc_Questions';
+						const response2 = await fetch(endpoint2);
+						const data2 = await response2.json();
+						
+						<!-- data2 = JSON.parse('{"value":[{"id":19,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"This is Question 1?","correct_ans_id":"2"},{"id":20,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","question":"This is Question 3?","correct_ans_id":"4"},{"id":21,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"This is Question 2?","correct_ans_id":"3"},{"id":22,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","question":"This is Question 4?","correct_ans_id":"1"}]}'); -->
+						
+						for (var j = 0; j < data2.value.length; j++) {
+							if(data2.value[j].quiz_id == main_quizID && Number(data2.value[j].q_id) == i+1){
+								questions[i] = data2.value[j].question;
+								correct_answers[i] = data2.value[j].correct_ans_id;
+								break;
+							}
+						}
+						
+					}
+                }
+				
+				get_player_info();
+				
+			}
+			
+			async function get_player_info() {
+				const endpoint = '/data-api/rest/IntPlayers';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"4"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"2"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"1"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"8"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"3"}]}; -->
+				
+				
+				if (data.value == '') {
+					window.location.replace('interactive.html');
+				} else {
+					got_flag = "N";
+					for (var i = data.value.length-1; i >= 0; i--) {
+						if (data.value[i].int_quiz_id==int_quizID && data.value[i].player_name==player_name) {
+							player_row_id = data.value[i].id;
+							got_flag = "Y";
+							break;
+						}
+					}
+					
+					if (got_flag == "N") {
+						window.location.replace('interactive.html');
+					} else {
+						start_round();
+					}
+				}
+			}
+			
+			function start_round() {
+				delay = 5000;
+				<!-- delay = 2000; -->
+				setTimeout(()=> {
+					$("#ready_round").css("margin-left", "-2000px");
+					$("#answer_button").prop("hidden", false);
+				},delay);
+				delay += 500;
+				setTimeout(()=> {
+					$("#ready_round").prop("hidden", true);
+					quiz_flow(0);
+				},delay);
+			}
+			
+			answered = "N";
+			selected = "";
+			total_points = 0;
+			points = 1000;
+			streak = 0;
+			
+			function quiz_flow(ques_counter) {
+				answered = "N";
+				selected = "";
+				$("#check_correct").prop("hidden", true);
+				$("#check_correct").css("right", "-2000px");
+				$("#answer_button").css("right", "0px");
+				points = 1000;
+				start_timer(ques_duration*2, ques_duration*2,ques_counter)
+			}
+			
+			function start_timer(current_time, max_time,ques_counter){
+				if (current_time == max_time) {
+					delay = 100;
+				} else {
+					delay = 500;
+				}
+				setTimeout(()=> {
+					if (current_time == 0) {
+						show_correct(ques_counter);
+					} else {
+						if (answered == "N" && current_time != max_time) {
+							points -= Math.ceil(1000/Number(max_time));
+						}
+						start_timer(current_time-1, max_time, ques_counter);
+					}
+				},delay);
+			}
+			
+			function show_correct(ques_counter){
+				if (answered == "N"){
+					$("#answer_button").css("right", "2000px");
+					let x = Math.random();
+					if (x < 0.5) {
+						$("#attack_message").html("Not even going to try? :(");
+					} else {
+						$("#attack_message").html("Aww ... no answer?");
+					}
+					
+					$("#waiting").prop("hidden", false);
+					points = 0;
+					streak = 0;
+					$("#fire_bounce").removeClass("animation-waviy3");
+					$("#fire").attr("src","assets/images/flame2.png");
+					$("#streak_no").html(streak);
+					$("#indicator_icon").attr('class', 'fas fa-times');
+					$("#indicator_icon").css("color", "red");
+					$("#assure_message").css("color", "red");
+					let y = Math.random();
+					if (y < 0.5) {
+						$("#assure_message").html("Should've tried . . .");
+					} else{
+						$("#assure_message").html("No points for you!");
+					}
+					$("#add_points").html("+&nbsp;"+points+"&nbsp;Points");
+					setTimeout(()=> {
+						$("#answer_button").prop("hidden", true);
+						$("#waiting").css("right", "0px");
+					},500);
+				} else {
+					if (selected == correct_answers[ques_counter]) {
+						streak += 1;
+						points += (200*streak);
+						$("#fire_bounce").addClass("animation-waviy3");
+						$("#fire").attr("src","assets/images/flame.png");
+						$("#streak_no").html(streak);
+						$("#indicator_icon").attr('class', 'fas fa-check');
+						$("#indicator_icon").css("color", "green");
+						$("#assure_message").css("color", "green");
+						let y = Math.random();
+						if (y < 0.4) {
+							$("#assure_message").html("Wow! Great work!");
+						} else if (y < 0.8) {
+							$("#assure_message").html("Correct!");
+						} else {
+							$("#assure_message").html("Good guess ... Or you knew?");
+						}
+						$("#add_points").html("+&nbsp;"+points+"&nbsp;Points");
+					} else {
+						points = 0;
+						streak = 0;
+						$("#fire_bounce").removeClass("animation-waviy3");
+						$("#fire").attr("src","assets/images/flame2.png");
+						$("#streak_no").html(streak);
+						$("#indicator_icon").attr('class', 'fas fa-times');
+						$("#indicator_icon").css("color", "red");
+						$("#assure_message").css("color", "red");
+						let y = Math.random();
+						if (y < 0.3) {
+							$("#assure_message").html("That's a shame . . .");
+						} else if (y < 0.6) {
+							$("#assure_message").html("Wrong! So wrong!");
+						} else if (y < 0.9) {
+							$("#assure_message").html("Nice try HAHAHAHA");
+						} else{
+							$("#assure_message").html("NOOB");
+						}
+						$("#add_points").html("+&nbsp;"+points+"&nbsp;Points");
+					}
+				}
+				total_points += points;
+				data1 = '{"int_quiz_id":"'+int_quizID+'","player_name":"'+player_name+'","points":"'+total_points+'"}';
+				update_Y(player_row_id,JSON.parse(data1));
+				show_points(ques_counter);
+			}
+			
+			async function update_Y(id,data) {
+				const endpoint = '/data-api/rest/IntPlayers/id';
+				const response = await fetch(`${endpoint}/${id}`, {
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(data)
+				});
+				const result = await response.json();
+				
+				<!-- result = [{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"4"}]; -->
+				
+				if (result) {
+					
+				} else {
+					window.location.replace('interactive.html');
+				}
+			}
+			
+			function show_points(ques_counter){
+				delay = 3200;
+				setTimeout(()=> {
+					$("#answer_button").prop("hidden", true);
+					$("#answer_button").css("right", "-2000px");
+					$("#waiting").css("right", "2000px");
+					$("#check_correct").prop("hidden", false);
+				},delay);
+				delay += 500;
+				setTimeout(()=> {
+					$("#check_correct").css("right", "0px");
+					$("#waiting").prop("hidden", true);
+					$("#waiting").css("right", "-2000px");
+				},delay);
+				delay += 7900;
+				setTimeout(()=> {
+					$("#check_correct").css("right", "2000px");
+					$("#answer_button").prop("hidden", false);
+					$("#placing").prop("hidden", false);
+				},delay);
+				delay += 500;
+				setTimeout(()=> {
+					$("#check_correct").prop("hidden", true);
+					if (ques_counter < question_types.length-1) {
+						$("#placing").prop("hidden", true);
+						quiz_flow(ques_counter+1);
+					} else {
+						$("#answer_button").prop("hidden", true);
+						get_players(int_quizID);
+					}
+				},delay);
+			}
+			
+			var placing = 0;
+			var player_points = [];
+			var player_names = [];
+			
+			async function get_players(int_quizID) {
+				const endpoint = '/data-api/rest/IntPlayers';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"4"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"2"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"1"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"8"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"3"}]}; -->
+				
+				
+				if (data.value == '') {
+					window.location.replace('interactive.html');
+				} else {
+					player_points = [];
+					player_names = [];
+					for (var i = 0; i < data.value.length; i++) {
+						if (data.value[i].int_quiz_id == int_quizID) {
+							player_names.push(data.value[i].player_name);
+							player_points.push(data.value[i].points);
+						}
+					}
+					
+					if (player_points.length != 0 && player_names.length != 0) {
+						var list = [];
+						for (var j = 0; j < player_names.length; j++) 
+							list.push({'name': player_names[j], 'point': player_points[j]});
+
+						list.sort(function(a, b) {
+							return ((a.point < b.point) ? -1 : ((a.point == b.point) ? 0 : 1));
+						});
+						
+						for (var k = 0; k < list.length; k++) {
+							player_names[k] = list[k].name;
+							player_points[k] = list[k].point;
+						}
+						player_names.reverse();
+						player_points.reverse();
+						
+						got_flag = "N";
+						for (var i = 0; i < player_names.length; i++) {
+							if (player_names[i]==player_name) {
+								got_flag = "Y";
+								placing = (i+1);
+								break;
+							}
+						}
+						
+						if (got_flag == "N") {
+							window.location.replace('interactive.html');
+						} else {
+							show_placing();
+						}
+						
+					}
+				}
+			}
+			
+			function show_placing() {
+				num_string = placing.toString();
+				ending = "th";
+				if (num_string.charAt(num_string.length - 1) == "1") {
+					ending = "st";
+				} else if (num_string.charAt(num_string.length - 1) == "2") {
+					ending = "nd";
+				} else if (num_string.charAt(num_string.length - 1) == "3") {
+					ending = "rd";
+				} 
+				$("#placing_num").html(placing+ending+"&nbsp;Place&nbsp;!");
+				$("#point_num").html(total_points+"&nbsp;Points");
+				$("#placing").css("right", "0px");
+				$("#btn_div").prop("hidden", false);
+				setTimeout(()=> {
+					$("#btn_div").css("right", "0px");
+				},2000);
+			}
+			
+			$(document).on('click', '.ansbtn', function(e) {
+				ans_id = $(this).attr('id');
+				selected = ans_id.charAt(ans_id.length - 1);
+				answered = "Y";
+				$("#answer_button").css("right", "2000px");
+				let x = Math.random();
+				if (x < 0.2) {
+					$("#attack_message").html("Lucky guess?");
+				} else if (x < 0.4) {
+					$("#attack_message").html("That's pretty quick!");
+				} else if (x < 0.6) {
+					$("#attack_message").html("Are you sure?");
+				} else if (x < 0.8) {
+					$("#attack_message").html("Might be wrong . . .");
+				} else {
+					$("#attack_message").html("Hidden genius?");
+				}
+				$("#waiting").prop("hidden", false);
+				setTimeout(()=> {
+					$("#answer_button").prop("hidden", true);
+					$("#waiting").css("right", "0px");
+				},500);
+			});
+			
+			$('#play_music').on('click', function(e){
+				if ($(this).attr('class') == 'fas fa-volume-mute') {
+					$("#lobby_music").prop('muted', false);
+					$(this).attr('class', 'fas fa-volume-up');
+				} else {
+					$("#lobby_music").prop('muted', true)
+					$(this).attr('class', 'fas fa-volume-mute');
+				}
+			});
+			
+		});
+	</script>
+</head>
+
+<body style="background: #400988; background-size: cover; width: 99vw;" id="bg_img">
+	<video id="lobby_music" autoplay muted loop src="assets/music/empty.mp3" style="position: absolute;"></video>
+	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
+		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
+			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-bell" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto;">
+			<i class="far fa-comment" style="color:#a5a5a5; font-size: 1rem;"></i>
+		</div>
+		<div class="col-auto" style="text-align: right; margin-top: auto; margin-bottom: auto;">
+			<i class="fas fa-user-circle" style="color:#792d85; font-size: 2.2rem;"></i>
+		</div>
+		<div class="col-auto" style="margin-top: auto; margin-bottom: auto; margin-right: 25px; margin-left: -15px">
+			<i class="fas fa-chevron-down" style="color:black; font-size: 0.6rem;"></i>
+		</div>
+	</div>
+	<div class="row mt-4 mb-0">
+		<div class="col">
+		</div>
+		<div class="col-auto" style="margin-right: 20px;">
+			<i class="fas fa-volume-mute" style="color:white; font-size: 2rem; cursor: pointer;" id="play_music"></i>
+		</div>
+	</div>
+	<div style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; height: 70vh; width: 99vw; position: fixed;" id="ready_round">
+		<div class="row" style="height: 100%; text-align: center;">
+			<span class="animation-waviy3" style="font-size: 10vw; color: white; font-family: 'Lilita One', sans-serif; letter-spacing: 1px; color: white; margin: auto;">READY?</span>
+		</div>
+	</div>
+	<div style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; height: 65vh; right: -2000px; width: 99vw;  position: fixed;" id="answer_button">
+		<div class="row" style="height: 50%; text-align: center; margin-top: 30px; margin-bottom: 30px; margin-left: 50px; margin-right: 50px;">
+			<div class="col">
+				<button type="button" class="btn btn-danger btn-lg btn3d ansbtn" style="width: 100%; font-size: 15vh; font-family: 'Lilita One', sans-serif; height: 100%;" id="answer_1">A</button>
+			</div>
+			<div class="col">
+				<button type="button" class="btn btn-warning btn-lg btn3d ansbtn" style="width: 100%; font-size: 15vh; font-family: 'Lilita One', sans-serif; height: 100%;" id="answer_2">B</button>
+			</div>
+		</div>
+		<div class="row" style="height: 50%; text-align: center; margin-top: 0px; margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
+			<div class="col">
+				<button type="button" class="btn btn-primary btn-lg btn3d ansbtn" style="width: 100%; font-size: 15vh; font-family: 'Lilita One', sans-serif; height: 100%;" id="answer_3">C</button>
+			</div>
+			<div class="col">
+				<button type="button" class="btn btn-success btn-lg btn3d ansbtn" style="width: 100%; font-size: 15vh; font-family: 'Lilita One', sans-serif; height: 100%;" id="answer_4">D</button>
+			</div>
+		</div>
+	</div>
+	<div hidden style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; height: 75vh; right: -2000px; width: 99vw;  position: fixed;" id="waiting">
+		<div class="row d-flex align-items-center justify-content-center waviy" style="height: 50%;">
+			<div class="loader2" style="width: 8vw; height: 8vw;"></div>
+		</div>
+		<div class="row" style="height: 50%; text-align: center;">
+			<span class="" style="font-size: 4vw; color: white; font-family: 'Lilita One', sans-serif; color: white; margin-bottom: auto; margin-top: 4vh;" id="attack_message">Feeling confident?</span>
+		</div>
+	</div>
+	<div hidden style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; height: 75vh; right: -2000px; width: 99vw;  position: fixed;" id="check_correct">
+		<div class="row d-flex align-items-center justify-content-center" style="height: 40%; position: relative; text-align: center;" id="fire_bounce">
+			<img src="assets/images/flame.png" style="width: 25vh; position: absolute;" id="fire">
+			<span class="" style="font-size: 11vh; font-family: 'Lilita One', sans-serif; color: #400988; margin-bottom: auto; margin-top: 8vh; position: absolute; z-index: 9;" id="streak_no">5</span>
+		</div>
+		<div class="row" style="height: 10%; text-align: center;">
+			<span class="" style="font-size: calc(3vh + 1vw); color: white; font-family: 'Lilita One', sans-serif; margin-bottom: auto; margin-top: -2vh;">STREAK</span>
+		</div>
+		<div class="row d-flex align-items-center justify-content-center" style="height: 30%; text-align: center;">
+			<i class="fas fa-times" style="color:red; font-size: calc(5vh + 2vw);" id="indicator_icon">&nbsp;&nbsp;&nbsp;<span class="" style="font-size: calc(5vh + 2vw); color: red; font-family: 'Lilita One', sans-serif; margin-bottom: auto; margin-top: 4vh;" id="assure_message">That's a shame . . .</span></i>
+		</div>
+		<div class="row" style="height: 20%; text-align: center;">
+			<span class="" style="font-size: calc(2vh + 1vw); color: white; font-family: 'Lilita One', sans-serif; margin-bottom: auto; margin-top: 4vh;" id="add_points">+ 4567 Points</span>
+		</div>
+	</div>
+	<div hidden style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; height: 55vh; width: 99vw;  position: fixed; right: -2000px" id="placing">
+		<div class="row" style="height: 40%; text-align: center;">
+			<span class="" style="font-size: calc(4vh + 0.5vw); font-family: 'Lilita One', sans-serif; color: white; margin-bottom: 2vh; margin-top: auto;">You've got</span>
+		</div>
+		<div class="row" style="height: 40%; text-align: center;">
+			<span class="" style="font-size: calc(9vh + 2vw); color: white; font-family: 'Lilita One', sans-serif; margin-bottom: auto; margin-top: 0vh;" id="placing_num">1st Place !</span>
+		</div>
+		<div class="row" style="height: 20%; text-align: center;">
+			<span class="" style="font-size: calc(3vh + 0.5vw); color: yellow; font-family: 'Lilita One', sans-serif; margin-bottom: auto; margin-top: 0vh;" id="point_num">244785 Points</span>
+		</div>
+	</div>
+	<div hidden style="-webkit-transition-duration: 0.5s; -moz-transition-duration: 0.5s; -o-transition-duration: 0.5s; transition-duration: 0.5s; width: 99vw;  position: fixed; right: -2000px" id="btn_div">
+		<div class="row" style="">
+			<button type="button" class="btn btn-danger btn-lg btn3d" style="width: auto; font-size: calc(2vh + 0.5vw); font-family: 'Lilita One', sans-serif; padding-left: 30px; padding-right: 30px; margin-top: 63vh; margin-left: auto; margin-right: auto; margin-bottom: 0;" id="menu_button">BACK TO MAIN MENU</button>
+		</div>
+	</div>
+	<div id="confetti"></div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
