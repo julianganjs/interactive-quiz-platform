@@ -85,6 +85,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "tf_Questions": {
+      "source": "dbo.tf_Questions",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
