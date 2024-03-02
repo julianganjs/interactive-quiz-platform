@@ -103,6 +103,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "essay_Questions": {
+      "source": "dbo.sa_Questions",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
