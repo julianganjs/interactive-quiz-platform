@@ -38,6 +38,7 @@
 			
 			question_types = [];
 			questions = [];
+			images = [];
 			answers = [[],[]];
 			correct_answers = [];
 			var ques_duration = "";
@@ -114,6 +115,7 @@
 						for (var j = 0; j < data2.value.length; j++) {
 							if(data2.value[j].quiz_id == main_quizID && Number(data2.value[j].q_id) == i+1){
 								questions[i] = data2.value[j].question;
+								images[i] = data2.value[j].image;
 								correct_answers[i] = data2.value[j].correct_ans_id;
 								break;
 							}
