@@ -262,6 +262,11 @@
 				$('#ans_card_2').css({"background": "rgba(254,175,32)", "border": "2px solid #ffcd20", "transition": ""});
 				$('#ans_card_3').css({"background": "rgba(66,116,215)", "border": "2px solid #4e89ff", "transition": ""});
 				$('#ans_card_4').css({"background": "rgba(120,215,57)", "border": "2px solid #8eff43", "transition": ""});
+				if (images[ques_counter] == "" || images[ques_counter] == null || images[ques_counter] == undefined) {
+					$('#ques_image').attr('src','');
+				} else {
+					$('#ques_image').attr('src',images[ques_counter]);
+				}
 				$("#questions").css("right", "20px");
 				let x = Math.random();
 				if (x < 0.4) {
@@ -946,8 +951,11 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-auto d-flex align-items-center justify-content-center">
+				<img src="" id="ques_image" style="max-height:250px; max-width:280px; height:auto; width:auto; object-fit: contain; object-position: left;">
+			</div>
 			<div class="col">
-				<div class="card mt-0 mb-4 ms-4 me-4" style="height: 250px; border: 2px solid #ffffff; border-radius: 10px; background: rgba(242, 242, 242,0.9);">
+				<div class="card mt-0 mb-4 ms-2 me-4" style="height: 250px; border: 2px solid #ffffff; border-radius: 10px; background: rgba(242, 242, 242,0.9);">
 					<div class="row ms-4 mt-4 me-4 mb-4">
 						<span style="font-size: 1.5rem; color: black; font-weight: bold;" id="question_disp"></span>
 					</div>
