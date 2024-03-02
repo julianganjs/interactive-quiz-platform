@@ -400,7 +400,7 @@
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
 							data2 += '"}';
-							sa_Questions(JSON.parse(data2));
+							essay_Questions(JSON.parse(data2));
 						} else {
 							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type);
 						}
