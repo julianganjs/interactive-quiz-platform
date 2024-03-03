@@ -31,9 +31,11 @@
 			
 			question_types = [];
 			questions = [];
-			answers = [[],[]];
+			mc_answers = [[],[]];
 			correct_answers = [];
 			selected = [];
+			
+			images = [];
 			
 			async function get_questions() {
 			
@@ -41,7 +43,7 @@
 				const response = await fetch(endpoint);
 				const data = await response.json();
 				
-				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"mc"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"mc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"mc"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"mc"}]}'); -->
+				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"tf"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"mc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"sa"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"essay"}]}'); -->
 				
 				for (var i = 0; i < data.value.length; i++) { 
                     if (data.value[i].quiz_id == quizID) {
@@ -57,19 +59,23 @@
 										'</div>'+
 									'</div>');
 					
-					answers[i] = [];
+					
+					selected[i] = "";
 					
 					if (question_types[i] == "mc") {
+						mc_answers[i] = [];
+					
 						const endpoint2 = '/data-api/rest/mc_Questions';
 						const response2 = await fetch(endpoint2);
 						const data2 = await response2.json();
 						
-						<!-- data2 = JSON.parse('{"value":[{"id":19,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"This is Question 1?","correct_ans_id":"2"},{"id":20,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","question":"This is Question 3?","correct_ans_id":"4"},{"id":21,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"This is Question 2?","correct_ans_id":"3"},{"id":22,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","question":"This is Question 4?","correct_ans_id":"1"}]}'); -->
+						<!-- data2 = JSON.parse('{"value":[{"id":19,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"This is Question 1?","correct_ans_id":"2","image": "assets/images/purple.jpg"},{"id":20,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","question":"This is Question 3?","correct_ans_id":"4"},{"id":21,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"This is Question 2?","correct_ans_id":"3"},{"id":22,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","question":"This is Question 4?","correct_ans_id":"1"}]}'); -->
 						
 						for (var j = 0; j < data2.value.length; j++) {
 							if(data2.value[j].quiz_id == quizID && Number(data2.value[j].q_id) == i+1){
 								questions[i] = data2.value[j].question;
 								correct_answers[i] = data2.value[j].correct_ans_id;
+								images[i] = data2.value[j].image;
 								break;
 							}
 						}
@@ -82,10 +88,55 @@
 						
 						for (var j = 0; j < data3.value.length; j++) {
 							if(data3.value[j].quiz_id == quizID && Number(data3.value[j].q_id) == i+1){
-								answers[i][Number(data3.value[j].ans_id)-1] = data3.value[j].answer;
+								mc_answers[i][Number(data3.value[j].ans_id)-1] = data3.value[j].answer;
 							}
 						}
 						
+					} else if (question_types[i] == "tf") {
+						const endpoint4 = '/data-api/rest/tf_Questions';
+						const response4 = await fetch(endpoint4);
+						const data4 = await response4.json();
+						
+						<!-- data4 = JSON.parse('{"value":[{"id":1,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"fessfesfe","correct_ans_id":"f","image":""}]}'); -->
+						
+						for (var j = 0; j < data4.value.length; j++) {
+							if(data4.value[j].quiz_id == quizID && Number(data4.value[j].q_id) == i+1){
+								questions[i] = data4.value[j].question;
+								correct_answers[i] = data4.value[j].correct_ans_id;
+								images[i] = data4.value[j].image;
+								break;
+							}
+						}
+					} else if (question_types[i] == "sa") {
+						const endpoint5 = '/data-api/rest/sa_Questions';
+						const response5 = await fetch(endpoint5);
+						const data5 = await response5.json();
+						
+						<!-- data5 = JSON.parse('{"value":[{"id":1,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","question":"esfesfesf","correct_ans":"efsesfesf","image":"assets/images/purple.jpg"}]}'); -->
+						
+						for (var j = 0; j < data5.value.length; j++) {
+							if(data5.value[j].quiz_id == quizID && Number(data5.value[j].q_id) == i+1){
+								questions[i] = data5.value[j].question;
+								correct_answers[i] = data5.value[j].correct_ans;
+								images[i] = data5.value[j].image;
+								break;
+							}
+						}
+					} else if (question_types[i] == "essay") {
+						const endpoint6 = '/data-api/rest/essay_Questions';
+						const response6 = await fetch(endpoint6);
+						const data6 = await response6.json();
+						
+						<!-- data6 = JSON.parse('{"value":[{"id":1,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","question":"qwdefrdgtf hahah test question 4","correct_keywords":"serdgf, adwefsrgdg, awdf esrd, afsgdf, dawefsgfdgbfn, adwfsdbgf","image":""}]}'); -->
+						
+						for (var j = 0; j < data6.value.length; j++) {
+							if(data6.value[j].quiz_id == quizID && Number(data6.value[j].q_id) == i+1){
+								questions[i] = data6.value[j].question;
+								correct_answers[i] = data6.value[j].correct_keywords;
+								images[i] = data6.value[j].image;
+								break;
+							}
+						}
 					}
                 }
 				
@@ -93,17 +144,51 @@
 				
 				$("#question").html(questions[0]);
 				
-				$("#answers").html("");
-				for (var i = 0; i < answers[0].length; i++) { 
-					$("#answers").append('<div class="form-check mb-2">'+
-										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_1_'+(i+1)+'">'+
-										'<label class="form-check-label" for="mc_ans_1_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[0][i]+'</label>'+
-									'</div>');
+				if (images[0] == "" || images[0] == null || images[0] == undefined) {
+					$('#ques_image').attr('src','');
+					$('#ques_image').css('margin-bottom','0px');
+				} else {
+					$('#ques_image').attr('src',images[0]);
+					$('#ques_image').css('margin-bottom','20px');
 				}
 				
+				$("#answers").html("");
 				if (question_types[0] == "mc") {
+					for (var i = 0; i < mc_answers[0].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_1_'+(i+1)+'">'+
+										'<label class="form-check-label" for="mc_ans_1_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+mc_answers[0][i]+'</label>'+
+									'</div>');
+					}
 					$("#question_type").html("Multiple Choice");
+				} else if (question_types[0] == "tf") {
+					$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_1" id="tf_ans_1_t">'+
+										'<label class="form-check-label" for="tf_ans_1_t" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True</label>'+
+									'</div>'+
+									'<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_1" id="tf_ans_1_f">'+
+										'<label class="form-check-label" for="tf_ans_1_f" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">False</label>'+
+									'</div>');
+					$("#question_type").html("True/False");
+				} else if (question_types[0] == "sa") {
+					$("#answers").append('<div class="row">'+
+											'<label for="sa_ans_1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="sa_ans_1" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Short Answer");
+				} else if (question_types[0] == "essay") {
+					$("#answers").append('<div class="row">'+
+											'<label for="essay_ans_1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="essay_ans_1" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
+									'</div>');
+					$("#question_type").html("Essay");
 				}
+				
 				
 				$(document).find("#nav0").css('border', '1px solid black');
 				
@@ -128,23 +213,63 @@
 				}
 			
 				$("#previous_button").prop('hidden', false);
-				
-				if (question_types[current_quest] == "mc") {
-					$("#question_type").html("Multiple Choice");
-				}
 				$("#question_num").html(current_quest+1);
 				$("#question").html("");
 				$("#question").html(questions[current_quest]);
+				if (images[current_quest] == "" || images[current_quest] == null || images[current_quest] == undefined) {
+					$('#ques_image').attr('src','');
+					$('#ques_image').css('margin-bottom','0px');
+				} else {
+					$('#ques_image').attr('src',images[current_quest]);
+					$('#ques_image').css('margin-bottom','20px');
+				}
 				$("#answers").html("");
-				for (var i = 0; i < answers[current_quest].length; i++) { 
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+					for (var i = 0; i < mc_answers[current_quest].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+											'<input class="form-check-input" type="radio" name="mc_correct_radio_'+(current_quest+1)+'" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+											'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+mc_answers[current_quest][i]+'</label>'+
+										'</div>');
+					}
+				} else if (question_types[current_quest] == "tf") {
 					$("#answers").append('<div class="form-check mb-2">'+
-										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
-										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_t">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_t" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True</label>'+
+									'</div>'+
+									'<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_f">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_f" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">False</label>'+
 									'</div>');
+					$("#question_type").html("True/False");
+				} else if (question_types[current_quest] == "sa") {
+					$("#answers").append('<div class="row">'+
+											'<label for="sa_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="sa_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Short Answer");
+				} else if (question_types[current_quest] == "essay") {
+					$("#answers").append('<div class="row">'+
+											'<label for="essay_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
+									'</div>');
+					$("#question_type").html("Essay");
 				}
 				
 				if (selected[current_quest] != "") {
-					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					if (question_types[current_quest] == "mc") {
+						$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "tf") {
+						$("#tf_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "sa") {
+						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "essay") {
+						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					}
 				}
 				
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
@@ -162,49 +287,67 @@
 					$("#previous_button").prop('hidden', true);
 				}
 				
-				if (question_types[current_quest] == "mc") {
-					$("#question_type").html("Multiple Choice");
-				}
 				$("#question_num").html(current_quest+1);
 				$("#question").html("");
 				$("#question").html(questions[current_quest]);
+				if (images[current_quest] == "" || images[current_quest] == null || images[current_quest] == undefined) {
+					$('#ques_image').attr('src','');
+					$('#ques_image').css('margin-bottom','0px');
+				} else {
+					$('#ques_image').attr('src',images[current_quest]);
+					$('#ques_image').css('margin-bottom','20px');
+				}
 				$("#answers").html("");
-				for (var i = 0; i < answers[current_quest].length; i++) { 
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+					for (var i = 0; i < mc_answers[current_quest].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+											'<input class="form-check-input" type="radio" name="mc_correct_radio_'+(current_quest+1)+'" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+											'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+mc_answers[current_quest][i]+'</label>'+
+										'</div>');
+					}
+				} else if (question_types[current_quest] == "tf") {
 					$("#answers").append('<div class="form-check mb-2">'+
-										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
-										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_t">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_t" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True</label>'+
+									'</div>'+
+									'<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_f">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_f" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">False</label>'+
 									'</div>');
+					$("#question_type").html("True/False");
+				} else if (question_types[current_quest] == "sa") {
+					$("#answers").append('<div class="row">'+
+											'<label for="sa_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="sa_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Short Answer");
+				} else if (question_types[current_quest] == "essay") {
+					$("#answers").append('<div class="row">'+
+											'<label for="essay_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
+									'</div>');
+					$("#question_type").html("Essay");
 				}
 				
 				if (selected[current_quest] != "") {
-					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					if (question_types[current_quest] == "mc") {
+						$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "tf") {
+						$("#tf_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "sa") {
+						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "essay") {
+						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					}
 				}
 				
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
 				$(document).find("#nav"+current_quest).css('border', '1px solid black');
-			});
-			
-			$('#finish_button').on('click', function(e){
-				points = 0;
-				for (var i = 0; i < correct_answers.length; i++) {
-					if(selected[i] == correct_answers[i]) {
-						points += 1;
-					}
-				}
-				alert("You answered "+points+"/"+correct_answers.length+" questions correctly!");
-			});
-			
-			$(document).on('change', 'input[type=radio]', function(e) {
-				$(document).find("#icon_"+current_quest).attr('class', 'fas fa-check');
-				$(document).find("#icon_"+current_quest).css('color', 'white');
-				$(document).find("#icon_card_"+current_quest).css('background-color', 'green');
-				$(document).find("input[type=radio]").each(function(){
-					if ($(this).is(':checked')){
-						var checked_id = $(this).attr("id");
-						var checked_num = checked_id.substr(checked_id.indexOf("_",7)+1,checked_id.length);
-						selected[current_quest] = checked_num;
-					} 
-				});
 			});
 			
 			$(document).on('click', '.nav_card', function(e) {
@@ -226,26 +369,110 @@
 					$("#finish_button").prop('hidden', true);
 				}
 				
-				if (question_types[current_quest] == "mc") {
-					$("#question_type").html("Multiple Choice");
-				}
 				$("#question_num").html(current_quest+1);
 				$("#question").html("");
 				$("#question").html(questions[current_quest]);
+				if (images[current_quest] == "" || images[current_quest] == null || images[current_quest] == undefined) {
+					$('#ques_image').attr('src','');
+					$('#ques_image').css('margin-bottom','0px');
+				} else {
+					$('#ques_image').attr('src',images[current_quest]);
+					$('#ques_image').css('margin-bottom','20px');
+				}
 				$("#answers").html("");
-				for (var i = 0; i < answers[current_quest].length; i++) { 
+				if (question_types[current_quest] == "mc") {
+					$("#question_type").html("Multiple Choice");
+					for (var i = 0; i < mc_answers[current_quest].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+											'<input class="form-check-input" type="radio" name="mc_correct_radio_'+(current_quest+1)+'" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+											'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+mc_answers[current_quest][i]+'</label>'+
+										'</div>');
+					}
+				} else if (question_types[current_quest] == "tf") {
 					$("#answers").append('<div class="form-check mb-2">'+
-										'<input class="form-check-input" type="radio" name="mc_correct_radio_1" id="mc_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
-										'<label class="form-check-label" for="mc_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+answers[current_quest][i]+'</label>'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_t">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_t" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True</label>'+
+									'</div>'+
+									'<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="tf_correct_radio_'+(current_quest+1)+'" id="tf_ans_'+(current_quest+1)+'_f">'+
+										'<label class="form-check-label" for="tf_ans_'+(current_quest+1)+'_f" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">False</label>'+
 									'</div>');
+					$("#question_type").html("True/False");
+				} else if (question_types[current_quest] == "sa") {
+					$("#answers").append('<div class="row">'+
+											'<label for="sa_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="sa_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Short Answer");
+				} else if (question_types[current_quest] == "essay") {
+					$("#answers").append('<div class="row">'+
+											'<label for="essay_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
+									'</div>');
+					$("#question_type").html("Essay");
 				}
 				
 				if (selected[current_quest] != "") {
-					$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					if (question_types[current_quest] == "mc") {
+						$("#mc_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "tf") {
+						$("#tf_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
+					} else if (question_types[current_quest] == "sa") {
+						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "essay") {
+						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					}
 				}
 				
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
 				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+			});
+			
+			$('#finish_button').on('click', function(e){
+				points = 0;
+				for (var i = 0; i < correct_answers.length; i++) {
+					if (question_types[i] == "essay") {
+						var correctKeywords = correct_answers[i].split(",");
+						for (var j = 0; j < correctKeywords.length; j++) {
+							correctKeywords[j] = correctKeywords[j].trim();
+						}
+						point_per_ques = 1/correctKeywords.length;
+						for (var j = 0; j < correctKeywords.length; j++) {
+							if (selected[i].includes(correctKeywords[j])) {
+								points += point_per_ques;
+							}
+						}
+					} else {
+						if(selected[i] == correct_answers[i]) {
+							points += 1;
+						}
+					}
+				}
+				alert("You got "+points.toFixed(2)+"/"+correct_answers.length+" marks!");
+			});
+			
+			$(document).on('change', 'input[type=radio]', function(e) {
+				$(document).find("#icon_"+current_quest).attr('class', 'fas fa-check');
+				$(document).find("#icon_"+current_quest).css('color', 'white');
+				$(document).find("#icon_card_"+current_quest).css('background-color', 'green');
+				$(document).find("input[type=radio]").each(function(){
+					if ($(this).is(':checked')){
+						var checked_id = $(this).attr("id");
+						var checked_num = checked_id.substr(checked_id.indexOf("_",7)+1,checked_id.length);
+						selected[current_quest] = checked_num;
+					} 
+				});
+			});
+			
+			$(document).on('change keyup paste', 'textarea', function(e) {
+				$(document).find("#icon_"+current_quest).attr('class', 'fas fa-check');
+				$(document).find("#icon_"+current_quest).css('color', 'white');
+				$(document).find("#icon_card_"+current_quest).css('background-color', 'green');
+				selected[current_quest] = $(this).val();
 			});
 			
 		} );
@@ -303,6 +530,9 @@
 						</div>
 						<div class="col">
 							<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">
+								<div class="row d-flex align-items-center justify-content-center">
+									<img src="" id="ques_image" style="max-height:300px; max-width:100%; height:auto; width:auto; object-fit: contain; object-position: center;">
+								</div>
 								<div class="row mb-4">
 									<span class="" style="font-size: 1rem; font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question"></span>
 								</div>
