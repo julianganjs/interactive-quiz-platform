@@ -360,7 +360,9 @@
 				
 				current_quest = selected_quest;
 				
-				if(current_quest == question_types.length-1){
+				if (question_types.length == 1){
+				
+				} else if(current_quest == question_types.length-1){
 					$("#next_button").prop('hidden', true);
 					$("#finish_button").prop('hidden', false);
 					$("#previous_button").prop('hidden', false);
