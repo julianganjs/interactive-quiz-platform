@@ -196,6 +196,11 @@
 				
                 $("#next_button").prop('disabled', false);
 
+				if (question_types.length == 1) {
+					$("#next_button").prop('hidden', true);
+					$("#finish_button").prop('hidden', false);
+				}
+
                 setTimeout(()=> {
 					$('#loadingModal').modal('toggle');
 				},500);
