@@ -494,6 +494,12 @@
 			
 			$('#confirm_button').on('click', function(e){
 				for (let i = 1; i <= total_question_no; i++) {
+				
+					last = "N";
+					if (i == total_question_no){
+						last = "Y";
+					}
+				
 					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
 					if ( quest_type == "multi_choice") {
@@ -541,7 +547,7 @@
 							data3 += ans;
 							data3 += '"}';
 							
-							update_mc_Answers(mc_answers_id[i-1][j-1] ,JSON.parse(data3));
+							update_mc_Answers(mc_answers_id[i-1][j-1] ,JSON.parse(data3),last);
 						}
 					} else if (quest_type == "true_false") {
 						ques = $(document).find("#tf_question_"+i).val();
@@ -567,7 +573,7 @@
 							data2 += $(document).find("#imageQues_"+i).next('.addImg').html();
 							data2 += '"}';
 						}
-						update_tf_Questions(tf_questions_id[i-1] ,JSON.parse(data2));
+						update_tf_Questions(tf_questions_id[i-1] ,JSON.parse(data2),last);
 					} else if (quest_type == "short_ans") {
 						ques = $(document).find("#sa_question_"+i).val();
 						data2 += ques;
@@ -584,7 +590,7 @@
 							data2 += $(document).find("#imageQues_"+i).next('.addImg').html();
 							data2 += '"}';
 						}
-						update_sa_Questions(sa_questions_id[i-1] ,JSON.parse(data2));
+						update_sa_Questions(sa_questions_id[i-1] ,JSON.parse(data2),last);
 					} else if (quest_type == "essay") {
 						ques = $(document).find("#essay_question_"+i).val();
 						data2 += ques;
@@ -601,7 +607,7 @@
 							data2 += $(document).find("#imageQues_"+i).next('.addImg').html();
 							data2 += '"}';
 						}
-						update_essay_Questions(essay_questions_id[i-1] ,JSON.parse(data2));
+						update_essay_Questions(essay_questions_id[i-1] ,JSON.parse(data2),last);
 					}
 				}
 			});
@@ -611,9 +617,19 @@
 				$('#deleteModal').modal('toggle');
 			});
 			
+			$('#leave_button').on('click', function(e){
+				window.location.replace('editor.html');
+			});
+
+			
 			$('#delete_modal').on('click', function(e){
 				for (var i = 0; i < question_types.length; i++) {
-
+					
+					last = "N";
+					if (i == question_types.length-1){
+						last = "Y";
+					}
+					
 					<!-- alert(qlist_id[i]); -->
 					delete_QuestionList(qlist_id[i]);
 
@@ -625,14 +641,14 @@
 						for (var j = 0; j < mc_answers_id[i].length; j++) {
 							
 							<!-- alert(mc_answers_id[i][j]); -->
-							delete_mc_Answers(mc_answers_id[i][j]);
+							delete_mc_Answers(mc_answers_id[i][j],last);
 						}
 					} else if (question_types[i] == "tf") {
-						delete_tf_Questions(tf_questions_id[i]);
+						delete_tf_Questions(tf_questions_id[i],last);
 					} else if (question_types[i] == "sa") {
-						delete_sa_Questions(sa_questions_id[i]);
+						delete_sa_Questions(sa_questions_id[i],last);
 					} else if (question_types[i] == "essay") {
-						delete_essay_Questions(essay_questions_id[i]);
+						delete_essay_Questions(essay_questions_id[i],last);
 					}
 				}
 
@@ -646,7 +662,7 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));			
+				<!-- alert(JSON.stringify(result.value));			 -->
 			}
 			
 			async function update_mc_Questions(id,data) {
@@ -657,10 +673,10 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				<!-- alert(JSON.stringify(result.value)); -->
 			}
 			
-			async function update_mc_Answers(id,data) {
+			async function update_mc_Answers(id,data,last) {
 				const endpoint = '/data-api/rest/mc_Answers/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "PUT",
@@ -668,10 +684,18 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been updated.');
+					},1000);
+				}
 			}
 			
-			async function update_tf_Questions(id,data) {
+			async function update_tf_Questions(id,data,last) {
 				const endpoint = '/data-api/rest/tf_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "PUT",
@@ -679,10 +703,18 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been updated.');
+					},1000);
+				}
 			}
 			
-			async function update_sa_Questions(id,data) {
+			async function update_sa_Questions(id,data,last) {
 				const endpoint = '/data-api/rest/sa_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "PUT",
@@ -690,10 +722,18 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been updated.');
+					},1000);
+				}
 			}
 			
-			async function update_essay_Questions(id,data) {
+			async function update_essay_Questions(id,data,last) {
 				const endpoint = '/data-api/rest/essay_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "PUT",
@@ -701,7 +741,15 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been updated.');
+					},1000);
+				}
 			}
 			
 			async function delete_QuestionList(id) {
@@ -709,7 +757,7 @@
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));	
+				<!-- alert(JSON.stringify(response));	 -->
 			}
 			
 			async function delete_mc_Questions(id) {
@@ -717,39 +765,71 @@
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));
+				<!-- alert(JSON.stringify(response)); -->
 			}
 			
-			async function delete_mc_Answers(id) {
+			async function delete_mc_Answers(id,last) {
 				const endpoint = '/data-api/rest/mc_Answers/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been deleted.');
+					},1000);
+				}
 			}
 			
-			async function delete_tf_Questions(id) {
+			async function delete_tf_Questions(id,last) {
 				const endpoint = '/data-api/rest/tf_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been deleted.');
+					},1000);
+				}
 			}
 			
-			async function delete_sa_Questions(id) {
+			async function delete_sa_Questions(id,last) {
 				const endpoint = '/data-api/rest/sa_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been deleted.');
+					},1000);
+				}
 			}
 			
-			async function delete_essay_Questions(id) {
+			async function delete_essay_Questions(id,last) {
 				const endpoint = '/data-api/rest/essay_Questions/id';
 				const response = await fetch(`${endpoint}/${id}`, {
 					method: "DELETE"
 				});
-				alert(JSON.stringify(response));
+				if (last == "Y") {
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+						$("#leave_modal_message").html('The quiz has been deleted.');
+					},1000);
+				}
 			}
 			
 		} );
@@ -799,6 +879,20 @@
 		</div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content" style="border-radius: 0px; border:0;">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel1" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Upload Confirmation</h5>
+			</div>
+			<div id="leave_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;"></div>
+			<div class="modal-footer">
+			  <button type="button" class="btn ps-4 pe-4 pt-2 pb-2" id="leave_button" data-bs-dismiss="modal" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">OK</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
 	
 	 <div class="modal fade" id="fileErrorModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
