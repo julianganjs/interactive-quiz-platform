@@ -493,6 +493,7 @@
 			});
 			
 			$('#confirm_button').on('click', function(e){
+				$('#loadingModal').modal('toggle');
 				for (let i = 1; i <= total_question_no; i++) {
 				
 					last = "N";
@@ -623,6 +624,7 @@
 
 			
 			$('#delete_modal').on('click', function(e){
+				$('#loadingModal').modal('toggle');
 				for (var i = 0; i < question_types.length; i++) {
 					
 					last = "N";
