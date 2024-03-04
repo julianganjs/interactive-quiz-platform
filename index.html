@@ -305,9 +305,20 @@
 			$('#submit_button').on('click', function(e){
 				$('#confirmModal').modal('toggle');
 			});
+			
+			$('#leave_button').on('click', function(e){
+				window.location.replace('dashboard.html');
+			});
 
 			$('#confirm_button').on('click', function(e){
+				$('#loadingModal').modal('toggle');
 				for (let i = 1; i <= total_question_no; i++) {
+					
+					last = "N";
+					if (i == total_question_no){
+						last = "Y";
+					}
+				
 					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
 					if ( quest_type == "multi_choice") {
@@ -343,7 +354,7 @@
 							data2 += '", "filename": ""}';
 							mc_Questions(JSON.parse(data2));
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 						
 						for (let j = 1; j <= 4; j++) {
@@ -352,7 +363,7 @@
 							data3 += ans;
 							data3 += '"}';
 							
-							mc_Answers(JSON.parse(data3));
+							mc_Answers(JSON.parse(data3),last);
 						}
 					} else if (quest_type == "true_false") {
 						ques = $(document).find("#tf_question_"+i).val();
@@ -372,9 +383,9 @@
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
 							data2 += '", "filename": ""}';
-							tf_Questions(JSON.parse(data2));
+							tf_Questions(JSON.parse(data2),last);
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "short_ans") {
 						ques = $(document).find("#sa_question_"+i).val();
@@ -386,9 +397,9 @@
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
 							data2 += '", "filename": ""}';
-							sa_Questions(JSON.parse(data2));
+							sa_Questions(JSON.parse(data2),last);
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "essay") {
 						ques = $(document).find("#essay_question_"+i).val();
@@ -400,9 +411,9 @@
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
 							data2 += '", "filename": ""}';
-							essay_Questions(JSON.parse(data2));
+							essay_Questions(JSON.parse(data2),last);
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					}
 				}
@@ -416,7 +427,7 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				<!-- alert(JSON.stringify(result.value)); -->
 			}
 			
 			async function mc_Questions(data) {
@@ -427,10 +438,10 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				<!-- alert(JSON.stringify(result.value)); -->
 			}
 			
-			async function mc_Answers(data) {
+			async function mc_Answers(data,last) {
 				const endpoint = '/data-api/rest/mc_Answers/';
 				const response = await fetch(endpoint, {
 					method: "POST",
@@ -438,10 +449,15 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+					},500);
+				}
 			}
 			
-			async function tf_Questions(data) {
+			async function tf_Questions(data,last) {
 				const endpoint = '/data-api/rest/tf_Questions/';
 				const response = await fetch(endpoint, {
 					method: "POST",
@@ -449,10 +465,15 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+					},500);
+				}
 			}
 			
-			async function sa_Questions(data) {
+			async function sa_Questions(data,last) {
 				const endpoint = '/data-api/rest/sa_Questions/';
 				const response = await fetch(endpoint, {
 					method: "POST",
@@ -460,10 +481,15 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+					},500);
+				}
 			}
 			
-			async function essay_Questions(data) {
+			async function essay_Questions(data,last) {
 				const endpoint = '/data-api/rest/essay_Questions/';
 				const response = await fetch(endpoint, {
 					method: "POST",
@@ -471,7 +497,12 @@
 					body: JSON.stringify(data)
 				});
 				const result = await response.json();
-				alert(JSON.stringify(result.value));
+				if (last == "Y") {
+					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#leaveModal').modal('show');
+					},500);
+				}
 			}
 			
 			var quiz_id;
@@ -543,7 +574,7 @@
 				$(this).prop("hidden", true);
 			});
 			
-			function getBase64(file, data, quest_type, filename) {
+			function getBase64(file, data, quest_type, filename, last) {
 			   var reader = new FileReader();
 			   reader.readAsDataURL(file);
 			   reader.onloadend = function () {
@@ -554,11 +585,11 @@
 					if(quest_type == "multi_choice") {
 						mc_Questions(JSON.parse(data));
 					} else if (quest_type == "true_false") {
-						tf_Questions(JSON.parse(data));
+						tf_Questions(JSON.parse(data),last);
 					} else if (quest_type == "short_ans") {
-						sa_Questions(JSON.parse(data));
+						sa_Questions(JSON.parse(data),last);
 					} else if (quest_type == "essay") {
-						essay_Questions(JSON.parse(data));
+						essay_Questions(JSON.parse(data),last);
 					}
 			   };
 			   reader.onerror = function (error) {
@@ -599,6 +630,32 @@
 		  </div>
 		</div>
 	  </div>
+	  
+	  <div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content" style="border-radius: 0px; border:0;">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel1" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Upload Confirmation</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+			</div>
+			<div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">The quiz has been uploaded and saved.</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn ps-4 pe-4 pt-2 pb-2" id="leave_button" data-bs-dismiss="modal" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">OK</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	 <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+	  <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" style="margin: auto; width: auto; height: auto; border-radius: 0; border:0;">
+		  <div class="modal-body">
+			<img src="assets/images/loading.gif" style="height: 4rem;">
+		  </div>
+		</div>
+	  </div>
+	</div>
+	  
 	<div class="row" style="border-bottom: 1px solid #cfcfcf; background: white; padding-top: 2px; padding-bottom: 3px;">
 		<div class="col" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
 			<img src="assets/images/nottingham-university-logo.jpeg" alt="University of Nottingham" style="height: 3.5rem;">
