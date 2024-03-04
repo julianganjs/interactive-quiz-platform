@@ -445,6 +445,7 @@
 						$(this).next('label').attr("hidden",true);
 					}
 				});
+				$("#submit_button").prop('disabled', false);
 			});
 			
 			$(document).on('change', 'input[type=file]', function(e) {
