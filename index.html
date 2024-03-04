@@ -450,10 +450,12 @@
 				});
 				const result = await response.json();
 				if (last == "Y") {
-					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
 					setTimeout(()=> {
 						$('#leaveModal').modal('show');
-					},500);
+					},1000);
 				}
 			}
 			
@@ -466,10 +468,12 @@
 				});
 				const result = await response.json();
 				if (last == "Y") {
-					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
 					setTimeout(()=> {
 						$('#leaveModal').modal('show');
-					},500);
+					},1000);
 				}
 			}
 			
@@ -482,10 +486,12 @@
 				});
 				const result = await response.json();
 				if (last == "Y") {
-					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
 					setTimeout(()=> {
 						$('#leaveModal').modal('show');
-					},500);
+					},1000);
 				}
 			}
 			
@@ -498,10 +504,12 @@
 				});
 				const result = await response.json();
 				if (last == "Y") {
-					$('#loadingModal').modal('toggle');
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
 					setTimeout(()=> {
 						$('#leaveModal').modal('show');
-					},500);
+					},1000);
 				}
 			}
 			
@@ -636,7 +644,6 @@
 		  <div class="modal-content" style="border-radius: 0px; border:0;">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="exampleModalLabel1" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Upload Confirmation</h5>
-			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
 			</div>
 			<div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">The quiz has been uploaded and saved.</div>
 			<div class="modal-footer">
