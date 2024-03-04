@@ -340,10 +340,10 @@
 						data2 += ', "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
-							data2 += '"}';
+							data2 += '", "filename": ""}';
 							mc_Questions(JSON.parse(data2));
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
 						}
 						
 						for (let j = 1; j <= 4; j++) {
@@ -371,10 +371,10 @@
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
-							data2 += '"}';
+							data2 += '", "filename": ""}';
 							tf_Questions(JSON.parse(data2));
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
 						}
 					} else if (quest_type == "short_ans") {
 						ques = $(document).find("#sa_question_"+i).val();
@@ -385,10 +385,10 @@
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
-							data2 += '"}';
+							data2 += '", "filename": ""}';
 							sa_Questions(JSON.parse(data2));
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
 						}
 					} else if (quest_type == "essay") {
 						ques = $(document).find("#essay_question_"+i).val();
@@ -399,10 +399,10 @@
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
-							data2 += '"}';
+							data2 += '", "filename": ""}';
 							essay_Questions(JSON.parse(data2));
 						} else {
-							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type);
+							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name);
 						}
 					}
 				}
@@ -543,25 +543,21 @@
 				$(this).prop("hidden", true);
 			});
 			
-			function getBase64(file, data, quest_type) {
+			function getBase64(file, data, quest_type, filename) {
 			   var reader = new FileReader();
 			   reader.readAsDataURL(file);
 			   reader.onloadend = function () {
+					data += reader.result;
+					data += '", "filename":"';
+					data += filename;
+					data += '"}';
 					if(quest_type == "multi_choice") {
-						data += reader.result;
-						data += '"}';
 						mc_Questions(JSON.parse(data));
 					} else if (quest_type == "true_false") {
-						data += reader.result;
-						data += '"}';
 						tf_Questions(JSON.parse(data));
 					} else if (quest_type == "short_ans") {
-						data += reader.result;
-						data += '"}';
 						sa_Questions(JSON.parse(data));
 					} else if (quest_type == "essay") {
-						data += reader.result;
-						data += '"}';
 						essay_Questions(JSON.parse(data));
 					}
 			   };
