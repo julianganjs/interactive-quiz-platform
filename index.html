@@ -311,7 +311,7 @@
 			});
 
 			$('#confirm_button').on('click', function(e){
-				$('#loadingModal').modal('toggle');
+				$('#loadingModal').modal('show');
 				for (let i = 1; i <= total_question_no; i++) {
 					
 					last = "N";
@@ -451,7 +451,7 @@
 				const result = await response.json();
 				if (last == "Y") {
 					setTimeout(()=> {
-						$('#loadingModal').modal('toggle');
+						$('#loadingModal').modal('hide');
 					},500);
 					setTimeout(()=> {
 						$("#leave_modal_message").html('The quiz has been uploaded and saved. The quiz ID is "'+quiz_id+'".');
@@ -470,7 +470,7 @@
 				const result = await response.json();
 				if (last == "Y") {
 					setTimeout(()=> {
-						$('#loadingModal').modal('toggle');
+						$('#loadingModal').modal('hide');
 					},500);
 					setTimeout(()=> {
 						$("#leave_modal_message").html('The quiz has been uploaded and saved. The quiz ID is "'+quiz_id+'".');
@@ -489,7 +489,7 @@
 				const result = await response.json();
 				if (last == "Y") {
 					setTimeout(()=> {
-						$('#loadingModal').modal('toggle');
+						$('#loadingModal').modal('hide');
 					},500);
 					setTimeout(()=> {
 						$("#leave_modal_message").html('The quiz has been uploaded and saved. The quiz ID is "'+quiz_id+'".');
@@ -508,7 +508,7 @@
 				const result = await response.json();
 				if (last == "Y") {
 					setTimeout(()=> {
-						$('#loadingModal').modal('toggle');
+						$('#loadingModal').modal('hide');
 					},500);
 					setTimeout(()=> {
 						$("#leave_modal_message").html('The quiz has been uploaded and saved. The quiz ID is "'+quiz_id+'".');
