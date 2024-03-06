@@ -453,6 +453,11 @@
 								points += point_per_ques;
 							}
 						}
+					} else if (question_types[i] == "sa") {
+						if(selected[i].replace(/\s\s+/g, ' ').trim() == correct_answers[i]) {
+							points += 1;
+						}
+						
 					} else {
 						if(selected[i] == correct_answers[i]) {
 							points += 1;

@@ -581,7 +581,7 @@
 						data2 += ques;
 						data2 += '", "correct_ans": "';
 						ans = $(document).find("#sa_ans_"+i).val();
-						data2 += ans.toLowerCase();
+						data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 						data2 += '", "image" : "';
 						file_status = $(document).find("#dispImg_"+i).attr('src');
 						if (file_status == ""){
@@ -598,7 +598,7 @@
 						data2 += ques;
 						data2 += '", "correct_keywords": "';
 						ans = $(document).find("#essay_ans_"+i).val();
-						data2 += ans.toLowerCase();
+						data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 						data2 += '", "image" : "';
 						file_status = $(document).find("#dispImg_"+i).attr('src');
 						if (file_status == ""){
