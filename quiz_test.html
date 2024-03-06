@@ -481,7 +481,7 @@
 			});
 			
 			$(document).on('change keyup paste', 'textarea', function(e) {
-				$(document).find("#icon_"+current_quest).attr('class', 'fas fa-check');
+				$(document).find("#icon_"+current_quest).attr('class', 'far fa-circle');
 				$(document).find("#icon_"+current_quest).css('color', 'white');
 				$(document).find("#icon_card_"+current_quest).css('background-color', 'green');
 				selected[current_quest] = $(this).val();
