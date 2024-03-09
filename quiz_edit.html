@@ -721,7 +721,61 @@
 			});
 			
 			$('#submit_button').on('click', function(e){
-				$('#confirmModal').modal('toggle');
+				error = "N";
+				$(document).find("textarea.formula").each(function(){
+					formula_id = $(this).attr('id').substr(-1);
+					formula = $(this).val().replace(/\s/g,'');
+					if (formula == "") {
+						$("#calc_modal_title").html('Error in Question '+formula_id);
+						$("#calc_modal_message").html('Please ensure a valid formula is entered!');
+						$("#calcErrorModal").modal('show');
+						error = "Y";
+					} else {
+						formula_split = formula.split("=");
+						if (formula_split[0].length == 1 && formula_split[0].match(/[a-z]/i)) {
+							out_var = $(this).parent().parent().siblings('div.var_row').children('div.col-2').children('textarea').val().replace(/\s/g,'');
+							if (out_var.length == 1 && out_var == formula_split[0]) {
+								in_var = $(this).parent().parent().siblings('div.var_row').children('div.col-3').children('textarea').val().replace(/\s/g,'');
+								ranges = $(this).parent().parent().siblings('div.var_row').children('div.col-7').children('textarea').val().replace(/\s/g,'');
+								if (in_var != "" && ranges != "") {
+									in_var_split = in_var.split(",");
+									flag = "Y";
+									for (var i = 0; i < in_var_split.length; i++) {
+										if(!ranges.includes(in_var_split[i])) {
+											flag = "N";
+										}
+									}
+									if (flag != "Y") {
+										$("#calc_modal_title").html('Error in Question '+formula_id);
+										$("#calc_modal_message").html('Please ensure each input variable has a corresponding range entered according to the format.');
+										$("#calcErrorModal").modal('show');
+										error = "Y";
+									} 
+								} else {
+									$("#calc_modal_title").html('Error in Question '+formula_id);
+									$("#calc_modal_message").html('Please ensure valid input variable(s) and range(s) are entered according to the format.');
+									$("#calcErrorModal").modal('show');
+									error = "Y";
+								}
+							} else {
+								$("#calc_modal_title").html('Error in Question '+formula_id);
+								$("#calc_modal_message").html('The output variable does not match the formula!');
+								$("#calcErrorModal").modal('show');
+								error = "Y";
+							}
+						} else {
+							$("#calc_modal_title").html('Error in Question '+formula_id);
+							$("#calc_modal_message").html('Please ensure the formula is in the format of "OutputVariable = CalculationOfInputVariable(s)"!');
+							$("#calcErrorModal").modal('show');
+							error = "Y";
+						}
+					}
+					
+				});
+				
+				if(error == "N"){
+					$('#confirmModal').modal('toggle');
+				}
 			});
 			
 			$('#confirm_button').on('click', function(e){
