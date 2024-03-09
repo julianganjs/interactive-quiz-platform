@@ -274,7 +274,9 @@
 										}
 									}							
 								}
-								
+								alert(correct_answers[i]);
+								alert(main_answer);
+								alert(calc_multi_answers);
 								break;
 							}
 						}
@@ -682,7 +684,7 @@
 						
 					} else if (question_types[i] == "calc") {
 						if(selected[i].replace(/\s/g,'') != "") {
-							if(selected[i].replace(/\s/g,'').toFixed(2) == correct_answers[i]) {
+							if(Number(selected[i].replace(/\s/g,'')).toFixed(2).toString() == correct_answers[i]) {
 								points += 1;
 							}
 						}
