@@ -743,6 +743,10 @@
 						data1 += 'sa"}';
 					} else if (quest_type == "essay") {
 						data1 += 'essay"}';
+					} else if (quest_type == "calc") {
+						data1 += 'calc"}';
+					} else if (quest_type == "calc_multi") {
+						data1 += 'calc_multi"}';
 					}
 					<!-- alert(data1); -->
 					update_QuestionList(qlist_id[i-1],JSON.parse(data1));
