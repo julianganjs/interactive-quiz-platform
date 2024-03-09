@@ -491,6 +491,7 @@
 			});
 
 			$('#confirm_button').on('click', function(e){
+				error = "N";
 				$(document).find("textarea.formula").each(function(){
 					formula_id = $(this).attr('id').substr(-1);
 					formula = $(this).val().replace(/\s/g,'');
@@ -498,6 +499,7 @@
 						$("#calc_modal_title").html('Error in Question '+formula_id);
 						$("#calc_modal_message").html('Please ensure a valid formula is entered!');
 						$("#calcErrorModal").modal('show');
+						error = "Y";
 					} else {
 						formula_split = formula.split("=");
 						if (formula_split[0].length == 1 && formula_split[0].match(/[a-z]/i)) {
@@ -513,31 +515,38 @@
 											flag = "N";
 										}
 									}
-									if (flag == "Y") {
-										uploadQuestions();
-									} else {
+									if (flag != "Y") {
 										$("#calc_modal_title").html('Error in Question '+formula_id);
 										$("#calc_modal_message").html('Please ensure each input variable has a corresponding range entered according to the format.');
 										$("#calcErrorModal").modal('show');
-									}
+										error = "Y";
+									} 
 								} else {
 									$("#calc_modal_title").html('Error in Question '+formula_id);
 									$("#calc_modal_message").html('Please ensure valid input variable(s) and range(s) are entered according to the format.');
 									$("#calcErrorModal").modal('show');
+									error = "Y";
 								}
 							} else {
 								$("#calc_modal_title").html('Error in Question '+formula_id);
 								$("#calc_modal_message").html('The output variable does not match the formula!');
 								$("#calcErrorModal").modal('show');
+								error = "Y";
 							}
 						} else {
 							$("#calc_modal_title").html('Error in Question '+formula_id);
 							$("#calc_modal_message").html('Please ensure the formula is in the format of "OutputVariable = CalculationOfInputVariable(s)"!');
 							$("#calcErrorModal").modal('show');
+							error = "Y";
 						}
 					}
 					
 				});
+				
+				if(error == "N"){
+					uploadQuestions();
+				}
+				
 			});
 			
 			function uploadQuestions() {
@@ -915,7 +924,7 @@
 					} else if (quest_type == "essay") {
 						essay_Questions(JSON.parse(data),last);
 					} else if (quest_type == "calc") {
-						essay_Questions(JSON.parse(data),last);
+						calc_Questions(JSON.parse(data),last);
 					} else if (quest_type == "calc_multi") {
 						multiCalc_Questions(JSON.parse(data),last);
 					}
