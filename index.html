@@ -479,14 +479,6 @@
 			});
 			
 			$('#submit_button').on('click', function(e){
-				$('#confirmModal').modal('toggle');
-			});
-			
-			$('#leave_button').on('click', function(e){
-				window.location.replace('dashboard.html');
-			});
-
-			$('#confirm_button').on('click', function(e){
 				error = "N";
 				$(document).find("textarea.formula").each(function(){
 					formula_id = $(this).attr('id').substr(-1);
@@ -540,12 +532,15 @@
 				});
 				
 				if(error == "N"){
-					uploadQuestions();
+					$('#confirmModal').modal('toggle');
 				}
-				
 			});
 			
-			function uploadQuestions() {
+			$('#leave_button').on('click', function(e){
+				window.location.replace('dashboard.html');
+			});
+
+			$('#confirm_button').on('click', function(e){
 				$('#loadingModal').modal('show');
 				for (let i = 1; i <= total_question_no; i++) {
 					
@@ -696,7 +691,7 @@
 						}
 					}
 				}
-			}
+			});
 
 			async function QuestionList(data) {
 				const endpoint = '/data-api/rest/QuestionList/';
