@@ -437,7 +437,7 @@
 									'</div>');
 					$("#question_type").html("Calculated");
 				} else if (question_types[current_quest] == "calc_multi") {
-					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+					for (var i = 0; i < calc_multi_answers[current_quest].length; i++) { 
 						$("#answers").append('<div class="form-check mb-2">'+
 										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
 										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
@@ -531,7 +531,7 @@
 									'</div>');
 					$("#question_type").html("Calculated");
 				} else if (question_types[current_quest] == "calc_multi") {
-					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+					for (var i = 0; i < calc_multi_answers[current_quest].length; i++) { 
 						$("#answers").append('<div class="form-check mb-2">'+
 										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
 										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
@@ -635,7 +635,7 @@
 									'</div>');
 					$("#question_type").html("Calculated");
 				} else if (question_types[current_quest] == "calc_multi") {
-					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+					for (var i = 0; i < calc_multi_answers[current_quest].length; i++) { 
 						$("#answers").append('<div class="form-check mb-2">'+
 										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
 										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
