@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/math.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
@@ -32,6 +33,7 @@
 			question_types = [];
 			questions = [];
 			mc_answers = [[],[]];
+			calc_multi_answers = [[],[]];
 			correct_answers = [];
 			selected = [];
 			
@@ -43,7 +45,7 @@
 				const response = await fetch(endpoint);
 				const data = await response.json();
 				
-				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"tf"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"mc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"sa"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"essay"}]}'); -->
+				<!-- data = JSON.parse('{"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","q_type":"calc_multi"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","q_type":"calc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"sa"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"essay"}]}'); -->
 				
 				for (var i = 0; i < data.value.length; i++) { 
                     if (data.value[i].quiz_id == quizID) {
@@ -97,7 +99,7 @@
 						const response4 = await fetch(endpoint4);
 						const data4 = await response4.json();
 						
-						<!-- data4 = JSON.parse('{"value":[{"id":1,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"fessfesfe","correct_ans_id":"f","image":""}]}'); -->
+						<!-- data4 = JSON.parse('{"value":[{"id":1,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"fessfesfe","correct_ans_id":"f","image":""}]}'); -->
 						
 						for (var j = 0; j < data4.value.length; j++) {
 							if(data4.value[j].quiz_id == quizID && Number(data4.value[j].q_id) == i+1){
@@ -137,10 +139,148 @@
 								break;
 							}
 						}
+					} else if (question_types[i] == "calc") {
+						const endpoint7 = '/data-api/rest/calc_Questions';
+						const response7 = await fetch(endpoint7);
+						const data7 = await response7.json();
+						
+						<!-- data7 = JSON.parse('{"value":[{"id":3,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"2","question":"Given that a is *a* and b is, find x.","formula":"x=(2^a)","out_var":"x","in_var":"a","range":"a=1-20","image":"assets/images/purple.jpg","filename":"background.jpg"}]}'); -->
+						
+						for (var j = 0; j < data7.value.length; j++) {
+							if(data7.value[j].quiz_id == quizID && Number(data7.value[j].q_id) == i+1){
+								question_before = data7.value[j].question;
+								var indices = [];
+								var characters = [];
+								var ranges = [];
+								var nums = [];
+								for(var k=0; k < question_before.length; k++) {
+									if (question_before[k] == "*") indices.push(k);
+								}
+								for(var k=0; k < indices.length; k++) {
+									characters.push(question_before.substring(indices[k]+1, indices[k+1]));
+									k++;
+								}
+								range_before = data7.value[j].range.replace(/\s/g,'').split(",");
+								for(var k=0; k < range_before.length; k++) {
+									range_middle = range_before[k].split("=");
+									for(var m=0; m < characters.length; m++) {
+										if(characters[m] == range_middle[0]) ranges[m] = range_middle[1];
+									}
+								}
+								var parser = math.parser();					
+								for(var k=0; k < characters.length; k++) {
+									range_end = ranges[k].split("-");
+									nums[k] = Math.floor((Math.random() * Number(range_end[1])) + Number(range_end[0]));
+									parser.set(characters[k], nums[k]);
+								}
+								formula = data7.value[j].formula.replace(/\s/g,'');
+								correct_answers[i] = parser.evaluate(formula).toFixed(2);
+								parser.clear();								
+								questions[i] = question_before.substring(0,indices[0]);
+								questions[i] += nums[0].toString();						
+								nums_count = 1;
+								for(var k=1; k < indices.length-1; k++) {
+									questions[i] += question_before.substring(indices[k]+1,indices[k+1]);
+									questions[i] += nums[nums_count].toString();
+									k++;
+									nums_count++;
+								}
+								questions[i] += question_before.substring(indices[indices.length-1]+1,question_before.length);
+								images[i] = data7.value[j].image;
+								break;
+							}
+						}
+					} else if (question_types[i] == "calc_multi") {
+						calc_multi_answers[i] = [];
+					
+						const endpoint8 = '/data-api/rest/multiCalc_Questions';
+						const response8 = await fetch(endpoint8);
+						const data8 = await response8.json();
+						
+						<!-- data8 = JSON.parse('{"value":[{"id":3,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"1","question":"Given that a is *a* and b is *b*, find x.","formula":"x=sqrt(b)/(2*a)","out_var":"x","in_var":"a,b","range":"a=1-20,b=1-20","answer_format":"The value of x is *x*.","image":"assets/images/purple.jpg","filename":"background.jpg"}]}'); -->
+						
+						for (var j = 0; j < data8.value.length; j++) {
+							if(data8.value[j].quiz_id == quizID && Number(data8.value[j].q_id) == i+1){
+								question_before = data8.value[j].question;
+								var main_answer = 0;
+								var indices = [];
+								var characters = [];
+								var ranges = [];
+								var nums = [];
+								for(var k=0; k < question_before.length; k++) {
+									if (question_before[k] == "*") indices.push(k);
+								}
+								for(var k=0; k < indices.length; k++) {
+									characters.push(question_before.substring(indices[k]+1, indices[k+1]));
+									k++;
+								}
+								range_before = data8.value[j].range.replace(/\s/g,'').split(",");
+								for(var k=0; k < range_before.length; k++) {
+									range_middle = range_before[k].split("=");
+									for(var m=0; m < characters.length; m++) {
+										if(characters[m] == range_middle[0]) ranges[m] = range_middle[1];
+									}
+								}
+								var parser = math.parser();					
+								for(var k=0; k < characters.length; k++) {
+									range_end = ranges[k].split("-");
+									nums[k] = Math.floor((Math.random() * Number(range_end[1])) + Number(range_end[0]));
+									parser.set(characters[k], nums[k]);
+								}
+								formula = data8.value[j].formula.replace(/\s/g,'');
+								main_answer = parser.evaluate(formula);
+								parser.clear();								
+								questions[i] = question_before.substring(0,indices[0]);
+								questions[i] += nums[0].toString();						
+								nums_count = 1;
+								for(var k=1; k < indices.length-1; k++) {
+									questions[i] += question_before.substring(indices[k]+1,indices[k+1]);
+									questions[i] += nums[nums_count].toString();
+									k++;
+									nums_count++;
+								}
+								questions[i] += question_before.substring(indices[indices.length-1]+1,question_before.length);
+								images[i] = data8.value[j].image;
+								
+								correct_answers[i] = Math.floor((Math.random() * 4) + 1);
+								
+								answer_before = data8.value[j].answer_format;
+								if (answer_before == "") {
+									calc_multi_answers[i][correct_answers[i]-1] = main_answer.toFixed(2).toString();
+									for (var k = 0; k < 4; k++) {
+										if (k != (correct_answers[i]-1)) {
+											rando = (Math.random() * 15) - 10;
+											calc_multi_answers[i][k] = (main_answer+rando).toFixed(2).toString();
+										}
+									}
+								} else {
+									var indices2 = [];
+									for(var k=0; k < answer_before.length; k++) {
+										if (answer_before[k] == "*") indices2.push(k);
+									}
+									
+									answer_middle = answer_before.substring(0,indices2[0]);
+									answer_middle += main_answer.toFixed(2).toString();
+									answer_middle += answer_before.substring(indices2[1]+1,answer_before.length);
+									calc_multi_answers[i][correct_answers[i]-1] = answer_middle;
+									
+									for (var k = 0; k < 4; k++) {
+										if (k != (correct_answers[i]-1)) {
+											answer_middle = answer_before.substring(0,indices2[0]);
+											rando = (Math.random() * 10) - 10;
+											answer_middle += (Number(main_answer)+rando).toFixed(2).toString();
+											answer_middle += answer_before.substring(indices2[1]+1,answer_before.length);
+											calc_multi_answers[i][k] = answer_middle;
+										}
+									}							
+								}
+								
+								break;
+							}
+						}
+						
 					}
                 }
-				
-				
 				
 				$("#question").html(questions[0]);
 				
@@ -187,6 +327,22 @@
 									'<textarea class="form-control mb-1" id="essay_ans_1" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
 									'</div>');
 					$("#question_type").html("Essay");
+				} else if (question_types[0] == "calc") {
+					$("#answers").append('<div class="row">'+
+											'<label for="calc_ans_1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1 calc" id="calc_ans_1" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Calculated");
+				} else if (question_types[0] == "calc_multi") {
+					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="cm_correct_radio_1" id="cm_ans_1_'+(i+1)+'">'+
+										'<label class="form-check-label" for="cm_ans_1_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[0][i]+'</label>'+
+									'</div>');
+					}
+					$("#question_type").html("Calculated Multichoice");
 				}
 				
 				
@@ -207,6 +363,12 @@
 			}
 			
 			get_questions();
+			
+			$(document).on('change keyup paste', 'textarea.calc', function(e) {
+				var sanitized = $(this).val().replace(/[^0-9.]/g,'');
+				$(this).val(sanitized);
+			});
+			
 			
 			$('#next_button').on('click', function(e){
 			
@@ -263,6 +425,22 @@
 									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
 									'</div>');
 					$("#question_type").html("Essay");
+				} else if (question_types[current_quest] == "calc") {
+					$("#answers").append('<div class="row">'+
+											'<label for="calc_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1 calc" id="calc_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Calculated");
+				} else if (question_types[current_quest] == "calc_multi") {
+					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
+									'</div>');
+					}
+					$("#question_type").html("Calculated Multichoice");
 				}
 				
 				if (selected[current_quest] != "") {
@@ -274,6 +452,10 @@
 						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
 					} else if (question_types[current_quest] == "essay") {
 						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc") {
+						$("#calc_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc_multi") {
+						$("#cm_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
 					}
 				}
 				
@@ -337,6 +519,22 @@
 									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
 									'</div>');
 					$("#question_type").html("Essay");
+				} else if (question_types[current_quest] == "calc") {
+					$("#answers").append('<div class="row">'+
+											'<label for="calc_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1 calc" id="calc_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Calculated");
+				} else if (question_types[current_quest] == "calc_multi") {
+					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
+									'</div>');
+					}
+					$("#question_type").html("Calculated Multichoice");
 				}
 				
 				if (selected[current_quest] != "") {
@@ -348,6 +546,10 @@
 						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
 					} else if (question_types[current_quest] == "essay") {
 						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc") {
+						$("#calc_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc_multi") {
+						$("#cm_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
 					}
 				}
 				
@@ -421,6 +623,22 @@
 									'<textarea class="form-control mb-1" id="essay_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="15"></textarea>'+
 									'</div>');
 					$("#question_type").html("Essay");
+				} else if (question_types[current_quest] == "calc") {
+					$("#answers").append('<div class="row">'+
+											'<label for="calc_ans_'+(current_quest+1)+'" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; margin-left: -10px;">Please enter your answer.</label>'+
+									'</div>'+
+									'<div class="row">'+
+									'<textarea class="form-control mb-1 calc" id="calc_ans_'+(current_quest+1)+'" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+									'</div>');
+					$("#question_type").html("Calculated");
+				} else if (question_types[current_quest] == "calc_multi") {
+					for (var i = 0; i < calc_multi_answers[0].length; i++) { 
+						$("#answers").append('<div class="form-check mb-2">'+
+										'<input class="form-check-input" type="radio" name="cm_correct_radio_'+(current_quest+1)+'" id="cm_ans_'+(current_quest+1)+'_'+(i+1)+'">'+
+										'<label class="form-check-label" for="cm_ans_'+(current_quest+1)+'_'+(i+1)+'" style="font-size: 0.95rem; color: black; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+calc_multi_answers[current_quest][i]+'</label>'+
+									'</div>');
+					}
+					$("#question_type").html("Calculated Multichoice");
 				}
 				
 				if (selected[current_quest] != "") {
@@ -432,6 +650,10 @@
 						$("#sa_ans_"+(current_quest+1)).val(selected[current_quest]);
 					} else if (question_types[current_quest] == "essay") {
 						$("#essay_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc") {
+						$("#calc_ans_"+(current_quest+1)).val(selected[current_quest]);
+					} else if (question_types[current_quest] == "calc_multi") {
+						$("#cm_ans_"+(current_quest+1)+"_"+selected[current_quest]).prop("checked", true);
 					}
 				}
 				
@@ -456,6 +678,13 @@
 					} else if (question_types[i] == "sa") {
 						if(selected[i].replace(/\s\s+/g, ' ').trim() == correct_answers[i]) {
 							points += 1;
+						}
+						
+					} else if (question_types[i] == "calc") {
+						if(selected[i].replace(/\s/g,'') != "") {
+							if(selected[i].replace(/\s/g,'').toFixed(2) == correct_answers[i]) {
+								points += 1;
+							}
 						}
 						
 					} else {
