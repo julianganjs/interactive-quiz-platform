@@ -112,6 +112,24 @@
           "role": "anonymous"
         }
       ]
+    },
+    "calc_Questions": {
+      "source": "dbo.calc_Questions",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "multiCalc_Questions": {
+      "source": "dbo.multiCalc_Questions",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
