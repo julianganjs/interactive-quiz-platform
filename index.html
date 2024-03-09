@@ -379,7 +379,7 @@
 											'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+total_question_no+'</span>'+
 										'</div>'+
 										'<div class="row">'+
-											'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Calculated Multichoice</span>'+
+											'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Calculated</span>'+
 										'</div>'+
 										'<div class="row">'+
 											'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.</span>'+
@@ -658,13 +658,13 @@
 						ques = $(document).find("#calc_question_"+i).val();
 						data2 += ques;
 						data2 += '", "formula": "';
-						data2 += $(document).find("#calc_formula_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_formula_"+i).val();
 						data2 += '", "out_var": "';
-						data2 += $(document).find("#calc_output_var_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_output_var_"+i).val();
 						data2 += '", "in_var": "';
-						data2 += $(document).find("#calc_input_var_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_input_var_"+i).val();
 						data2 += '", "range": "';
-						data2 += $(document).find("#calc_range_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_range_"+i).val();
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
@@ -677,13 +677,13 @@
 						ques = $(document).find("#calc_multi_question_"+i).val();
 						data2 += ques;
 						data2 += '", "formula": "';
-						data2 += $(document).find("#calc_multi_formula_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_multi_formula_"+i).val();
 						data2 += '", "out_var": "';
-						data2 += $(document).find("#calc_multi_output_var_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_multi_output_var_"+i).val();
 						data2 += '", "in_var": "';
-						data2 += $(document).find("#calc_multi_input_var_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_multi_input_var_"+i).val();
 						data2 += '", "range": "';
-						data2 += $(document).find("#calc_multi_range_"+i).val().replace(/\s/g,'');
+						data2 += $(document).find("#calc_multi_range_"+i).val();
 						data2 += '", "answer_format": "';
 						data2 += $(document).find("#calc_multi_ans_"+i).val();
 						data2 += '", "image" : "';
