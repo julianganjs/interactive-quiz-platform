@@ -130,6 +130,78 @@
           "role": "anonymous"
         }
       ]
+    },
+    "QuestionList_QBank": {
+      "source": "dbo.QuestionList_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "mc_Questions_QBank": {
+      "source": "dbo.mc_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "mc_Answers_QBank": {
+      "source": "dbo.mc_Answers_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "tf_Questions_QBank": {
+      "source": "dbo.tf_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "sa_Questions_QBank": {
+      "source": "dbo.sa_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "essay_Questions_QBank": {
+      "source": "dbo.essay_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "calc_Questions_QBank": {
+      "source": "dbo.calc_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
+    },
+    "multiCalc_Questions_QBank": {
+      "source": "dbo.multiCalc_Questions_QBank",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
