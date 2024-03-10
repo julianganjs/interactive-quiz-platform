@@ -67,7 +67,7 @@
 						question_number_memory.push(total_question_no);
 						if (question_types[i] == "mc") {
 							mc_answers_id[i] = [];
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 								'<input class="quest_type" type="hidden" value="multi_choice">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
@@ -167,7 +167,7 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "tf") {
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 							'<input class="quest_type" type="hidden" value="true_false">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
@@ -233,7 +233,7 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "sa") {
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 							'<input class="quest_type" type="hidden" value="short_ans">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
@@ -283,7 +283,7 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "essay") {
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 							'<input class="quest_type" type="hidden" value="essay">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
@@ -334,7 +334,7 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "calc") {
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 							'<input class="quest_type" type="hidden" value="calc">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 									'<hr style="color: #bbbbbb;">'+
@@ -421,7 +421,7 @@
 								'</div>'+
 							'</div>');
 						} else if (question_types[i] == "calc_multi") {
-							$("#question_list").append('<div class="row" id="ques_list_item_'+(i+1)+'">'+
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'">'+
 							'<input class="quest_type" type="hidden" value="calc_multi">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 									'<hr style="color: #bbbbbb;">'+
