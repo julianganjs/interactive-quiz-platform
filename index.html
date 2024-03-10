@@ -69,8 +69,8 @@
 										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 											'<div class="col-auto">'+
 												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" disabled hidden type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-												'<input type="file" style="display:none" accept="image/*">'+
-												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+												'<input type="file" id="imageQues_'+(i+1)+'_QBank" style="display:none" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
 												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 											'</div>'+
 											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
@@ -169,8 +169,8 @@
 										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 											'<div class="col-auto">'+
 												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-												'<input type="file" style="display:none" accept="image/*">'+
-												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+												'<input type="file" id="imageQues_'+(i+1)+'_QBank" style="display:none" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
 												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 											'</div>'+
 											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
@@ -235,8 +235,8 @@
 											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 											'<div class="col-auto">'+
 												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-												'<input type="file" style="display:none" accept="image/*">'+
-												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" >Insert Image For Question</button>'+
+												'<input type="file" style="display:none" id="imageQues_'+(i+1)+'_QBank" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" >Insert Image For Question</button>'+
 												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 											'</div>'+
 											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
@@ -285,8 +285,8 @@
 										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 										'<div class="col-auto">'+
 											'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" disabled hidden type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-											'<input type="file" style="display:none" accept="image/*">'+
-											'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+											'<input type="file" style="display:none" id="imageQues_'+(i+1)+'_QBank" accept="image/*">'+
+											'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
 											'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 										'</div>'+
 											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
@@ -336,8 +336,8 @@
 											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 												'<div class="col-auto">'+
 													'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-													'<input type="file" style="display:none" accept="image/*">'+
-													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+													'<input type="file" style="display:none" id="imageQues_'+(i+1)+'_QBank" accept="image/*">'+
+													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
 													'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 												'</div>'+
 													'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
@@ -423,8 +423,8 @@
 											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
 												'<div class="col-auto">'+
 													'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
-													'<input type="file" style="display:none" accept="image/*">'+
-													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+													'<input type="file" style="display:none" id="imageQues_'+(i+1)+'_QBank" accept="image/*">'+
+													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" disabled style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
 													'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
 												'</div>'+
 												'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
