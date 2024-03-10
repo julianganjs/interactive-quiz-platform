@@ -1325,13 +1325,16 @@
 							
 							data2 += correct_ans_id.charAt(15);
 							data2 += ', "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								mc_Questions_QBank(JSON.parse(data2));
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							mc_Questions_QBank(JSON.parse(data2));
 							
 							for (let j = 1; j <= 4; j++) {
 								data3 = '{"course_id": "'+course_id+'", "q_id": '+ques_num_counter.toString()+', "ans_id": '+j+', "answer": "';
@@ -1356,13 +1359,17 @@
 							
 							data2 += correct_ans_id.charAt(15);
 							data2 += '", "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								tf_Questions_QBank(JSON.parse(data2),last);
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							tf_Questions_QBank(JSON.parse(data2),last);
+							
 						} else if (quest_type == "short_ans") {
 							ques = $(document).find("#sa_question_"+question_number_memory[i].toString()).val();
 							data2 += ques;
@@ -1370,13 +1377,17 @@
 							ans = $(document).find("#sa_ans_"+question_number_memory[i].toString()).val();
 							data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 							data2 += '", "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								sa_Questions_QBank(JSON.parse(data2),last);
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							sa_Questions_QBank(JSON.parse(data2),last);
+
 						} else if (quest_type == "essay") {
 							ques = $(document).find("#essay_question_"+question_number_memory[i].toString()).val();
 							data2 += ques;
@@ -1384,13 +1395,17 @@
 							ans = $(document).find("#essay_ans_"+question_number_memory[i].toString()).val();
 							data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 							data2 += '", "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								essay_Questions_QBank(JSON.parse(data2),last);
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							essay_Questions_QBank(JSON.parse(data2),last);
+
 						} else if (quest_type == "calc") {
 							ques = $(document).find("#calc_question_"+question_number_memory[i].toString()).val();
 							data2 += ques;
@@ -1403,13 +1418,17 @@
 							data2 += '", "range": "';
 							data2 += $(document).find("#calc_range_"+question_number_memory[i].toString()).val();
 							data2 += '", "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								calc_Questions_QBank(JSON.parse(data2),last);
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							calc_Questions_QBank(JSON.parse(data2),last);
+							
 						} else if (quest_type == "calc_multi") {
 							ques = $(document).find("#calc_multi_question_"+question_number_memory[i].toString()).val();
 							data2 += ques;
@@ -1424,13 +1443,17 @@
 							data2 += '", "answer_format": "';
 							data2 += $(document).find("#calc_multi_ans_"+question_number_memory[i].toString()).val();
 							data2 += '", "image" : "';
-							file_status = $(document).find("#imageQues_"+question_number_memory[i].toString()).val();
+							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
 								data2 += '", "filename": ""}';
-								multiCalc_Questions_QBank(JSON.parse(data2),last);
 							} else {
-								getBase64($(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+question_number_memory[i].toString()).prop('files')[0].name,last);
+								data2 += file_status;
+								data2 += '", "filename":"';
+								data2 += $(document).find("#imageQues_"+question_number_memory[i].toString()).next('.addImg').html();
+								data2 += '"}';
 							}
+							multiCalc_Questions_QBank(JSON.parse(data2),last);
+							
 						}
 					}
 				}
@@ -1679,33 +1702,6 @@
 				$("#submit_button").prop('disabled', false);
 			});
 			
-			function getBase64(file, data, quest_type, filename, last) {
-			   var reader = new FileReader();
-			   reader.readAsDataURL(file);
-			   reader.onloadend = function () {
-					data += reader.result;
-					data += '", "filename":"';
-					data += filename;
-					data += '"}';
-					if(quest_type == "multi_choice") {
-						mc_Questions_QBank(JSON.parse(data));
-					} else if (quest_type == "true_false") {
-						tf_Questions_QBank(JSON.parse(data),last);
-					} else if (quest_type == "short_ans") {
-						sa_Questions_QBank(JSON.parse(data),last);
-					} else if (quest_type == "essay") {
-						essay_Questions_QBank(JSON.parse(data),last);
-					} else if (quest_type == "calc") {
-						calc_Questions_QBank(JSON.parse(data),last);
-					} else if (quest_type == "calc_multi") {
-						multiCalc_Questions_QBank(JSON.parse(data),last);
-					}
-			   };
-			   reader.onerror = function (error) {
-				 console.log('Error: ', error);
-			   };
-			}
-			
 			$(document).on('change keyup paste', 'textarea.formula', function(e) {
 				text = $(this).val();
 				if (text == "") {
@@ -1788,12 +1784,11 @@
 	  </div>
 	</div>
 
-	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true">
+	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content" style="border-radius: 0px; border:0;">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="calc_modal_title" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;"></h5>
-			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
 			</div>
 			<div id="calc_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;"></div>
 			<div class="modal-footer">
