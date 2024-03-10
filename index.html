@@ -216,6 +216,26 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
+
+							
+					$(document).find("#tf_question_"+total_question_no).val(toBeAdded.find("#tf_question_"+toBeAdded_id+"_QBank").val());
+					
+					$("#QBank_"+toBeAdded_id).find("input[type=radio]").each(function(){
+						if ($(this).is(':checked')){
+							correct_ans_id = $(this).attr('id');
+						} 
+					});
+					$(document).find("#tf_correct_ans_"+correct_ans_id.charAt(15)+"_"+total_question_no).prop('checked', true);
+					
+					if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
+						$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
+						$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').html(toBeAdded.find("#imageQues_"+toBeAdded_id+"_QBank").next('.addImg').html());
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+						$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+					} 
+				
+				
 				} else if (toBeAdded_type == "short_ans"){
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+toBeAdded_type+'">'+
@@ -260,6 +280,18 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
+				
+					$(document).find("#sa_question_"+total_question_no).val(toBeAdded.find("#sa_question_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#sa_ans_"+total_question_no).val(toBeAdded.find("#sa_ans_"+toBeAdded_id+"_QBank").val());
+					
+					if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
+						$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
+						$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').html(toBeAdded.find("#imageQues_"+toBeAdded_id+"_QBank").next('.addImg').html());
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+						$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+					} 
+				
 				} else if (toBeAdded_type == "essay"){
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+toBeAdded_type+'">'+
@@ -305,6 +337,18 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
+				
+					$(document).find("#essay_question_"+total_question_no).val(toBeAdded.find("#essay_question_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#essay_ans_"+total_question_no).val(toBeAdded.find("#essay_question_"+toBeAdded_id+"_QBank").val());
+					
+					if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
+						$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
+						$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').html(toBeAdded.find("#imageQues_"+toBeAdded_id+"_QBank").next('.addImg').html());
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+						$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+					} 
+				
 				} else if (toBeAdded_type == "calc"){
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+toBeAdded_type+'">'+
@@ -388,7 +432,23 @@
 							'</div>'+
 						'</div>'+
 					'</div>');
+					
+					$(document).find("#calc_formula_"+total_question_no).val(toBeAdded.find("#calc_formula_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#calc_formula_"+total_question_no).parent().siblings('div.col').children('div.card').children('span').html('&#92;['+math.parse(toBeAdded.find("#calc_formula_"+toBeAdded_id+"_QBank").val()).toTex()+'&#92;]');
 					MathJax.typeset();
+					$(document).find("#calc_output_var_"+total_question_no).val(toBeAdded.find("#calc_output_var_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#calc_input_var_"+total_question_no).val(toBeAdded.find("#calc_input_var_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#calc_range_"+total_question_no).val(toBeAdded.find("#calc_range_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#calc_question_"+total_question_no).val(toBeAdded.find("#calc_question_"+toBeAdded_id+"_QBank").val());
+					
+					if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
+						$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
+						$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').html(toBeAdded.find("#imageQues_"+toBeAdded_id+"_QBank").next('.addImg').html());
+						$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+						$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+					} 
+
 				} else if (toBeAdded_type == "calc_multi"){
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+toBeAdded_type+'">'+
@@ -477,7 +537,24 @@
 							'</div>'+
 						'</div>'+
 					'</div>');
-					MathJax.typeset();
+					
+						$(document).find("#calc_multi_formula_"+total_question_no).val(toBeAdded.find("#calc_multi_formula_"+toBeAdded_id+"_QBank").val());
+						$(document).find("#calc_multi_formula_"+total_question_no).parent().siblings('div.col').children('div.card').children('span').html('&#92;['+math.parse(toBeAdded.find("#calc_multi_formula_"+toBeAdded_id+"_QBank").val()).toTex()+'&#92;]');
+						MathJax.typeset();
+						$(document).find("#calc_multi_output_var_"+total_question_no).val(toBeAdded.find("#calc_multi_output_var_"+toBeAdded_id+"_QBank").val());
+						$(document).find("#calc_multi_input_var_"+total_question_no).val(toBeAdded.find("#calc_multi_input_var_"+toBeAdded_id+"_QBank").val());
+						$(document).find("#calc_multi_range_"+total_question_no).val(toBeAdded.find("#calc_multi_range_"+toBeAdded_id+"_QBank").val());
+						$(document).find("#calc_multi_question_"+total_question_no).val(toBeAdded.find("#calc_multi_question_"+toBeAdded_id+"_QBank").val());
+						$(document).find("#calc_multi_ans_"+total_question_no).val(toBeAdded.find("#calc_multi_ans_"+toBeAdded_id+"_QBank").val());
+						
+						if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
+							$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
+							$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+							$(document).find("#imageQues_"+total_question_no).next('.addImg').html(toBeAdded.find("#imageQues_"+toBeAdded_id+"_QBank").next('.addImg').html());
+							$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+							$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+						} 
+					
 				}
 
 				$(document).find("input[type=radio]").each(function(){
