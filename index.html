@@ -26,6 +26,643 @@
 			
 			var course_id = "ENG1";
 			<!-- var quiz_id = "QZENG14"; -->
+			
+			
+			question_types = [];
+			
+			async function get_questions() {
+				
+				const endpoint = '/data-api/rest/QuestionList_QBank';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				if (data.value == '') {
+					
+				} else {
+					for (var i = 0; i < data.value.length; i++) { 
+						if (data.value[i].course_id == course_id) {
+							question_types[data.value[i].q_id-1] = data.value[i].q_type;
+						}
+					}
+					
+					for (var i = 0; i < question_types.length; i++) {
+						if (question_types[i] == "mc") {
+							$("#question_list").prepend('<div class="row">'+
+								'<input class="quest_type" type="hidden" value="multi_choice">'+
+								'<div class="col ms-3 me-3 mt-2">'+
+								'<hr style="color: #bbbbbb;">'+
+								'<div class="row mt-4">'+
+									'<div class="col-auto">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+											'<div class="row mb-2">'+
+												'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'</span><span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Multiple Choice<span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.<span>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="col">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" disabled hidden type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+												'<input type="file" style="display:none" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+											'</div>'+
+											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+											'<label for="mc_question_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+											'<textarea readonly class="form-control" id="mc_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5"></textarea>'+
+										'</div>'+
+										'<div class="card shadow-none p-3 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="mc_ans_1_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">1st Answer Choice</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+													  '<input class="form-check-input" type="radio" disabled name="mc_correct_radio_'+(i+1)+'_QBank" id="mc_correct_ans_1_'+(i+1)+'_QBank" checked>'+
+													  '<label class="form-check-label" for="mc_correct_ans_1_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+
+														'Correct Answer'+
+													  '</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control mb-3" id="mc_ans_1_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="mc_ans_2_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">2nd Answer Choice</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+													  '<input class="form-check-input" type="radio" disabled name="mc_correct_radio_'+(i+1)+'_QBank" id="mc_correct_ans_2_'+(i+1)+'_QBank">'+
+													  '<label class="form-check-label" for="mc_correct_ans_2_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+														'Correct Answer'+
+													  '</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control mb-3" id="mc_ans_2_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="mc_ans_3_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">3rd Answer Choice</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+													  '<input class="form-check-input" type="radio" disabled name="mc_correct_radio_'+(i+1)+'_QBank" id="mc_correct_ans_3_'+(i+1)+'_QBank">'+
+													  '<label class="form-check-label" for="mc_correct_ans_3_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+														'Correct Answer'+
+													  '</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control mb-3" id="mc_ans_3_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="mc_ans_4_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">4th Answer Choice</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+													  '<input class="form-check-input" type="radio" disabled name="mc_correct_radio_'+(i+1)+'_QBank" id="mc_correct_ans_4_'+(i+1)+'_QBank">'+
+													  '<label class="form-check-label" for="mc_correct_ans_4_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden>'+
+														'Correct Answer'+
+													  '</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control" id="mc_ans_4_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+										'</div>'+
+										'<div class="row ps-3 pt-4">'+
+											'<div class="col">'+
+											'</div>'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>');
+						} else if (question_types[i] == "tf") {
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
+							'<input class="quest_type" type="hidden" value="true_false">'+
+							'<div class="col ms-3 me-3 mt-2">'+
+								'<hr style="color: #bbbbbb;">'+
+								'<div class="row mt-4">'+
+									'<div class="col-auto">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+											'<div class="row mb-2">'+
+												'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'_QBank</span><span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True/False<span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.<span></span></span>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="col">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+												'<input type="file" style="display:none" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+											'</div>'+
+											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+											'<label for="tf_question_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+											'<textarea readonly class="form-control" id="tf_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5"></textarea>'+
+										'</div>'+
+										'<div class="card shadow-none pt-3 pb-2 ps-4 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">True</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+														'<input class="form-check-input" type="radio" disabled name="tf_correct_radio_'+(i+1)+'_QBank" id="tf_correct_ans_t_'+(i+1)+'_QBank" checked="">'+
+														'<label class="form-check-label" for="tf_correct_ans_t_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Correct Answer</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">False</label>'+
+												'</div>'+
+												'<div class="col">'+
+													'<div class="form-check">'+
+														'<input class="form-check-input" type="radio" disabled name="tf_correct_radio_'+(i+1)+'_QBank" id="tf_correct_ans_f_'+(i+1)+'_QBank">'+
+														'<label class="form-check-label" for="tf_correct_ans_f_'+(i+1)+'_QBank" style="font-size: 0.8rem; color: green; font-weight: 200; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;" hidden="">Correct Answer</label>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+										'<div class="row ps-3 pt-4">'+
+											'<div class="col">'+
+											'</div>'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>');
+						} else if (question_types[i] == "sa") {
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
+							'<input class="quest_type" type="hidden" value="short_ans">'+
+							'<div class="col ms-3 me-3 mt-2">'+
+								'<hr style="color: #bbbbbb;">'+
+								'<div class="row mt-4">'+
+									'<div class="col-auto">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+											'<div class="row mb-2">'+
+												'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'_QBank</span><span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Short Answer<span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.<span></span></span>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="col">'+
+											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+												'<input type="file" style="display:none" accept="image/*">'+
+												'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" >Insert Image For Question</button>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+											'</div>'+
+											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+											'<label for="sa_question_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+											'<textarea readonly class="form-control" id="sa_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5"></textarea>'+
+										'</div>'+
+										'<div class="card shadow-none p-3 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="sa_ans_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Correct Answer</label>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control mb-1" id="sa_ans_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"></textarea>'+
+										'</div>'+
+										'<div class="row ps-3 pt-4">'+
+											'<div class="col">'+
+											'</div>'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>');
+						} else if (question_types[i] == "essay") {
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
+							'<input class="quest_type" type="hidden" value="essay">'+
+							'<div class="col ms-3 me-3 mt-2">'+
+								'<hr style="color: #bbbbbb;">'+
+								'<div class="row mt-4">'+
+									'<div class="col-auto">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+											'<div class="row mb-2">'+
+												'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'_QBank</span><span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Essay<span></span></span>'+
+											'</div>'+
+											'<div class="row">'+
+												'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.<span></span></span>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+									'<div class="col">'+
+										'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+										'<div class="col-auto">'+
+											'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" disabled hidden type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+											'<input type="file" style="display:none" accept="image/*">'+
+											'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+											'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+										'</div>'+
+											'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+											'<label for="essay_question_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+											'<textarea readonly class="form-control" id="essay_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5"></textarea>'+
+										'</div>'+
+										'<div class="card shadow-none p-3 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">'+
+											'<div class="row">'+
+												'<div class="col-auto">'+
+													'<label for="essay_ans_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Correct Keyword(s)</label>'+
+												'</div>'+
+											'</div>'+
+											'<textarea readonly class="form-control mb-2" id="essay_ans_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="2"></textarea>'+
+											'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please separate each keyword with a "," symbol. 1 point will be divided by the number of keywords provided for each question.</span>'+
+										'</div>'+
+										'<div class="row ps-3 pt-4">'+
+											'<div class="col">'+
+											'</div>'+
+											'<div class="col-auto">'+
+												'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>');
+						} else if (question_types[i] == "calc") {
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
+							'<input class="quest_type" type="hidden" value="calc">'+
+								'<div class="col ms-3 me-3 mt-2">'+
+									'<hr style="color: #bbbbbb;">'+
+									'<div class="row mt-4">'+
+										'<div class="col-auto">'+
+											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+												'<div class="row mb-2">'+
+													'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'_QBank</span>'+
+												'</div>'+
+												'<div class="row">'+
+													'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Calculated</span>'+
+												'</div>'+
+												'<div class="row">'+
+													'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.</span>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+												'<div class="col-auto">'+
+													'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+													'<input type="file" style="display:none" accept="image/*">'+
+													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+													'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+												'</div>'+
+													'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+												'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please enter your formula.&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem; cursor: pointer;" title="LaTeX Commands"></i></label>'+
+												'<div class="row mb-2">'+
+													'<div class="col formula">'+
+														'<textarea readonly class="form-control formula" id="calc_formula_'+(i+1)+'_QBank"  style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="6"placeholder="For example:&#10;&#10;x = sqrt(b)/(3*a)"></textarea>'+
+													'</div>'+
+													'<div class="col">'+
+														'<div class="card shadow-none pt-3 ps-3 pe-3 pb-0" style="height: 100%; border: 0px solid gray; background-color: rgba(0,85,151,1); border-radius: 0px; font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; color: white;">'+
+															'Use this to verify if the formula entered is correct and matches the desired equation.'+
+															'<span></span>'+
+														'</div>'+
+													'</div>'+
+												'</div>'+
+												'<div class="row mt-2">'+
+													'<div class="col-6">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Input Value(s)</label>'+
+														'<textarea readonly class="form-control test_formula" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1" placeholder="For example: a=1, b=9"></textarea>'+
+													'</div>'+
+													'<div class="col-4">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Answer</label>'+
+														'<textarea readonly class="form-control" disabled style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px; color: gray;" rows="1"></textarea>'+
+													'</div>'+
+													'<div class="col-2">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;"><i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="Use this to test if the formula is working correctly."></i></label>'+
+														'<br>'+
+														'<button disabled class="btn test_button" type="button" style="background-color:green; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.85rem; border-radius: 0px; width: 100%;" id="test_button">Test Formula</button>'+
+													'</div>'+
+												'</div>'+
+												'<hr style="color: #bbbbbb;">'+
+												'<div class="row mb-2 var_row">'+
+													'<div class="col-2">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Output Variable&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The variable of which the formula has to determine."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_output_var_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1" placeholder="For example: x"></textarea>'+
+													'</div>'+
+													'<div class="col-3">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Input Variable(s)&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The variable(s) used in the formula to calculate the answer."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_input_var_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"placeholder="For example: a,b"></textarea>'+
+													'</div>'+
+													'<div class="col-7">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Range(s)&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The range of values of which the input variable(s) should be randomly generated from."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_range_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"placeholder="For example: a=1-10, b=1-5"></textarea>'+
+													'</div>'+
+												'</div>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please follow the formats provided in the examples.</span>'+
+												'<hr style="color: #bbbbbb;">'+
+												'<label for="mc_question_1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+												'<textarea readonly class="form-control mb-2" id="calc_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5" placeholder="For example:&#10;&#10;Given that the value of a is *a* and b is *b*, find the value of x."></textarea>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please enclose each variable that will be replaced by a randomly generated number with "*" symbols.</span>'+
+											'</div>'+
+											'<div class="row ps-3 pt-4">'+
+												'<div class="col">'+
+												'</div>'+
+												'<div class="col-auto">'+
+													'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>');
+						} else if (question_types[i] == "calc_multi") {
+							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
+							'<input class="quest_type" type="hidden" value="calc_multi">'+
+								'<div class="col ms-3 me-3 mt-2">'+
+									'<hr style="color: #bbbbbb;">'+
+									'<div class="row mt-4">'+
+										'<div class="col-auto">'+
+											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #e5e5e5; background-color: #eeeeee; border-radius: 0px;">'+
+												'<div class="row mb-2">'+
+													'<span style="font-size: 1.1rem; color:#f69c5d; font-weight: 500; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Question <span style="font-weight: 700; color:#f9811c; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">'+(i+1)+'_QBank</span>'+
+												'</div>'+
+												'<div class="row">'+
+													'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Calculated</span>'+
+												'</div>'+
+												'<div class="row">'+
+													'<span style="font-size: 0.75rem; color:rgb(0,0,0); font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Marked out of 1.00.</span>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+										'<div class="col">'+
+											'<div class="card shadow-none p-3" style="height: auto; border: 1px solid #ccecf5; background-color: #d9edf7; border-radius: 0px;">'+
+												'<div class="col-auto">'+
+													'<button class="btn ps-2 pe-1 pt-2 pb-2 mb-3 removeImg" hidden disabled type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;" title="Remove image"><i class="fas fa-trash-alt"></i></button>'+
+													'<input type="file" style="display:none" accept="image/*">'+
+													'<button class="btn ps-3 pe-3 pt-2 pb-2 mb-3 addImg" type="button" style="background-color:rgba(0,85,151,1); color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px;">Insert Image For Question</button>'+
+													'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span>'+
+												'</div>'+
+												'<img id="dispImg_'+(i+1)+'_QBank" class="dispImg" src="" style="max-height:200px; max-width:500px; height:auto; width:auto; object-fit: contain; object-position: left;">'+
+												'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please enter your formula.&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem; cursor: pointer;" title="LaTeX Commands"></i></label>'+
+												'<div class="row mb-2">'+
+													'<div class="col formula">'+
+														'<textarea readonly class="form-control formula" id="calc_multi_formula_'+(i+1)+'_QBank"  style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="6"placeholder="For example:&#10;&#10;x = sqrt(b)/(3*a)"></textarea>'+
+													'</div>'+
+													'<div class="col">'+
+														'<div class="card shadow-none pt-3 ps-3 pe-3 pb-0" style="height: 100%; border: 0px solid gray; background-color: rgba(0,85,151,1); border-radius: 0px; font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; color: white;">'+
+															'Use this to verify if the formula entered is correct and matches the desired equation.'+
+															'<span>&#92;[x=&#92;frac{&#92;sqrt{&#92;mathrm{b}}}{&#92;left(3&#92;cdot a&#92;right)}&#92;]</span>'+
+														'</div>'+
+													'</div>'+
+												'</div>'+
+												'<div class="row mt-2">'+
+													'<div class="col-6">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Input Value(s)</label>'+
+														'<textarea readonly class="form-control test_formula" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1" placeholder="For example: a=1, b=9"></textarea>'+
+													'</div>'+
+													'<div class="col-4">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Answer</label>'+
+														'<textarea readonly class="form-control" disabled style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px; color: gray;" rows="1"></textarea>'+
+													'</div>'+
+													'<div class="col-2">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;"><i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="Use this to test if the formula is working correctly."></i></label>'+
+														'<br>'+
+														'<button disabled class="btn test_button" type="button" style="background-color:green; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.85rem; border-radius: 0px; width: 100%;" id="test_button">Test Formula</button>'+
+													'</div>'+
+												'</div>'+
+												'<hr style="color: #bbbbbb;">'+
+												'<div class="row mb-2 var_row">'+
+													'<div class="col-2">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Output Variable&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The variable of which the formula has to determine."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_multi_output_var_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"placeholder="For example: x"></textarea>'+
+													'</div>'+
+													'<div class="col-3">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Input Variable(s)&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The variable(s) used in the formula to calculate the answer."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_multi_input_var_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"placeholder="For example: a,b"></textarea>'+
+													'</div>'+
+													'<div class="col-7">'+
+														'<label class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Range(s)&nbsp;&nbsp;<i class="far fa-question-circle" style="color:gray; font-size: 0.8rem;" title="The range of values of which the input variable(s) should be randomly generated from."></i></label>'+
+														'<textarea readonly class="form-control" id="calc_multi_range_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="1"placeholder="For example: a=1-10, b=1-5"></textarea>'+
+													'</div>'+
+												'</div>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please follow the formats provided in the examples.</span>'+
+												'<hr style="color: #bbbbbb;">'+
+												'<label for="mc_question_1" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Please write your question in the box below.</label>'+
+												'<textarea readonly class="form-control mb-2" id="calc_multi_question_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="5" placeholder="For example:&#10;&#10;Given that the value of a is *a* and b is *b*, find the value of x."></textarea>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please enclose each variable that will be replaced by a randomly generated number with "*" symbols.</span>'+
+											'</div>'+
+											'<div class="card shadow-none p-3 mt-3" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">'+
+												'<label for="calc_multi_ans_'+(i+1)+'_QBank" class="form-label" style="font-size: 0.95rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif;">Answer Format<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">&nbsp;&nbsp;*optional</span></label>'+
+												'<textarea readonly class="form-control mb-2" id="calc_multi_ans_'+(i+1)+'_QBank" style="font-size: 0.85rem; font-weight: 400; font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;" rows="3" placeholder="For example:&#10;&#10;The value of x is *x*."></textarea>'+
+												'<span style="font-family: '+"'Trebuchet MS'"+', Arial, Verdana, Helvetica, sans-serif; font-weight: 100; font-size: 0.85rem; color: red; font-style: italic;">*please enclose the variable that will be replaced by a randomly generated number with "*" symbols. Only one is allowed.</span>'+
+											'</div>'+
+											'<div class="row ps-3 pt-4">'+
+												'<div class="col">'+
+												'</div>'+
+												'<div class="col-auto">'+
+													'<button class="btn ps-4 pe-4 pt-2 pb-2 add" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: '+"'Trebuchet MS'"+', sans-serif; font-size: 0.92rem; border-radius: 0px; width: auto;" id="add_'+(i+1)+'_QBank">Add Question</button>'+
+												'</div>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>');
+						}
+					}
+					
+					if (question_types.includes("mc")) {
+						const endpoint2 = '/data-api/rest/mc_Questions_QBank';
+						const response2 = await fetch(endpoint2);
+						const data2 = await response2.json();
+												
+						for (var j = 0; j < data2.value.length; j++) {
+							if(data2.value[j].course_id == course_id){
+								
+								$(document).find("#mc_question_"+data2.value[j].q_id+"_QBank").val(data2.value[j].question);
+								$(document).find("#mc_correct_ans_"+data2.value[j].correct_ans_id+"_"+data2.value[j].q_id+"_QBank").prop('checked', true);
+								
+								if (data2.value[j].image != "" && data2.value[j].image != null && data2.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data2.value[j].q_id+"_QBank").attr('src',data2.value[j].image);
+									$(document).find("#dispImg_"+data2.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data2.value[j].q_id+"_QBank").next('.addImg').html(data2.value[j].filename);
+									$(document).find("#imageQues_"+data2.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data2.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+						
+						const endpoint3 = '/data-api/rest/mc_Answers_QBank';
+						const response3 = await fetch(endpoint3);
+						const data3 = await response3.json();
+												
+						for (var j = 0; j < data3.value.length; j++) {
+							if(data3.value[j].course_id == course_id){
+								
+								$(document).find("#mc_ans_"+data3.value[j].ans_id+"_"+data3.value[j].q_id+"_QBank").val(data3.value[j].answer);
+							}
+						}
+					}
+					
+					if (question_types.includes("tf")) {
+						const endpoint4 = '/data-api/rest/tf_Questions_QBank';
+						const response4 = await fetch(endpoint4);
+						const data4 = await response4.json();
+												
+						for (var j = 0; j < data4.value.length; j++) {
+							if(data4.value[j].course_id == course_id){
+								
+								$(document).find("#tf_question_"+data4.value[j].q_id+"_QBank").val(data4.value[j].question);
+								$(document).find("#tf_correct_ans_"+data4.value[j].correct_ans_id+"_"+data4.value[j].q_id+"_QBank").prop('checked', true);
+								
+								if (data4.value[j].image != "" && data4.value[j].image != null && data4.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data4.value[j].q_id+"_QBank").attr('src',data4.value[j].image);
+									$(document).find("#dispImg_"+data4.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data4.value[j].q_id+"_QBank").next('.addImg').html(data4.value[j].filename);
+									$(document).find("#imageQues_"+data4.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data4.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+					}
+					
+					if (question_types.includes("sa")) {
+						const endpoint5 = '/data-api/rest/sa_Questions_QBank';
+						const response5 = await fetch(endpoint5);
+						const data5 = await response5.json();
+												
+						for (var j = 0; j < data5.value.length; j++) {
+							if(data5.value[j].course_id == course_id){
+								
+								$(document).find("#sa_question_"+data5.value[j].q_id+"_QBank").val(data5.value[j].question);
+								$(document).find("#sa_ans_"+data5.value[j].q_id+"_QBank").val(data5.value[j].correct_ans);
+								
+								if (data5.value[j].image != "" && data5.value[j].image != null && data5.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data5.value[j].q_id+"_QBank").attr('src',data5.value[j].image);
+									$(document).find("#dispImg_"+data5.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data5.value[j].q_id+"_QBank").next('.addImg').html(data5.value[j].filename);
+									$(document).find("#imageQues_"+data5.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data5.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+					}
+					
+					if (question_types.includes("essay")) {
+						const endpoint6 = '/data-api/rest/essay_Questions_QBank';
+						const response6 = await fetch(endpoint6);
+						const data6 = await response6.json();
+												
+						for (var j = 0; j < data6.value.length; j++) {
+							if(data6.value[j].course_id == course_id){
+								
+								$(document).find("#essay_question_"+data6.value[j].q_id+"_QBank").val(data6.value[j].question);
+								$(document).find("#essay_ans_"+data6.value[j].q_id+"_QBank").val(data6.value[j].correct_keywords);
+								
+								if (data6.value[j].image != "" && data6.value[j].image != null && data6.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data6.value[j].q_id+"_QBank").attr('src',data6.value[j].image);
+									$(document).find("#dispImg_"+data6.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data6.value[j].q_id+"_QBank").next('.addImg').html(data6.value[j].filename);
+									$(document).find("#imageQues_"+data6.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data6.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+					}
+					
+					if (question_types.includes("calc")) {
+						const endpoint7 = '/data-api/rest/calc_Questions_QBank';
+						const response7 = await fetch(endpoint7);
+						const data7 = await response7.json();
+												
+						for (var j = 0; j < data7.value.length; j++) {
+							if(data7.value[j].course_id == course_id){
+								
+								$(document).find("#calc_formula_"+data7.value[j].q_id+"_QBank").val(data7.value[j].formula);
+								$(document).find("#calc_formula_"+data7.value[j].q_id+"_QBank").parent().siblings('div.col').children('div.card').children('span').html('&#92;['+math.parse(data7.value[j].formula).toTex()+'&#92;]');
+								MathJax.typeset();
+								$(document).find("#calc_output_var_"+data7.value[j].q_id+"_QBank").val(data7.value[j].out_var);
+								$(document).find("#calc_input_var_"+data7.value[j].q_id+"_QBank").val(data7.value[j].in_var);
+								$(document).find("#calc_range_"+data7.value[j].q_id+"_QBank").val(data7.value[j].range);
+								$(document).find("#calc_question_"+data7.value[j].q_id+"_QBank").val(data7.value[j].question);
+								
+								if (data7.value[j].image != "" && data7.value[j].image != null && data7.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data7.value[j].q_id+"_QBank").attr('src',data7.value[j].image);
+									$(document).find("#dispImg_"+data7.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data7.value[j].q_id+"_QBank").next('.addImg').html(data7.value[j].filename);
+									$(document).find("#imageQues_"+data7.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data7.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+					}
+					
+					if (question_types.includes("calc_multi")) {
+						const endpoint8 = '/data-api/rest/multiCalc_Questions_QBank';
+						const response8 = await fetch(endpoint8);
+						const data8 = await response8.json();
+												
+						for (var j = 0; j < data8.value.length; j++) {
+							if(data8.value[j].course_id == course_id){
+								
+								$(document).find("#calc_multi_formula_"+data8.value[j].q_id+"_QBank").val(data8.value[j].formula);
+								$(document).find("#calc_multi_formula_"+data8.value[j].q_id+"_QBank").parent().siblings('div.col').children('div.card').children('span').html('&#92;['+math.parse(data8.value[j].formula).toTex()+'&#92;]');
+								MathJax.typeset();
+								$(document).find("#calc_multi_output_var_"+data8.value[j].q_id+"_QBank").val(data8.value[j].out_var);
+								$(document).find("#calc_multi_input_var_"+data8.value[j].q_id+"_QBank").val(data8.value[j].in_var);
+								$(document).find("#calc_multi_range_"+data8.value[j].q_id+"_QBank").val(data8.value[j].range);
+								$(document).find("#calc_multi_question_"+data8.value[j].q_id+"_QBank").val(data8.value[j].question);
+								$(document).find("#calc_multi_ans_"+data8.value[j].q_id+"_QBank").val(data8.value[j].answer_format);
+								
+								if (data8.value[j].image != "" && data8.value[j].image != null && data8.value[j].image != undefined) {
+									$(document).find("#dispImg_"+data8.value[j].q_id+"_QBank").attr('src',data8.value[j].image);
+									$(document).find("#dispImg_"+data8.value[j].q_id+"_QBank").css('margin-bottom', '10px');
+									$(document).find("#imageQues_"+data8.value[j].q_id+"_QBank").next('.addImg').html(data8.value[j].filename);
+									$(document).find("#imageQues_"+data8.value[j].q_id+"_QBank").next('.addImg').css("background-color","#b32b76");
+									$(document).find("#imageQues_"+data8.value[j].q_id+"_QBank").prev('.removeImg').prop("hidden", false);
+								} 
+							}
+						}
+					}
+					
+					
+					
+					$(document).find("input[type=radio]").each(function(){
+						if ($(this).is(':checked')){
+							$(this).next('label').attr("hidden",false);
+						} else {
+							$(this).next('label').attr("hidden",true);
+						}
+					});
+					
+				}
+			}
+			
+			get_questions();
 
 			var qtype = "multi_choice";
 			var total_question_no = 0;
@@ -35,6 +672,11 @@
 				$(this).addClass("active");
 				qtype = $(this).attr('id');
 				$("#qtype_text").html($(this).html());
+				if (qtype == 'qbank') {
+					$("#qtype_text").css('color','#b32b76');
+				} else {
+					$("#qtype_text").css('color','black');
+				}
 			} );
 			
 			$('#add_button').on('click', function () {
@@ -456,6 +1098,8 @@
 						'</div>'+
 					'</div>');
 					MathJax.typeset();
+				} else if (qtype == "qbank"){
+					$('#qBankModal').modal('show');
 				}
 			} );
 			
@@ -856,7 +1500,7 @@
 
 			}
 
-			get_quizid();
+			<!-- get_quizid(); -->
 
 			$(document).on('change keyup paste', 'textarea', function(e) {
 				$("#submit_button").prop('disabled', false);
@@ -966,11 +1610,26 @@
 </head>
 
 <body style="background: white; background-size: cover; ">
-	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+	<div class="modal fade" id="qBankModal" tabindex="-1"  aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+		  <div class="modal-content" style="border-radius: 0px; border:0;">
+			<div class="modal-header">
+			  <h5 class="modal-title" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Question Bank</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+			</div>
+			<div id="qbank_questions" class="modal-body">
+				<span style="font-size: 1rem; color:rgb(0,0,0); font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 5px; padding-left: 8px;">No questions available.</span>
+			</div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content" style="border-radius: 0px; border:0;">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="calc_modal_title" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;"></h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
 			</div>
 			<div id="calc_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;"></div>
 			<div class="modal-footer">
@@ -1091,6 +1750,7 @@
 						<li><a class="dropdown-item qtype_menu_item" id="essay"><i class="fas fa-edit" style="font-size: 0.85rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Essay</a></li>
 						<li><a class="dropdown-item qtype_menu_item" id="calc"><i class="fas fa-calculator" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated</a></li>
 						<li><a class="dropdown-item qtype_menu_item" id="calc_multi"><i class="fas fa-sort-numeric-down" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Calculated Multichoice</a></li>
+						<li><a class="dropdown-item qtype_menu_item" id="qbank" style="color: #b32b76"><i class="fas fa-warehouse" style="font-size: 0.9rem;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Get From Question Bank</a></li>
 					  </ul>
 					</div>
 				</div>
