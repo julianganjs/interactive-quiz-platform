@@ -478,7 +478,15 @@
 						'</div>'+
 					'</div>');
 					MathJax.typeset();
-				}				
+				}
+
+				$(document).find("input[type=radio]").each(function(){
+					if ($(this).is(':checked')){
+						$(this).next('label').attr("hidden",false);
+					} else {
+						$(this).next('label').attr("hidden",true);
+					}
+				});
 				
 			});
 			
