@@ -1434,6 +1434,13 @@
 						}
 					}
 				}
+				
+				if (ques_num_counter == 0) {
+					setTimeout(()=> {
+						$("#leave_modal_message").html('The question bank has been updated.');
+						$('#leaveModal').modal('show');
+					},2000);
+				}
 			}
 
 			async function QuestionList_QBank(data) {
