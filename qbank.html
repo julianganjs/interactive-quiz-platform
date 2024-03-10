@@ -715,6 +715,7 @@
 			$(document).on('click', '#delete_modal', function(e) {
 				toBeDeleted.remove();
 				question_number_memory[toBeDeleted_id-1] = 0;
+				$("#submit_button").prop('disabled', false);
 			});
 			
 			$('#add_button').on('click', function () {
@@ -1179,6 +1180,7 @@
 						$(this).next('label').attr("hidden",true);
 					}
 				});
+				$("#submit_button").prop('disabled', false);
 			});
 			
 			$('#submit_button').on('click', function(e){
@@ -1656,7 +1658,8 @@
 					$(this).prev('.removeImg').prop("hidden", true);
 					$(this).parent().siblings(".dispImg").attr('src', '');
 					$(this).parent().siblings(".dispImg").css('margin-bottom', '0px');
-				}  
+				}
+				$("#submit_button").prop('disabled', false);
 			});
 			
 			$(document).on('click', '.removeImg', function(e) {
@@ -1666,6 +1669,7 @@
 				$(this).parent().siblings(".dispImg").attr('src', '');
 				$(this).parent().siblings(".dispImg").css('margin-bottom', '0px');
 				$(this).prop("hidden", true);
+				$("#submit_button").prop('disabled', false);
 			});
 			
 			function getBase64(file, data, quest_type, filename, last) {
