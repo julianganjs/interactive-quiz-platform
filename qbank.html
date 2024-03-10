@@ -634,7 +634,7 @@
 							}
 							
 							for (let j = 1; j <= 4; j++) {
-								data3 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+ques_num_counter.toString()+', "ans_id": '+j+', "answer": "';
+								data3 = '{"course_id": "'+course_id+'", "q_id": '+ques_num_counter.toString()+', "ans_id": '+j+', "answer": "';
 								ans = $(document).find("#mc_ans_"+j+"_"+question_number_memory[i].toString()).val();
 								data3 += ans;
 								data3 += '"}';
@@ -1042,7 +1042,7 @@
 			  <h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Submit Confirmation</h5>
 			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
 			</div>
-			<div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">Are you sure you want to upload the quiz?</div>
+			<div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">Are you sure you want to update the question bank with these changes?</div>
 			<div class="modal-footer">
 			  <button type="button" class="btn ps-4 pe-4 pt-2 pb-2" data-bs-dismiss="modal" id="confirm_button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">Yes</button>
 			</div>
