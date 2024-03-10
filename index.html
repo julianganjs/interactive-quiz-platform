@@ -339,7 +339,7 @@
 				'</div>');
 				
 					$(document).find("#essay_question_"+total_question_no).val(toBeAdded.find("#essay_question_"+toBeAdded_id+"_QBank").val());
-					$(document).find("#essay_ans_"+total_question_no).val(toBeAdded.find("#essay_question_"+toBeAdded_id+"_QBank").val());
+					$(document).find("#essay_ans_"+total_question_no).val(toBeAdded.find("#essay_ans_"+toBeAdded_id+"_QBank").val());
 					
 					if (toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != "" && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != null && toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src') != undefined) {
 						$(document).find("#dispImg_"+total_question_no).attr('src',toBeAdded.find("#dispImg_"+toBeAdded_id+"_QBank").attr('src'));
@@ -1198,6 +1198,7 @@
 						}
 					});
 					
+					$("#submit_button").prop('disabled', false);
 				}
 			}
 			
@@ -1220,8 +1221,8 @@
 			
 			$('#add_button').on('click', function () {
 				total_question_no += 1;
-				$(document).find("#ques_remove").remove();
 				if(qtype == "multi_choice"){
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 						'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 						'<div class="col ms-3 me-3 mt-2">'+
@@ -1316,6 +1317,7 @@
 					'</div>'+
 				'</div>');
 				} else if (qtype == "true_false") {
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 					'<div class="col ms-3 me-3 mt-2">'+
@@ -1376,6 +1378,7 @@
 					'</div>'+
 				'</div>');
 				} else if (qtype == "short_ans"){
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 					'<div class="col ms-3 me-3 mt-2">'+
@@ -1420,6 +1423,7 @@
 					'</div>'+
 				'</div>');
 				} else if (qtype == "essay"){
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 					'<div class="col ms-3 me-3 mt-2">'+
@@ -1465,6 +1469,7 @@
 					'</div>'+
 				'</div>');
 				} else if (qtype == "calc"){
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 						'<div class="col ms-3 me-3 mt-2">'+
@@ -1549,6 +1554,7 @@
 					'</div>');
 					MathJax.typeset();
 				} else if (qtype == "calc_multi"){
+					$(document).find("#ques_remove").remove();
 					$("#question_list").append('<div class="row" id="ques_list_item_'+total_question_no+'">'+
 					'<input class="quest_type" type="hidden" value="'+qtype+'">'+
 						'<div class="col ms-3 me-3 mt-2">'+
