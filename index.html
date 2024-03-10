@@ -48,7 +48,6 @@
 					$("#qbank_questions").html('');
 					
 					for (var i = 0; i < question_types.length; i++) {
-						$("#qbank_questions").prepend('<hr style="color: #bbbbbb;">');
 						if (question_types[i] == "mc") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
 								'<input class="quest_type_qbank" type="hidden" value="multi_choice">'+
@@ -147,6 +146,7 @@
 									'</div>'+
 								'</div>'+
 							'</div>'+
+							'<hr style="color: #bbbbbb;">'+
 						'</div>');
 						} else if (question_types[i] == "tf") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
@@ -212,6 +212,7 @@
 									'</div>'+
 								'</div>'+
 							'</div>'+
+							'<hr style="color: #bbbbbb;">'+
 						'</div>');
 						} else if (question_types[i] == "sa") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
@@ -261,6 +262,7 @@
 									'</div>'+
 								'</div>'+
 							'</div>'+
+							'<hr style="color: #bbbbbb;">'+
 						'</div>');
 						} else if (question_types[i] == "essay") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
@@ -311,6 +313,7 @@
 									'</div>'+
 								'</div>'+
 							'</div>'+
+							'<hr style="color: #bbbbbb;">'+
 						'</div>');
 						} else if (question_types[i] == "calc") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
@@ -397,6 +400,7 @@
 										'</div>'+
 									'</div>'+
 								'</div>'+
+								'<hr style="color: #bbbbbb;">'+
 							'</div>');
 						} else if (question_types[i] == "calc_multi") {
 							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
@@ -488,6 +492,7 @@
 										'</div>'+
 									'</div>'+
 								'</div>'+
+								'<hr style="color: #bbbbbb;">'+
 							'</div>');
 						}
 					}
