@@ -45,10 +45,12 @@
 						}
 					}
 					
+					$("#qbank_questions").html('');
+					
 					for (var i = 0; i < question_types.length; i++) {
 						if (question_types[i] == "mc") {
-							$("#question_list").prepend('<div class="row">'+
-								'<input class="quest_type" type="hidden" value="multi_choice">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+								'<input class="quest_type_qbank" type="hidden" value="multi_choice">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
 								'<div class="row mt-4">'+
@@ -147,8 +149,8 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "tf") {
-							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
-							'<input class="quest_type" type="hidden" value="true_false">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+							'<input class="quest_type_qbank" type="hidden" value="true_false">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
 								'<div class="row mt-4">'+
@@ -213,8 +215,8 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "sa") {
-							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
-							'<input class="quest_type" type="hidden" value="short_ans">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+							'<input class="quest_type_qbank" type="hidden" value="short_ans">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
 								'<div class="row mt-4">'+
@@ -263,8 +265,8 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "essay") {
-							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
-							'<input class="quest_type" type="hidden" value="essay">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+							'<input class="quest_type_qbank" type="hidden" value="essay">'+
 							'<div class="col ms-3 me-3 mt-2">'+
 								'<hr style="color: #bbbbbb;">'+
 								'<div class="row mt-4">'+
@@ -314,8 +316,8 @@
 							'</div>'+
 						'</div>');
 						} else if (question_types[i] == "calc") {
-							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
-							'<input class="quest_type" type="hidden" value="calc">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+							'<input class="quest_type_qbank" type="hidden" value="calc">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 									'<hr style="color: #bbbbbb;">'+
 									'<div class="row mt-4">'+
@@ -401,8 +403,8 @@
 								'</div>'+
 							'</div>');
 						} else if (question_types[i] == "calc_multi") {
-							$("#question_list").prepend('<div class="row" id="ques_list_item_'+(i+1)+'_QBank">'+
-							'<input class="quest_type" type="hidden" value="calc_multi">'+
+							$("#qbank_questions").prepend('<div class="row" id="QBank_'+(i+1)+'">'+
+							'<input class="quest_type_qbank" type="hidden" value="calc_multi">'+
 								'<div class="col ms-3 me-3 mt-2">'+
 									'<hr style="color: #bbbbbb;">'+
 									'<div class="row mt-4">'+
