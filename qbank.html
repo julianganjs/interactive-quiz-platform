@@ -581,6 +581,18 @@
 
 			$('#confirm_button').on('click', function(e){
 				$('#loadingModal').modal('show');
+				delete_QuestionList_QBank();
+				delete_mc_Questions_QBank();
+				delete_mc_Answers_QBank();
+				delete_tf_Questions_QBank();
+				delete_sa_Questions_QBank();
+				delete_essay_Questions_QBank();
+				delete_calc_Questions_QBank();
+				delete_multiCalc_Questions_QBank();
+			});
+			
+			
+			function upload() {
 				ques_num_counter = 0;
 				for (let i = 0; i < question_number_memory.length; i++) {
 				
@@ -734,7 +746,7 @@
 						}
 					}
 				}
-			});
+			}
 
 			async function QuestionList_QBank(data) {
 				const endpoint = '/data-api/rest/QuestionList_QBank/';
@@ -870,6 +882,64 @@
 						$('#leaveModal').modal('show');
 					},1000);
 				}
+			}
+			
+			async function delete_QuestionList_QBank() {
+				const endpoint = '/data-api/rest/QuestionList_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+				<!-- alert(JSON.stringify(response));	 -->
+			}
+			
+			async function delete_mc_Questions_QBank() {
+				const endpoint = '/data-api/rest/mc_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+				<!-- alert(JSON.stringify(response)); -->
+			}
+			
+			async function delete_mc_Answers_QBank() {
+				const endpoint = '/data-api/rest/mc_Answers_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+			}
+			
+			async function delete_tf_Questions_QBank() {
+				const endpoint = '/data-api/rest/tf_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+			}
+			
+			async function delete_sa_Questions_QBank() {
+				const endpoint = '/data-api/rest/sa_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+			}
+			
+			async function delete_essay_Questions_QBank() {
+				const endpoint = '/data-api/rest/essay_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+			}
+			
+			async function delete_calc_Questions_QBank() {
+				const endpoint = '/data-api/rest/calc_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
+			}
+			
+			async function delete_multiCalc_Questions_QBank() {
+				const endpoint = '/data-api/rest/multiCalc_Questions_QBank/';
+				const response = await fetch(endpoint, {
+					method: "DELETE"
+				});
 			}
 
 			$(document).on('change keyup paste', 'textarea', function(e) {
@@ -1069,7 +1139,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content" style="border-radius: 0px; border:0;">
 			<div class="modal-header">
-			  <h5 class="modal-title" id="exampleModalLabel1" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Upload Confirmation</h5>
+			  <h5 class="modal-title" id="exampleModalLabel1" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Update Confirmation</h5>
 			</div>
 			<div id="leave_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;"></div>
 			<div class="modal-footer">
