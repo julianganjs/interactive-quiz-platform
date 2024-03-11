@@ -1742,18 +1742,20 @@
 					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
 					if ( quest_type == "multi_choice") {
-						data1 += 'mc"}';
+						data1 += 'mc", "hours":"';
 					} else if (quest_type == "true_false") {
-						data1 += 'tf"}';
+						data1 += 'tf", "hours":"';
 					} else if (quest_type == "short_ans") {
-						data1 += 'sa"}';
+						data1 += 'sa", "hours":"';
 					} else if (quest_type == "essay") {
-						data1 += 'essay"}';
+						data1 += 'essay", "hours":"';
 					} else if (quest_type == "calc") {
-						data1 += 'calc"}';
+						data1 += 'calc", "hours":"';
 					} else if (quest_type == "calc_multi") {
-						data1 += 'calc_multi"}';
+						data1 += 'calc_multi", "hours":"';
 					}
+					data1 += $('#quiz_duration').val().replace(/[^0-9.]/g,'');
+					data1 += '"}';
 					<!-- alert(data1); -->
 					QuestionList(JSON.parse(data1));
 					
@@ -2172,6 +2174,11 @@
 				}
 			});
 			
+			$(document).on('change keyup paste', '#quiz_duration', function(e) {
+				var sanitized = $(this).val().replace(/[^0-9.]/g,'');
+				$(this).val(sanitized+' Hours');
+			});
+			
 		} );
 	</script>
 </head>
@@ -2332,6 +2339,14 @@
 			<div class="row ms-2 mt-1 me-2">
 				<div class="col-auto">
 				  <button disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="submit_button">Submit</button>
+				</div>
+				<div class="col">
+				</div>
+				<div class="col-auto d-flex align-items-center justify-content-center">
+					<span style="font-size: 0.95rem; font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Duration</span>
+				</div>
+				<div class="col-2">
+				  <input type="text" class="form-control" id="quiz_duration" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100;" value="0.5 Hours">
 				</div>
 			</div>
 		</div>	
