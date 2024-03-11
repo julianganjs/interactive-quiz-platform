@@ -725,7 +725,15 @@
 			
 			var points = 0;
 			
+			$('#return_button').on('click', function(e){
+				window.location.replace('tester.html');
+			});
+			
 			$('#finish_button').on('click', function(e){
+				$('#confirmModal').modal('show');
+			});
+			
+			$('#confirm_button').on('click', function(e){
 				points = 0;
 				for (var i = 0; i < correct_answers.length; i++) {
 					if (question_types[i] == "essay") {
@@ -827,6 +835,21 @@
 </head>
 
 <body style="background: white; background-size: cover; ">
+	<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content" style="border-radius: 0px; border:0;">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;">Submit Confirmation</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
+			</div>
+			<div id="modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;">Are you sure you want to submit your answers?</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn ps-4 pe-4 pt-2 pb-2" data-bs-dismiss="modal" id="confirm_button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;">Yes</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
     <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" style="margin: auto; width: auto; height: auto; border-radius: 0; border:0;">
@@ -913,18 +936,26 @@
 	</div>
 	<div class="row ms-4 me-4 mb-4 ans_review" hidden>
 		<div class="card pb-3 pt-3 ps-4 pe-4" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
-			<div class="card shadow-none p-4" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">
-				<div class="row mb-4">
-					<span style="font-size: 1.3rem; color:black; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="ans_status_review"></span>
+			<div class="row ms-2 mt-3 me-2">
+				<div class="card shadow-none p-4" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">
+					<div class="row mb-4">
+						<span style="font-size: 1.3rem; color:black; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="ans_status_review"></span>
+					</div>
+					<div class="row mb-4">
+						<span style="font-size: 1rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="correct_ans_review">Correct answer: True</span>
+					</div>
+					<div class="row">
+						<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question_marks_review">Question Marks: 1.00/1.00</span>
+					</div>
+					<div class="row">
+						<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="total_marks_review">Total Marks: 5.00/5.00</span>
+					</div>
 				</div>
-				<div class="row mb-4">
-					<span style="font-size: 1rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="correct_ans_review">Correct answer: True</span>
-				</div>
-				<div class="row">
-					<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question_marks_review">Question Marks: 1.00/1.00</span>
-				</div>
-				<div class="row">
-					<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="total_marks_review">Total Marks: 5.00/5.00</span>
+			</div>
+			<div class="row ms-2 mt-4 me-2 p-0">
+				<hr style="color: #bbbbbb;">
+				<div class="col-auto" style="margin-left: auto; margin-right: 0;">
+					<button type="button" class="btn ps-4 pe-4 pt-2 pb-2 ms-3" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="return_button">Return To Main Page</button>
 				</div>
 			</div>
 		</div>
