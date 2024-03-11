@@ -20,6 +20,12 @@
 	<script src="assets/js/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
+		
+			var first_name = localStorage.getItem('first_name');
+			<!-- var first_name = "Belle"; -->
+			
+			$('#welcome_msg').html('Welcome, '+first_name+'! 👋');
+			
 			$('a.logout').on('click', function(e){
 				localStorage.clear();
 				window.location.replace('login.html');
@@ -50,7 +56,10 @@
 		</div>
 	</div>
 	<div class="row ms-4 me-4 mt-3 mb-2">
-		<span style="font-size: 2.4rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Dashboard</span>
+		<span style="font-size: 2.2rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="welcome_msg"></span>
+	</div>
+	<div class="row ms-4 me-4 mt-1">
+		<span style="font-size: 1.7rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Dashboard</span>
 	</div>
 	<div class="row ms-4 me-4 mt-3 mb-2">
 		<div class="card" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
