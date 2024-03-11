@@ -767,6 +767,9 @@
 								points += 1;
 								points_review_arr[i] = "1.00";
 								status_review_arr[i] = '<span style="color: green;"><i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer</span>';
+							} else {
+								status_review_arr[i] = '<span style="color: red;"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer</span>';
+								points_review_arr[i] = "0.00";
 							}
 						} else {
 							status_review_arr[i] = '<span style="color: red;"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer</span>';
