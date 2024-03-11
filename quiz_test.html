@@ -484,6 +484,16 @@
 				$('#ans_status_review').html(status_review_arr[current_quest]);
 				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
 				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
+				
+				if(finished == "Y"){
+					$(document).find("input[type=radio]").each(function(){
+						$(this).prop('disabled', true);
+					});
+					
+					$(document).find("textarea").each(function(){
+						$(this).prop('readonly', true);
+					});
+				}
 			});
 			
 			$('#previous_button').on('click', function(e){
@@ -582,6 +592,16 @@
 				$('#ans_status_review').html(status_review_arr[current_quest]);
 				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
 				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
+				
+				if(finished == "Y"){
+					$(document).find("input[type=radio]").each(function(){
+						$(this).prop('disabled', true);
+					});
+					
+					$(document).find("textarea").each(function(){
+						$(this).prop('readonly', true);
+					});
+				}
 			});
 			
 			$(document).on('click', '.nav_card', function(e) {
@@ -691,6 +711,16 @@
 				$('#ans_status_review').html(status_review_arr[current_quest]);
 				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
 				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
+				
+				if(finished == "Y"){
+					$(document).find("input[type=radio]").each(function(){
+						$(this).prop('disabled', true);
+					});
+					
+					$(document).find("textarea").each(function(){
+						$(this).prop('readonly', true);
+					});
+				}
 			});
 			
 			var points = 0;
@@ -712,14 +742,14 @@
 						}
 						points += point_sum;
 						points_review_arr[i] = point_sum.toFixed(2).toString();
-						status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;No Specific Answer';
+						status_review_arr[i] = '<span style="color: gray;">No Specific Answer</span>';
 					} else if (question_types[i] == "sa") {
 						if(selected[i].replace(/\s\s+/g, ' ').trim() == correct_answers[i]) {
 							points += 1;
-							status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
+							status_review_arr[i] = '<span style="color: green;"><i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer</span>';
 							points_review_arr[i] = "1.00";
 						} else {
-							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
+							status_review_arr[i] = '<span style="color: red;"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer</span>';
 							points_review_arr[i] = "0.00";
 						}
 						
@@ -728,10 +758,10 @@
 							if(Number(selected[i].replace(/\s/g,'')).toFixed(2).toString() == correct_answers[i]) {
 								points += 1;
 								points_review_arr[i] = "1.00";
-								status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
+								status_review_arr[i] = '<span style="color: green;"><i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer</span>';
 							}
 						} else {
-							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
+							status_review_arr[i] = '<span style="color: red;"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer</span>';
 							points_review_arr[i] = "0.00";
 						}
 						
@@ -739,19 +769,38 @@
 						if(selected[i] == correct_answers[i]) {
 							points += 1;
 							points_review_arr[i] = "1.00";
-							status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
+							status_review_arr[i] = '<span style="color: green;"><i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer</span>';
 						} else {
 							points_review_arr[i] = "0.00";
-							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
+							status_review_arr[i] = '<span style="color: red;"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer</span>';
 						}
 					}
 				}
+				
+				finished = "Y";
+				
+				
 				
 				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
 				$('#ans_status_review').html(status_review_arr[current_quest]);
 				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
 				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
+				
+				$(document).find("input[type=radio]").each(function(){
+					$(this).prop('disabled', true);
+				});
+				
+				$(document).find("textarea").each(function(){
+					$(this).prop('readonly', true);
+				});
+				
+				$('.ans_review').prop('hidden', false);
+				$('#finish_button').prop('disabled', true);
+				
+				$(document).find("#quiz_title").html("Quiz Review (#"+quizID+")");
 			});
+			
+			var finished = "N";
 			
 			$(document).on('change', 'input[type=radio]', function(e) {
 				$(document).find("#icon_"+current_quest).attr('class', 'far fa-circle');
@@ -862,7 +911,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row ms-4 me-4 mb-4 ans_review">
+	<div class="row ms-4 me-4 mb-4 ans_review" hidden>
 		<div class="card pb-3 pt-3 ps-4 pe-4" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
 			<div class="card shadow-none p-4" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">
 				<div class="row mb-4">
