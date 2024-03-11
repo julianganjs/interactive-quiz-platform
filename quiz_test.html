@@ -25,7 +25,7 @@
 			var quizID = localStorage.getItem('quiz_ID');
 			<!-- var quizID = "QZENG1"; -->
 
-			$('#loadingModal').modal('toggle');
+			<!-- $('#loadingModal').modal('toggle'); -->
 			
 			var current_quest = 0;
 			var points = 0;
@@ -36,6 +36,10 @@
 			calc_multi_answers = [[],[]];
 			correct_answers = [];
 			selected = [];
+			
+			status_review_arr = [];
+			correct_review_arr = [];
+			points_review_arr = [];
 			
 			images = [];
 			
@@ -63,6 +67,9 @@
 					
 					
 					selected[i] = "";
+					status_review_arr[i] = "";
+					correct_review_arr[i] = "";
+					points_review_arr[i] = "";
 					
 					if (question_types[i] == "mc") {
 						mc_answers[i] = [];
@@ -91,6 +98,9 @@
 						for (var j = 0; j < data3.value.length; j++) {
 							if(data3.value[j].quiz_id == quizID && Number(data3.value[j].q_id) == i+1){
 								mc_answers[i][Number(data3.value[j].ans_id)-1] = data3.value[j].answer;
+								if (data3.value[j].ans_id == correct_answers[i]) {
+									correct_review_arr[i] = data3.value[j].answer;
+								}
 							}
 						}
 						
@@ -105,6 +115,11 @@
 							if(data4.value[j].quiz_id == quizID && Number(data4.value[j].q_id) == i+1){
 								questions[i] = data4.value[j].question;
 								correct_answers[i] = data4.value[j].correct_ans_id;
+								if (data4.value[j].correct_ans_id == "t") {
+									correct_review_arr[i] = "True";
+								} else {
+									correct_review_arr[i] = "False";
+								}
 								images[i] = data4.value[j].image;
 								break;
 							}
@@ -120,6 +135,7 @@
 							if(data5.value[j].quiz_id == quizID && Number(data5.value[j].q_id) == i+1){
 								questions[i] = data5.value[j].question;
 								correct_answers[i] = data5.value[j].correct_ans;
+								correct_review_arr[i] = data5.value[j].correct_ans;
 								images[i] = data5.value[j].image;
 								break;
 							}
@@ -135,6 +151,7 @@
 							if(data6.value[j].quiz_id == quizID && Number(data6.value[j].q_id) == i+1){
 								questions[i] = data6.value[j].question;
 								correct_answers[i] = data6.value[j].correct_keywords;
+								correct_review_arr[i] = data6.value[j].correct_keywords;
 								images[i] = data6.value[j].image;
 								break;
 							}
@@ -175,6 +192,7 @@
 								}
 								formula = data7.value[j].formula.replace(/\s/g,'');
 								correct_answers[i] = parser.evaluate(formula).toFixed(2);
+								correct_review_arr[i] = correct_answers[i].toString();
 								parser.clear();								
 								questions[i] = question_before.substring(0,indices[0]);
 								questions[i] += nums[0].toString();						
@@ -263,6 +281,7 @@
 									answer_middle += main_answer.toFixed(2).toString();
 									answer_middle += answer_before.substring(indices2[1]+1,answer_before.length);
 									calc_multi_answers[i][correct_answers[i]-1] = answer_middle;
+									correct_review_arr[i] = answer_middle;
 									
 									for (var k = 0; k < 4; k++) {
 										if (k != (correct_answers[i]-1)) {
@@ -461,6 +480,10 @@
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
 				$(document).find("#nav"+current_quest).css('border', '1px solid black');
 				
+				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
+				$('#ans_status_review').html(status_review_arr[current_quest]);
+				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
+				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
 			});
 			
 			$('#previous_button').on('click', function(e){
@@ -554,6 +577,11 @@
 				
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
 				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+				
+				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
+				$('#ans_status_review').html(status_review_arr[current_quest]);
+				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
+				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
 			});
 			
 			$(document).on('click', '.nav_card', function(e) {
@@ -658,7 +686,14 @@
 				
 				$(document).find(".nav_card").css('border', '1px solid #e5e5e5');
 				$(document).find("#nav"+current_quest).css('border', '1px solid black');
+				
+				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
+				$('#ans_status_review').html(status_review_arr[current_quest]);
+				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
+				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
 			});
+			
+			var points = 0;
 			
 			$('#finish_button').on('click', function(e){
 				points = 0;
@@ -669,30 +704,53 @@
 							correctKeywords[j] = correctKeywords[j].trim();
 						}
 						point_per_ques = 1/correctKeywords.length;
+						point_sum = 0;
 						for (var j = 0; j < correctKeywords.length; j++) {
 							if (selected[i].includes(correctKeywords[j])) {
-								points += point_per_ques;
+								point_sum += point_per_ques;
 							}
 						}
+						points += point_sum;
+						points_review_arr[i] = point_sum.toFixed(2).toString();
+						status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;No Specific Answer';
 					} else if (question_types[i] == "sa") {
 						if(selected[i].replace(/\s\s+/g, ' ').trim() == correct_answers[i]) {
 							points += 1;
+							status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
+							points_review_arr[i] = "1.00";
+						} else {
+							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
+							points_review_arr[i] = "0.00";
 						}
 						
 					} else if (question_types[i] == "calc") {
 						if(selected[i].replace(/\s/g,'') != "") {
 							if(Number(selected[i].replace(/\s/g,'')).toFixed(2).toString() == correct_answers[i]) {
 								points += 1;
+								points_review_arr[i] = "1.00";
+								status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
 							}
+						} else {
+							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
+							points_review_arr[i] = "0.00";
 						}
 						
 					} else {
 						if(selected[i] == correct_answers[i]) {
 							points += 1;
+							points_review_arr[i] = "1.00";
+							status_review_arr[i] = '<i class="fas fa-check"></i>&nbsp;&nbsp;&nbsp;Correct Answer';
+						} else {
+							points_review_arr[i] = "0.00";
+							status_review_arr[i] = '<i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Wrong Answer';
 						}
 					}
 				}
-				alert("You got "+points.toFixed(2)+"/"+correct_answers.length+" marks!");
+				
+				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
+				$('#ans_status_review').html(status_review_arr[current_quest]);
+				$('#question_marks_review').html('Question Marks: '+points_review_arr[current_quest]+'/1.00');
+				$('#correct_ans_review').html('Correct answer: '+correct_review_arr[current_quest]);
 			});
 			
 			$(document).on('change', 'input[type=radio]', function(e) {
@@ -749,7 +807,7 @@
 	<div class="row ms-4 me-4 mt-3 mb-2">
 		<span style="font-size: 1.8rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="quiz_title">Quiz (#)</span>
 	</div>
-	<div class="row ms-4 me-4 mt-3">
+	<div class="row ms-4 me-4 mt-3 mb-2">
 		<div class="card pb-3" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
 			<div class="row mb-4" id="ques_list_item_1">
 				<input class="quest_type" type="hidden" value="multi_choice">
@@ -800,6 +858,24 @@
 					<button type="button" hidden class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="previous_button">Previous Question</button>
 					<button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2 ms-3" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="next_button">Next Question</button>
 					<button type="button" hidden class="btn ps-4 pe-4 pt-2 pb-2 ms-3" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="finish_button">Finish Attempt</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row ms-4 me-4 mb-4 ans_review">
+		<div class="card pb-3 pt-3 ps-4 pe-4" style="height: auto; border: 1px solid #cfcfcf; border-radius: 0px;">
+			<div class="card shadow-none p-4" style="height: auto; border: 1px solid #edf5e6; background-color: #dff0d8; border-radius: 0px;">
+				<div class="row mb-4">
+					<span style="font-size: 1.3rem; color:black; font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="ans_status_review"></span>
+				</div>
+				<div class="row mb-4">
+					<span style="font-size: 1rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="correct_ans_review">Correct answer: True</span>
+				</div>
+				<div class="row">
+					<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="question_marks_review">Question Marks: 1.00/1.00</span>
+				</div>
+				<div class="row">
+					<span style="font-size: 0.8rem; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;" id="total_marks_review">Total Marks: 5.00/5.00</span>
 				</div>
 			</div>
 		</div>
