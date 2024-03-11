@@ -57,7 +57,7 @@
                     if (data.value[i].quiz_id == quizID) {
 						question_types[data.value[i].q_id-1] = data.value[i].q_type;
 						if (data.value[i].hours != null && data.value[i].hours != "") {
-							hours = data.value[i].hours;
+							hours = Number(data.value[i].hours);
 						}
 					}
                 }
