@@ -1754,7 +1754,13 @@
 					} else if (quest_type == "calc_multi") {
 						data1 += 'calc_multi", "hours":"';
 					}
-					data1 += $('#quiz_duration').val().replace(/[^0-9.]/g,'');
+					duration = $('#quiz_duration').val().replace(/[^0-9.]/g,'');
+					if (duration == '') {
+						data += '0.5';
+					} else {
+						data += duration;
+					}
+					data1 += 
 					data1 += '"}';
 					<!-- alert(data1); -->
 					QuestionList(JSON.parse(data1));
