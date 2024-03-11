@@ -798,7 +798,7 @@
 				
 				finished = "Y";
 				
-				
+				clearInterval(x);
 				
 				$('#total_marks_review').html('Total Marks: '+points.toFixed(2)+'/'+correct_answers.length.toFixed(2));
 				$('#ans_status_review').html(status_review_arr[current_quest]);
@@ -842,9 +842,10 @@
 			});
 			
 			var countDownDate;
+			var x;
 			
 			async function start_timer(){
-				var x = setInterval(function() {
+				x = setInterval(function() {
 
 				  var now = new Date().getTime();
 					
@@ -858,6 +859,7 @@
 					
 				  // If the count down is over, write some text 
 				  if (distance < 0) {
+					clearInterval(x);
 					$('#timeModal').modal('show');
 					$('#confirm_button').click();
 				  }
