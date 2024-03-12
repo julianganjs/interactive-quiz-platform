@@ -26,8 +26,8 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 		
-			var int_quizID = localStorage.getItem('int_quiz_ID');
-			var player_name = localStorage.getItem('player_name');
+			var int_quizID = sessionStorage.getItem('int_quiz_ID');
+			var player_name = sessionStorage.getItem('player_name');
 			
 			if (int_quizID == null || player_name == null || !(int_quizID.includes("INTQZ"))) {
 				window.location.replace('interactive.html');
@@ -67,8 +67,8 @@
 					}
 					
 					if (got_flag == "Y") {
-						localStorage.setItem('int_quiz_ID', int_quizID);
-						localStorage.setItem('player_name', player_name);
+						sessionStorage.setItem('int_quiz_ID', int_quizID);
+						sessionStorage.setItem('player_name', player_name);
 						window.location.replace('int_quiz_answer.html');
 					} else if (got_flag == "E") {
 						window.location.replace('interactive.html');

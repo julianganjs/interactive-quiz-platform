@@ -26,7 +26,7 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 		
-			var int_quizID = localStorage.getItem('int_quiz_ID');
+			var int_quizID = sessionStorage.getItem('int_quiz_ID');
 			<!-- var int_quizID = "INTQZENG1A1"; -->
 
 			if (int_quizID == null || !(int_quizID.includes("INTQZ"))) {
@@ -164,8 +164,8 @@
 				});
 				const result = await response.json();
 				if (result) {
-					localStorage.setItem('int_quiz_ID', int_quizID);
-					localStorage.setItem('main_quiz_ID', quiz_ID);
+					sessionStorage.setItem('int_quiz_ID', int_quizID);
+					sessionStorage.setItem('main_quiz_ID', quiz_ID);
 					window.location.replace('int_quiz_question.html');
 				}				
 			}

@@ -26,8 +26,8 @@
 	<script src="assets/js/progressbar.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
-			var int_quizID = localStorage.getItem('int_quiz_ID');
-			var main_quizID = localStorage.getItem('main_quiz_ID');
+			var int_quizID = sessionStorage.getItem('int_quiz_ID');
+			var main_quizID = sessionStorage.getItem('main_quiz_ID');
 
 			<!-- var int_quizID = 'INTQZENG1A1'; -->
 			<!-- var main_quizID = 'QZENG1'; -->
@@ -541,8 +541,8 @@
 				setTimeout(()=> {
 					$('#lobby_music').attr('src','assets/music/empty.mp3');
 					$("#btn_div").css("right", "0px");
-					localStorage.removeItem('int_quiz_ID');
-					localStorage.removeItem('main_quiz_ID');
+					sessionStorage.removeItem('int_quiz_ID');
+					sessionStorage.removeItem('main_quiz_ID');
 				},delay);
 			}
 			
@@ -894,8 +894,8 @@
 			});
 			
 			$('#menu_button').on('click', function(e){
-				localStorage.removeItem('int_quiz_ID');
-				localStorage.removeItem('main_quiz_ID');
+				sessionStorage.removeItem('int_quiz_ID');
+				sessionStorage.removeItem('main_quiz_ID');
 				window.location.replace('interactive.html');
 			});
 			

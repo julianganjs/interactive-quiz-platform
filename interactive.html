@@ -220,7 +220,7 @@
 				});
 				const result = await response.json();
 				if (result.value) {
-					localStorage.setItem('int_quiz_ID', quiz_pin);
+					sessionStorage.setItem('int_quiz_ID', quiz_pin);
 					window.location.href = 'lobby.html';
 				}
 			}
@@ -266,8 +266,8 @@
 				});
 				const result = await response.json();
 				if (result.value) {
-					localStorage.setItem('int_quiz_ID', quiz_pin);
-					localStorage.setItem('player_name', name);
+					sessionStorage.setItem('int_quiz_ID', quiz_pin);
+					sessionStorage.setItem('player_name', name);
 					window.location.href = 'waiting.html';
 				}
 			}

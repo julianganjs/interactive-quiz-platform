@@ -26,8 +26,8 @@
 	<script src="assets/js/progressbar.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
-			var int_quizID = localStorage.getItem('int_quiz_ID');
-			var player_name = localStorage.getItem('player_name');
+			var int_quizID = sessionStorage.getItem('int_quiz_ID');
+			var player_name = sessionStorage.getItem('player_name');
 
 			<!-- var int_quizID = 'INTQZENG1A1'; -->
 			<!-- var player_name = 'Tommy'; -->
@@ -393,8 +393,8 @@
 				$("#btn_div").prop("hidden", false);
 				setTimeout(()=> {
 					$("#btn_div").css("right", "0px");
-					localStorage.removeItem('int_quiz_ID');
-					localStorage.removeItem('player_name');
+					sessionStorage.removeItem('int_quiz_ID');
+					sessionStorage.removeItem('player_name');
 				},3000);
 			}
 			
@@ -423,8 +423,8 @@
 			});
 
             $('#menu_button').on('click', function(e){
-				localStorage.removeItem('int_quiz_ID');
-				localStorage.removeItem('player_name');
+				sessionStorage.removeItem('int_quiz_ID');
+				sessionStorage.removeItem('player_name');
 				window.location.replace('interactive.html');
 			});
 			
