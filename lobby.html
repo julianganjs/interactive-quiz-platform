@@ -29,6 +29,10 @@
 			var int_quizID = localStorage.getItem('int_quiz_ID');
 			<!-- var int_quizID = "INTQZENG1A1"; -->
 
+			if (int_quizID == null || !(int_quizID.includes("INTQZ"))) {
+				window.location.replace('interactive.html');
+			}
+
 			var quiz_ID = "";
 			var ques_duration = "";
 			var max_player = "";

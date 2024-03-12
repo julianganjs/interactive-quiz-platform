@@ -25,6 +25,10 @@
 			var quizID = localStorage.getItem('quiz_ID');
 			<!-- var quizID = "QZENG1"; -->
 
+			if (quizID == null) {
+				window.location.replace('tester.html');
+			}
+
 			$('#loadingModal').modal('toggle');
 			
 			var current_quest = 0;

@@ -29,6 +29,10 @@
 			var quiz_id = localStorage.getItem('quiz_ID');
 			<!-- var quiz_id = "QZENG4"; -->
 
+			if (quiz_id == null) {
+				window.location.replace('editor.html');
+			}
+
             $('#loadingModal').modal('toggle');
 			
 			$("#quiz_id_direct").html("&nbsp;&nbsp;>&nbsp;&nbsp;"+quiz_id);
