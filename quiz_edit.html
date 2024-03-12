@@ -955,6 +955,7 @@
 			});
 			
 			$('#leave_button').on('click', function(e){
+				localStorage.removeItem('quiz_ID');
 				window.location.replace('editor.html');
 			});
 

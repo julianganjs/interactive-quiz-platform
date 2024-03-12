@@ -393,6 +393,8 @@
 				$("#btn_div").prop("hidden", false);
 				setTimeout(()=> {
 					$("#btn_div").css("right", "0px");
+					localStorage.removeItem('int_quiz_ID');
+					localStorage.removeItem('player_name');
 				},3000);
 			}
 			
@@ -421,6 +423,8 @@
 			});
 
             $('#menu_button').on('click', function(e){
+				localStorage.removeItem('int_quiz_ID');
+				localStorage.removeItem('player_name');
 				window.location.replace('interactive.html');
 			});
 			

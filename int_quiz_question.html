@@ -541,6 +541,8 @@
 				setTimeout(()=> {
 					$('#lobby_music').attr('src','assets/music/empty.mp3');
 					$("#btn_div").css("right", "0px");
+					localStorage.removeItem('int_quiz_ID');
+					localStorage.removeItem('main_quiz_ID');
 				},delay);
 			}
 			
@@ -892,6 +894,8 @@
 			});
 			
 			$('#menu_button').on('click', function(e){
+				localStorage.removeItem('int_quiz_ID');
+				localStorage.removeItem('main_quiz_ID');
 				window.location.replace('interactive.html');
 			});
 			

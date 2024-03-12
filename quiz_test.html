@@ -734,6 +734,7 @@
 			var points = 0;
 			
 			$('#return_button').on('click', function(e){
+				localStorage.removeItem('quiz_ID');
 				window.location.replace('tester.html');
 			});
 			
