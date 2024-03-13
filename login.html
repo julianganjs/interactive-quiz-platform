@@ -20,7 +20,60 @@
 	<script src="assets/js/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready( function () {
+		
+			$('#confirm_button').on('click', function(e){
+				$('#loadingModal').modal('toggle');
+				username = $('#username').val();
+				pass = $('#pass').val();
+				check_login(username,pass);
+			});
 			
+			var course_id;
+			var first_name;
+			var user_role;
+			
+			async function check_login(username,pass) {
+				
+				
+				const endpoint = '/data-api/rest/accounts';
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				
+				<!-- data = {"value":[{"id":1,"username":"teacher","pass":"teacher","first_name":"Thomas","last_name":"Shelby","role":"e","course_id":"ENG1"},{"id":2,"username":"student","pass":"student","first_name":"Julian","last_name":"Gan","role":"s","course_id":"ENG1"}]}; -->
+				
+				if (data.value == '') {
+					$("#error_message").prop('hidden', false);
+					setTimeout(()=> {
+						$('#loadingModal').modal('toggle');
+					},500);
+				} else {
+					got_flag = "N";
+					for (var i = 0; i < data.value.length; i++) {
+						if (data.value[i].username == username && data.value[i].pass == pass) {
+							course_id = data.value[i].course_id;
+							first_name = data.value[i].first_name;
+							user_role = data.value[i].role;
+							got_flag = "Y";
+							break;
+						}
+					}
+					
+					if (got_flag == "Y") {
+						localStorage.clear();
+						sessionStorage.clear();
+						localStorage.setItem('course_id', course_id);
+						localStorage.setItem('username', username);
+						localStorage.setItem('first_name', first_name);
+						localStorage.setItem('user_role', user_role);
+						window.location.replace('dashboard.html');
+					} else {
+						$("#error_message").prop('hidden', false);
+						setTimeout(()=> {
+							$('#loadingModal').modal('toggle');
+						},500);
+					}
+				}
+			}
 		} );
 	</script>
 </head>
@@ -31,19 +84,19 @@
 			<div class="row" style="margin-top: 50px; margin-left: 20px; margin-right: 20px; margin-bottom: 50px;">
 				<img src="assets/images/uon-logo.png" alt="University of Nottingham" style="max-height:300px; max-width:100%; height:auto; width:auto; object-fit: contain; object-position: center;">
 			</div>
-			<div class="row" style="margin-left: 32px; margin-right: 32px; margin-bottom: 18px;">
+			<div hidden class="row" style="margin-left: 32px; margin-right: 32px; margin-bottom: 18px;" id="error_message">
 				<div class="card p-3" style="height: auto; border: 0; border-radius: 0px; width: 30vw; background-color: #efced0;">
 					<span style="font-size: 0.98rem; font-weight: 400; font-family: Arial, Verdana, Helvetica, sans-serif; color:#682152;">Invalid login, please try again</span>
 				</div>
 			</div>
 			<div class="row" style="margin-left: 32px; margin-right: 32px;">
-				<input type="text" class="form-control" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: Arial, Verdana, Helvetica, sans-serif; font-weight: 400; font-size: 1.1rem; line-height: 35px;" placeholder="Username">
+				<input type="text" class="form-control" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: Arial, Verdana, Helvetica, sans-serif; font-weight: 400; font-size: 1.1rem; line-height: 35px;" placeholder="Username" id="username">
 			</div>
 			<div class="row" style="margin-left: 32px; margin-right: 32px; margin-top: 18px;">
-				<input type="password" class="form-control" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: Arial, Verdana, Helvetica, sans-serif; font-weight: 400; font-size: 1.1rem; line-height: 35px;" placeholder="Password">
+				<input type="password" class="form-control" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: Arial, Verdana, Helvetica, sans-serif; font-weight: 400; font-size: 1.1rem; line-height: 35px;" placeholder="Password" id="pass">
 			</div>
 			<div class="row" style="margin-left: 32px; margin-right: 32px; margin-top: 18px; margin-bottom: 40px;">
-				<button class="btn ps-3 pe-3 pt-2 pb-2" type="button" style="background-color:#08131d; color: white; font-weight: lighter; font-family: Arial, Verdana, Helvetica, sans-serif; font-size: 1.2rem; border-radius: 0px; width: auto;">Log in</button>
+				<button class="btn ps-3 pe-3 pt-2 pb-2" id="login_button" type="button" style="background-color:#08131d; color: white; font-weight: lighter; font-family: Arial, Verdana, Helvetica, sans-serif; font-size: 1.2rem; border-radius: 0px; width: auto;">Log in</button>
 			</div>
 		</div>
 	</div>
