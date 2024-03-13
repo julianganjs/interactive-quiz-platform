@@ -29,6 +29,7 @@
 			var first_name = localStorage.getItem('first_name');
 			var course_id = localStorage.getItem('course_id');
 			var username = localStorage.getItem('username');
+			var user_role = localStorage.getItem('user_role');
 			
 			if (first_name == null||course_id == null||username == null) {
 				localStorage.clear();
@@ -128,8 +129,10 @@
 					if (quiz_count == 0) {
 						$("#qtype_text").html("No quizzes available.");
 					} else {
-						$("#dropdownMenuButton1").prop('disabled', false);
-						$("#select_button").prop('disabled', false);
+						if(user_role != 's'){
+							$("#dropdownMenuButton1").prop('disabled', false);
+							$("#select_button").prop('disabled', false);
+						}
 					}
 					
 				}
@@ -216,7 +219,6 @@
 					} 
 				}
 				
-				alert(interactive_id);
 				data1 = '{"quiz_id": "'+interactive_id+'", "quiz_id_short": "'+selection+'", "ques_duration": "'+duration_per_question+'", "max_player": '+max_num_of_players+', "current_player": "0", "started":"N","ended":"N"}';
 				start_quiz(JSON.parse(data1),interactive_id);
 			}
