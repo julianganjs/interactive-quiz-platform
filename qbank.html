@@ -24,7 +24,15 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
-			var course_id = "ENG1";
+			var first_name = localStorage.getItem('first_name');
+			var course_id = localStorage.getItem('course_id');
+			var username = localStorage.getItem('username');
+			
+			if (first_name == null||course_id == null||username == null) {
+				localStorage.clear();
+				sessionStorage.clear();
+				window.location.replace('login.html');
+			}
 			
 			$('#loadingModal').modal('toggle');
 			
