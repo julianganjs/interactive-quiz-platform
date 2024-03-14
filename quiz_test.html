@@ -875,6 +875,7 @@
 				  // If the count down is over, write some text 
 				  if (distance < 0) {
 					clearInterval(x);
+					$('#time').html('&nbsp;&nbsp;00:00:00');
 					$('#timeModal').modal('show');
 					$('#confirm_button').click();
 				  }
