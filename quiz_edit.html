@@ -70,7 +70,10 @@
                     if (data.value[i].quiz_id == quiz_id) {
 						question_types[data.value[i].q_id-1] = data.value[i].q_type;
 						qlist_id[data.value[i].q_id-1] = data.value[i].id;
-						time_duration = data.value[i].hours;
+						if (data.value[i].hours != null && data.value[i].hours != ''){
+							time_duration = data.value[i].hours;
+						}
+						
 					}
                 }
 				
