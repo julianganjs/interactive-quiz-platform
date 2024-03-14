@@ -76,7 +76,6 @@
 
                 var prev = "";
 				var mc_flag = 0;
-				var prev_mc_flag = 0;
 				var quiz_count = 0;
 				
 				if (data.value == '') {
@@ -89,17 +88,6 @@
 						}
 						
 						if (i == data.value.length-1) {
-							if (prev_mc_flag == 0 && i != 0 && prev != data.value[i].quiz_id) {
-								if(quiz_count == 0) {
-									quiz_id_selection = prev;									
-									$("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+prev+'">'+prev+'</a></li>');		
-									$("#qtype_text").html(prev);										
-								}
-								else {
-									$("#qtype_menu").append('<li><a class="dropdown-item qtype_menu_item" id="'+prev+'">'+prev+'</a></li>');
-								}
-								quiz_count += 1;
-							}
 							if (mc_flag == 0) {
 								if(quiz_count == 0) {
 									quiz_id_selection = data.value[i].quiz_id;								
@@ -113,10 +101,12 @@
 							}
 						} else if (data.value[i].quiz_id == prev) {
 							prev = data.value[i].quiz_id;
-							prev_mc_flag = mc_flag;
 						} else {
-							if (i != 0) {
-								if (prev_mc_flag == 0) {
+							if (i == 0){
+								prev = data.value[i].quiz_id;
+								
+							} else {
+								if (mc_flag == 0) {
 									if(quiz_count == 0) {
 										quiz_id_selection = prev;									
 										$("#qtype_menu").append('<li><a class="dropdown-item active qtype_menu_item" id="'+prev+'">'+prev+'</a></li>');		
@@ -132,7 +122,6 @@
 								}
 							}
 							prev = data.value[i].quiz_id;
-							prev_mc_flag = mc_flag;
 						}
 
 					}
@@ -465,7 +454,7 @@
 	</div>
 	<div class="row" style="height: 100%; padding-top: 0px; padding-bottom: 50px;">
 		<div class="col-sm-6 col-12 d-flex align-items-center justify-content-center" style="height: 100%; border-right: 2px solid #cfcfcf;" id="card_left">
-			<div class="card" style="height: auto; border: 0; border-radius: 10px; width: 60%;">
+			<div class="card" style="height: auto; border: 0; border-radius: 10px; width: 450px;">
 				<div class="row mt-3" style="text-align: center;">
 					<span style="font-size: 3.8rem; color: black; font-family: 'Lilita One', sans-serif;">Start Quiz</span>
 				</div>
@@ -494,7 +483,7 @@
 			</div>
 		</div>
 		<div class="col-sm-6 col-12 d-flex align-items-center justify-content-center" style="height: 100%;" id="card_right">
-			<div class="card" style="height: auto; border: 0; border-radius: 10px; width: 30vw; margin: auto;">
+			<div class="card" style="height: auto; border: 0; border-radius: 10px; width: 450px; margin: auto;">
 				<div class="row mt-3" style="text-align: center;">
 					<span style="font-size: 3.8rem; color: black; font-family: 'Lilita One', sans-serif;">Join Quiz</span>
 				</div>
