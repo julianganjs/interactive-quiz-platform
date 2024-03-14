@@ -115,9 +115,7 @@
 							prev = data.value[i].quiz_id;
 							prev_mc_flag = mc_flag;
 						} else {
-							if (i == 0){
-								prev = data.value[i].quiz_id;
-							} else {
+							if (i != 0) {
 								if (prev_mc_flag == 0) {
 									if(quiz_count == 0) {
 										quiz_id_selection = prev;									
