@@ -56,6 +56,7 @@
 			calc_questions_id = [];
 			calc_multi_questions_id = [];
 			mc_answers_id = [[],[]];
+			var time_duration = "0.5";
 			
 			async function get_questions() {
 				
@@ -69,6 +70,7 @@
                     if (data.value[i].quiz_id == quiz_id) {
 						question_types[data.value[i].q_id-1] = data.value[i].q_type;
 						qlist_id[data.value[i].q_id-1] = data.value[i].id;
+						time_duration = data.value[i].hours;
 					}
                 }
 				
@@ -802,18 +804,20 @@
 					data1 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "q_type": "';
 					quest_type = $(document).find("#ques_list_item_"+i).children(".quest_type").val();
 					if ( quest_type == "multi_choice") {
-						data1 += 'mc"}';
+						data1 += 'mc", "hours":"';
 					} else if (quest_type == "true_false") {
-						data1 += 'tf"}';
+						data1 += 'tf", "hours":"';
 					} else if (quest_type == "short_ans") {
-						data1 += 'sa"}';
+						data1 += 'sa", "hours":"';
 					} else if (quest_type == "essay") {
-						data1 += 'essay"}';
+						data1 += 'essay", "hours":"';
 					} else if (quest_type == "calc") {
-						data1 += 'calc"}';
+						data1 += 'calc", "hours":"';
 					} else if (quest_type == "calc_multi") {
-						data1 += 'calc_multi"}';
+						data1 += 'calc_multi", "hours":"';
 					}
+					data1 += time_duration;
+					data1 += '"}';
 					<!-- alert(data1); -->
 					update_QuestionList(qlist_id[i-1],JSON.parse(data1));
 					
