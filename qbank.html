@@ -1754,6 +1754,7 @@
 							});
 							$('#ques_list_item_'+total_question_no).find("#mc_correct_ans_"+row[row_count]+"_"+total_question_no).prop('checked', true);
 							element.val(''); 
+							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
@@ -1772,6 +1773,7 @@
 							});
 							$('#ques_list_item_'+total_question_no).find("#tf_correct_ans_"+row[row_count]+"_"+total_question_no).prop('checked', true);
 							element.val(''); 
+							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
@@ -1788,7 +1790,8 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
-							element.val(''); 
+							element.val('');
+							$("#submit_button").prop('disabled', false); 
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
@@ -1805,7 +1808,8 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
-							element.val(''); 
+							element.val('');
+							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
@@ -1822,7 +1826,8 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
-							element.val(''); 
+							element.val('');
+							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
@@ -1839,7 +1844,8 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
-							element.val(''); 
+							element.val('');
+							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
 							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
