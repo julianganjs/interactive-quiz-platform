@@ -1287,6 +1287,10 @@
 					$(this).parent().siblings('div.col-2').children('button.test_button').prop('disabled', false);
 				}
 			});
+
+			$(document).on('change keyup paste', '#quiz_duration', function(e) {
+				$("#submit_button").prop('disabled', false);
+			});
 			
 			$(document).on('click', 'button.test_button', function(e) {
 				$(this).parent().siblings('div.col-4').children('textarea').val('NaN');
