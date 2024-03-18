@@ -24,28 +24,17 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 			
-			var first_name = localStorage.getItem('first_name');
-			var course_id = localStorage.getItem('course_id');
-			var username = localStorage.getItem('username');
-			
-			if (first_name == null||course_id == null||username == null) {
-				localStorage.clear();
-				sessionStorage.clear();
-				window.location.replace('login.html');
-			}
+			var course_id = "ENG1";
 			
 			var quiz_id = localStorage.getItem('quiz_ID');
 			<!-- var quiz_id = "QZENG4"; -->
-
-			if (quiz_id == null) {
-				window.location.replace('editor.html');
-			}
 
             $('#loadingModal').modal('toggle');
 			
 			$("#quiz_id_direct").html("&nbsp;&nbsp;>&nbsp;&nbsp;"+quiz_id);
 			
 			var total_question_no = 0;
+			var duration = "0.5";
 			
 			question_types = [];
 			qlist_id = [];
@@ -56,7 +45,6 @@
 			calc_questions_id = [];
 			calc_multi_questions_id = [];
 			mc_answers_id = [[],[]];
-			var time_duration = "0.5";
 			
 			async function get_questions() {
 				
@@ -70,10 +58,7 @@
                     if (data.value[i].quiz_id == quiz_id) {
 						question_types[data.value[i].q_id-1] = data.value[i].q_type;
 						qlist_id[data.value[i].q_id-1] = data.value[i].id;
-						if (data.value[i].hours != null && data.value[i].hours != ''){
-							time_duration = data.value[i].hours;
-						}
-						
+						duration = data.value[i].hours;
 					}
                 }
 				
@@ -489,6 +474,8 @@
 					}
 				}
 				
+				$('#quiz_duration').val(duration + " Hours");
+				
 				if (question_types.includes("mc")) {
 					const endpoint2 = '/data-api/rest/mc_Questions';
 					const response2 = await fetch(endpoint2);
@@ -819,7 +806,12 @@
 					} else if (quest_type == "calc_multi") {
 						data1 += 'calc_multi", "hours":"';
 					}
-					data1 += time_duration;
+					duration = $('#quiz_duration').val().replace(/[^0-9.]/g,'');
+					if (duration == '') {
+						data1 += '0.5';
+					} else {
+						data1 += duration;
+					}
 					data1 += '"}';
 					<!-- alert(data1); -->
 					update_QuestionList(qlist_id[i-1],JSON.parse(data1));
@@ -974,7 +966,6 @@
 			});
 			
 			$('#leave_button').on('click', function(e){
-				localStorage.removeItem('quiz_ID');
 				window.location.replace('editor.html');
 			});
 
@@ -1312,23 +1303,17 @@
 				}
 			});
 			
-			$('a.logout').on('click', function(e){
-				localStorage.clear();
-				window.location.replace('login.html');
-			});
-
 		} );
 	</script>
 </head>
 
 <body style="background: white; background-size: cover; ">
 
-	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true">
+	<div class="modal fade" id="calcErrorModal" tabindex="-1"  aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content" style="border-radius: 0px; border:0;">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="calc_modal_title" style="font-size: 1.3rem; color:rgb(0,0,0); font-weight: 700; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; padding-top: 3px; padding-bottom: 3px; padding-left: 8px;"></h5>
-			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-top: 3px; padding-bottom: 3px; padding-right: 20px;"></button>
 			</div>
 			<div id="calc_modal_message" class="modal-body" style="font-size: 0.95rem; font-weight: 100; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;padding-left: 24px; color:#5b595f;"></div>
 			<div class="modal-footer">
@@ -1423,10 +1408,7 @@
 			<i class="fas fa-user-circle" style="color:#792d85; font-size: 2.2rem;"></i>
 		</div>
 		<div class="col-auto" style="margin-top: auto; margin-bottom: auto; margin-right: 25px; margin-left: -15px">
-			<i class="fas fa-chevron-down" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black; font-size: 0.6rem; cursor: pointer;" id="logout_arrow"></i>
-			<ul class="dropdown-menu" aria-labelledby="logout_arrow" style="font-size: 1rem; line-height: 25px; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; border-radius: 0px;">
-				<li><a class="dropdown-item logout">Log out</a></li>
-			</ul>
+			<i class="fas fa-chevron-down" style="color:black; font-size: 0.6rem;"></i>
 		</div>
 	</div>
 	<div class="row ms-4 me-4 mt-3 mb-2">
@@ -1457,6 +1439,12 @@
 			<div class="row ms-2 mt-1 me-2">
 				<div class="col">
 				  <button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color:#b32b76; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="submit_button">Update Quiz</button>
+				</div>
+				<div class="col-auto d-flex align-items-center justify-content-center">
+					<span style="font-size: 0.95rem; font-weight: 400; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Quiz Duration</span>
+				</div>
+				<div class="col-2">
+				  <input type="text" class="form-control" id="quiz_duration" style="border: 1px solid #bbbbbb; border-radius: 0px; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif; font-weight: 100;" value="">
 				</div>
 				<div class="col-auto">
 				  <button type="button" disabled class="btn ps-4 pe-4 pt-2 pb-2" type="button" style="background-color: red; color: white; font-weight: lighter; font-family: 'Trebuchet MS', sans-serif; font-size: 0.92rem; border-radius: 0px;" id="delete_button">Delete Quiz</button>
