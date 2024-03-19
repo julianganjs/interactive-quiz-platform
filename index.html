@@ -1774,7 +1774,7 @@
 					
 					data2 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": "'+i+'", "question": "';
 					if ( quest_type == "multi_choice") {
-						ques = $(document).find("#mc_question_"+i).val();
+						ques = $(document).find("#mc_question_"+i).val().replace(/"/g, "'");;
 						data2 += ques;
 						data2 += '", "correct_ans_id": ';
 						
@@ -1798,14 +1798,14 @@
 						
 						for (let j = 1; j <= 4; j++) {
 							data3 = '{"course_id": "'+course_id+'", "quiz_id": "'+quiz_id+'", "q_id": '+i+', "ans_id": '+j+', "answer": "';
-							ans = $(document).find("#mc_ans_"+j+"_"+i).val();
+							ans = $(document).find("#mc_ans_"+j+"_"+i).val().replace(/"/g, "'");
 							data3 += ans;
 							data3 += '"}';
 							
 							mc_Answers(JSON.parse(data3),last);
 						}
 					} else if (quest_type == "true_false") {
-						ques = $(document).find("#tf_question_"+i).val();
+						ques = $(document).find("#tf_question_"+i).val().replace(/"/g, "'");
 						data2 += ques;
 						data2 += '", "correct_ans_id": "';
 						
@@ -1827,10 +1827,10 @@
 							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "short_ans") {
-						ques = $(document).find("#sa_question_"+i).val();
+						ques = $(document).find("#sa_question_"+i).val().replace(/"/g, "'");
 						data2 += ques;
 						data2 += '", "correct_ans": "';
-						ans = $(document).find("#sa_ans_"+i).val();
+						ans = $(document).find("#sa_ans_"+i).val().replace(/"/g, "'");
 						data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
@@ -1841,10 +1841,10 @@
 							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "essay") {
-						ques = $(document).find("#essay_question_"+i).val();
+						ques = $(document).find("#essay_question_"+i).val().replace(/"/g, "'");
 						data2 += ques;
 						data2 += '", "correct_keywords": "';
-						ans = $(document).find("#essay_ans_"+i).val();
+						ans = $(document).find("#essay_ans_"+i).val().replace(/"/g, "'");
 						data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
@@ -1855,7 +1855,7 @@
 							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "calc") {
-						ques = $(document).find("#calc_question_"+i).val();
+						ques = $(document).find("#calc_question_"+i).val().replace(/"/g, "'");
 						data2 += ques;
 						data2 += '", "formula": "';
 						data2 += $(document).find("#calc_formula_"+i).val();
@@ -1874,7 +1874,7 @@
 							getBase64($(document).find("#imageQues_"+i).prop('files')[0], data2, quest_type, $(document).find("#imageQues_"+i).prop('files')[0].name,last);
 						}
 					} else if (quest_type == "calc_multi") {
-						ques = $(document).find("#calc_multi_question_"+i).val();
+						ques = $(document).find("#calc_multi_question_"+i).val().replace(/"/g, "'");
 						data2 += ques;
 						data2 += '", "formula": "';
 						data2 += $(document).find("#calc_multi_formula_"+i).val();
@@ -1885,7 +1885,7 @@
 						data2 += '", "range": "';
 						data2 += $(document).find("#calc_multi_range_"+i).val();
 						data2 += '", "answer_format": "';
-						data2 += $(document).find("#calc_multi_ans_"+i).val();
+						data2 += $(document).find("#calc_multi_ans_"+i).val().replace(/"/g, "'");
 						data2 += '", "image" : "';
 						file_status = $(document).find("#imageQues_"+i).val();
 						if (file_status == ""){
