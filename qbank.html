@@ -1364,7 +1364,7 @@
 						
 						data2 = '{"course_id": "'+course_id+'", "q_id": "'+ques_num_counter.toString()+'", "question": "';
 						if ( quest_type == "multi_choice") {
-							ques = $(document).find("#mc_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#mc_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "correct_ans_id": ';
 							
@@ -1391,14 +1391,14 @@
 							
 							for (let j = 1; j <= 4; j++) {
 								data3 = '{"course_id": "'+course_id+'", "q_id": '+ques_num_counter.toString()+', "ans_id": '+j+', "answer": "';
-								ans = $(document).find("#mc_ans_"+j+"_"+question_number_memory[i].toString()).val();
+								ans = $(document).find("#mc_ans_"+j+"_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 								data3 += ans;
 								data3 += '"}';
 								
 								mc_Answers_QBank(JSON.parse(data3),last);
 							}
 						} else if (quest_type == "true_false") {
-							ques = $(document).find("#tf_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#tf_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "correct_ans_id": "';
 							
@@ -1424,10 +1424,10 @@
 							tf_Questions_QBank(JSON.parse(data2),last);
 							
 						} else if (quest_type == "short_ans") {
-							ques = $(document).find("#sa_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#sa_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "correct_ans": "';
-							ans = $(document).find("#sa_ans_"+question_number_memory[i].toString()).val();
+							ans = $(document).find("#sa_ans_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 							data2 += '", "image" : "';
 							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
@@ -1442,10 +1442,10 @@
 							sa_Questions_QBank(JSON.parse(data2),last);
 
 						} else if (quest_type == "essay") {
-							ques = $(document).find("#essay_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#essay_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "correct_keywords": "';
-							ans = $(document).find("#essay_ans_"+question_number_memory[i].toString()).val();
+							ans = $(document).find("#essay_ans_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ans.toLowerCase().replace(/\s\s+/g, ' ').trim();
 							data2 += '", "image" : "';
 							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
@@ -1460,7 +1460,7 @@
 							essay_Questions_QBank(JSON.parse(data2),last);
 
 						} else if (quest_type == "calc") {
-							ques = $(document).find("#calc_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#calc_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "formula": "';
 							data2 += $(document).find("#calc_formula_"+question_number_memory[i].toString()).val();
@@ -1483,7 +1483,7 @@
 							calc_Questions_QBank(JSON.parse(data2),last);
 							
 						} else if (quest_type == "calc_multi") {
-							ques = $(document).find("#calc_multi_question_"+question_number_memory[i].toString()).val();
+							ques = $(document).find("#calc_multi_question_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += ques;
 							data2 += '", "formula": "';
 							data2 += $(document).find("#calc_multi_formula_"+question_number_memory[i].toString()).val();
@@ -1494,7 +1494,7 @@
 							data2 += '", "range": "';
 							data2 += $(document).find("#calc_multi_range_"+question_number_memory[i].toString()).val();
 							data2 += '", "answer_format": "';
-							data2 += $(document).find("#calc_multi_ans_"+question_number_memory[i].toString()).val();
+							data2 += $(document).find("#calc_multi_ans_"+question_number_memory[i].toString()).val().replace(/"/g, "'");
 							data2 += '", "image" : "';
 							file_status = $(document).find("#dispImg_"+question_number_memory[i].toString()).attr('src');
 							if (file_status == ""){
