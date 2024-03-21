@@ -1880,6 +1880,15 @@
 					file_content += "|";
 					file_content += $(this).val();
 				});
+				file_content += "|";
+				file_status = toBeExported.find("img.dispImg").attr('src');
+				if (file_status == ""){
+					file_content += "|";
+				} else {
+					file_content += file_status;
+					file_content += "|";
+					file_content += toBeExported.find('button.addImg').html();
+				}
 				if (toBeExported_type == "multi_choice" || toBeExported_type=="true_false") {
 					correct_ans_id_2 = "";	
 					toBeExported.find("input[type=radio]").each(function(){
