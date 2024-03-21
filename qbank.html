@@ -1721,21 +1721,28 @@
 			
 			
 			$(document).on('change', '#txt_file_input', function(e) {
-				var fileName = this.files[0].name;
-				var idxDot = fileName.lastIndexOf(".") + 1;
-				var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-				var content;
-				if (extFile=="txt"){
-					var reader2 = new FileReader();
-					var element2 = $(this);
-					reader2.readAsText(this.files[0]);
-					reader2.onloadend = function () {
-						getContents(reader2.result.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').split(/\r?\n/),element2);
-					};
-				}else{
-					$(this).val(''); 
-					$('#txtFileErrorModal_message').html('Only .txt file type is allowed!');
-					$('#txtFileErrorModal').modal('show');
+				var fileList = this.files;
+				for (var i = 0; i < fileList.length; i++) {
+					var fileName = fileList[i].name;
+					var idxDot = fileName.lastIndexOf(".") + 1;
+					var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+					var content;
+					if (extFile=="txt"){
+						var element2 = $(this);
+						var fileToRead = fileList[i];
+						var p = new Promise(function(resolve) {
+							var reader2 = new FileReader();
+							reader2.onloadend = function () {
+								code = reader2.result;
+								resolve(getContents(code.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').split(/\r?\n/),element2));
+							};
+							reader2.readAsText(fileToRead);
+						});
+					}else{
+						$(this).val(''); 
+						$('#txtFileErrorModal_message').html('Only .txt file type is allowed!');
+						$('#txtFileErrorModal').modal('show');
+					}
 				}
 			});
 			
@@ -1743,7 +1750,7 @@
 				for (var i = 0; i < content.length; i++) {
 					row = content[i].split("|");
 					if (row[0] == "multi_choice") {
-						if (row.length == 7) {
+						if (row.length == 9) {
 							qtype = "multi_choice";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1752,6 +1759,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							$('#ques_list_item_'+total_question_no).find("#mc_correct_ans_"+row[row_count]+"_"+total_question_no).prop('checked', true);
 							element.val(''); 
 							$("#submit_button").prop('disabled', false);
@@ -1762,7 +1781,7 @@
 							break;
 						}
 					} else if (row[0] == "true_false") {
-						if (row.length == 3) {
+						if (row.length == 5) {
 							qtype = "true_false";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1771,6 +1790,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							$('#ques_list_item_'+total_question_no).find("#tf_correct_ans_"+row[row_count]+"_"+total_question_no).prop('checked', true);
 							element.val(''); 
 							$("#submit_button").prop('disabled', false);
@@ -1781,7 +1812,7 @@
 							break;
 						}
 					} else if (row[0] == "short_ans") {
-						if (row.length == 3) {
+						if (row.length == 5) {
 							qtype = "short_ans";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1790,6 +1821,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							element.val('');
 							$("#submit_button").prop('disabled', false); 
 						} else {
@@ -1799,7 +1842,7 @@
 							break;
 						}
 					} else if (row[0] == "essay") {
-						if (row.length == 3) {
+						if (row.length == 5) {
 							qtype = "essay";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1808,6 +1851,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							element.val('');
 							$("#submit_button").prop('disabled', false);
 						} else {
@@ -1817,7 +1872,7 @@
 							break;
 						}
 					} else if (row[0] == "calc") {
-						if (row.length == 8) {
+						if (row.length == 10) {
 							qtype = "calc";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1826,6 +1881,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							element.val('');
 							$("#submit_button").prop('disabled', false);
 						} else {
@@ -1835,7 +1902,7 @@
 							break;
 						}
 					} else if (row[0] == "calc_multi") {
-						if (row.length == 9) {
+						if (row.length == 11) {
 							qtype = "calc_multi";
 							$('#add_button').click();
 							qtype = "txt_file";
@@ -1844,6 +1911,18 @@
 								$(this).val(row[row_count]);
 								row_count += 1;
 							});
+							if (row[row_count] != "") {
+								$(document).find("#dispImg_"+total_question_no).attr('src',row[row_count]);
+								$(document).find("#dispImg_"+total_question_no).css('margin-bottom', '10px');
+								row_count += 1;
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').html(row[row_count]);
+								$(document).find("#imageQues_"+total_question_no).next('.addImg').css("background-color","#b32b76");
+								$(document).find("#imageQues_"+total_question_no).prev('.removeImg').prop("hidden", false);
+								row_count += 1;
+							} else {
+								row_count += 1;
+								row_count += 1;
+							}
 							element.val('');
 							$("#submit_button").prop('disabled', false);
 						} else {
@@ -2161,7 +2240,7 @@
 					<div class=""><span style="font-size: 0.95rem; color:rgb(0,0,0); font-weight: 500; font-family: 'Trebuchet MS', Arial, Verdana, Helvetica, sans-serif;">Select a question type to add.<span></div>
 				</div>
 			</div>
-			<input type="file" id="txt_file_input" style="display:none" accept="text/plain">
+			<input type="file" id="txt_file_input" style="display:none" accept="text/plain" multiple>
 			<div class="row ms-2 mt-1 me-2">
 				<div class="col">
 					<div class="dropdown">
