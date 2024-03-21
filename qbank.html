@@ -1734,7 +1734,7 @@
 							var reader2 = new FileReader();
 							reader2.onloadend = function () {
 								code = reader2.result;
-								resolve(getContents(code.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').split(/\r?\n/),element2));
+								resolve(getContents(code.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm,'').split(/\r?\n/),element2,fileName));
 							};
 							reader2.readAsText(fileToRead);
 						});
@@ -1746,7 +1746,7 @@
 				}
 			});
 			
-			function getContents(content,element){
+			function getContents(content,element,fileName){
 				for (var i = 0; i < content.length; i++) {
 					row = content[i].split("|");
 					if (row[0] == "multi_choice") {
@@ -1776,7 +1776,7 @@
 							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
@@ -1807,7 +1807,7 @@
 							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
@@ -1837,7 +1837,7 @@
 							$("#submit_button").prop('disabled', false); 
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
@@ -1867,7 +1867,7 @@
 							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
@@ -1897,7 +1897,7 @@
 							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
@@ -1927,13 +1927,13 @@
 							$("#submit_button").prop('disabled', false);
 						} else {
 							element.val(''); 
-							$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+							$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 							$('#txtFileErrorModal').modal('show');
 							break;
 						}
 					} else {
 						element.val(''); 
-						$('#txtFileErrorModal_message').html('The text file does not follow the required format!');
+						$('#txtFileErrorModal_message').html('The text file "'+fileName+'" does not follow the required format!');
 						$('#txtFileErrorModal').modal('show');
 						break;
 					}
