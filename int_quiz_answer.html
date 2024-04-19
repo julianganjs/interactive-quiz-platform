@@ -260,13 +260,11 @@
 						$("#assure_message").css("color", "red");
 						let y = Math.random();
 						if (y < 0.3) {
-							$("#assure_message").html("That's a shame . . .");
+							$("#assure_message").html("That's a shame . . . You can do better!");
 						} else if (y < 0.6) {
-							$("#assure_message").html("Wrong! So wrong!");
-						} else if (y < 0.9) {
-							$("#assure_message").html("Nice try HAHAHAHA");
-						} else{
-							$("#assure_message").html("NOOB");
+							$("#assure_message").html("Better luck next round!");
+						} else {
+							$("#assure_message").html("Good try! Next question is yours!");
 						}
 						$("#add_points").html("+&nbsp;"+points+"&nbsp;Points");
 					}
