@@ -347,11 +347,11 @@
 			var player_names = [];
 			
 			async function get_players(int_quizID,ques_counter) {
-				<!-- const endpoint = '/data-api/rest/IntPlayers'; -->
-				<!-- const response = await fetch(endpoint); -->
-				<!-- const data = await response.json(); -->
+				const endpoint = '/data-api/rest/IntPlayers';
+				const response = await fetch(endpoint);
+				const data = await response.json();
 				
-				data = {"value":[{"id":1,"int_quiz_id":"INTQZENG3A7","player_name":"Tommy","points":"1100"},{"id":2,"int_quiz_id":"INTQZENG3A7","player_name":"Jimmy","points":"2345"},{"id":3,"int_quiz_id":"INTQZENG3A7","player_name":"shenenen","points":"4234"},{"id":4,"int_quiz_id":"INTQZENG3A7","player_name":"hey yall","points":"12423"},{"id":5,"int_quiz_id":"INTQZENG3A7","player_name":"tester","points":"325"},{"id":6,"int_quiz_id":"INTQZENG3A7","player_name":"Julian","points":"10746"}]};
+				<!-- data = {"value":[{"id":1,"int_quiz_id":"INTQZENG1A1","player_name":"Tommy","points":"4"},{"id":2,"int_quiz_id":"INTQZENG1A1","player_name":"Jimmy","points":"2"},{"id":3,"int_quiz_id":"INTQZENG1A1","player_name":"shenenen","points":"1"},{"id":4,"int_quiz_id":"INTQZENG1A1","player_name":"hey yall","points":"8"},{"id":5,"int_quiz_id":"INTQZENG1A1","player_name":"tester","points":"3"}]}; -->
 				
 				
 				if (data.value == '') {
