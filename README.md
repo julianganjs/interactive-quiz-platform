@@ -7,10 +7,15 @@ Currently there are already existing quiz platforms available. However, there is
 ## Database and Website Hosting
 The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. In order to attain the lowest latency and fastest load times, the geological location of server was set to East Asia, which was the best option for Malaysia.
 
-The website is hosted using **Microsoft Azure Static Web Apps**. Thesee web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend setup. The quiz platform will be deployed online as a web application, and the source files for website are stored in a GitHub repository.
+The website is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend setup. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
 
 The website can be accessed through the following link:<br />
 https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
+> *Username:*&nbsp;&nbsp;teacher<br />*Password:*&nbsp;&nbsp;&nbsp;teacher
+
+> ### Note
+> The Azure SQL Database was set up using a free student package, which has a one year trial period. Hence, the online quiz platform will only be operational till 13/11/2024, after which the database will then be offline indefinitely.
+
 
 
 
