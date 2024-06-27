@@ -9,7 +9,7 @@ The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data.
 
 The website is hosted using **Microsoft Azure Static Web Apps**. Thesee web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend setup. The quiz platform will be deployed online as a web application, and the source files for website are stored in a GitHub repository.
 
-The website can be accessed through the following link:
+The website can be accessed through the following link:<br />
 https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 
 
