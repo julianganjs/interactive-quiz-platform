@@ -16,13 +16,15 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 > ### Note
 > The Azure SQL Database was set up using a free student package, which only has a one year trial period. Hence, the online quiz platform will only be operational till 13/11/2024, after which the database will then be offline indefinitely.
 
-
-
-
-
 ## JavaScript Libraries/Framework
 - Bootstrap 5
 - MathJax
 - MathJS
 - FileReader
 - jQuery
+
+## Features
+1. Quiz Creator and Editor
+2. Quiz Taker
+3. Question Bank
+4. Interactive Quiz
