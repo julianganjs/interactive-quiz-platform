@@ -37,9 +37,15 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 - [login.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/login.html): Login page for quiz platform.
 - [dashboard.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/dashboard.html): Home page to access to all the various features.
 - [index.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/index.html): Integrated quiz creation tool.
-- [editor.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/editor.html): A page to select an already uploaded quiz to be edited.
+- [editor.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/editor.html): Page to select an already uploaded quiz to be edited.
 - [quiz_edit.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/quiz_edit.html): Integrated quiz editing tool.
-- [tester.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/tester.html): A page to select an already uploaded quiz to be attempted.
+- [tester.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/tester.html): Page to select an already uploaded quiz to be attempted.
 - [quiz_test.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/quiz_test.html): Integrated quiz taking tool.
-- [qbank.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/qbank.html): A page to add, remove and edit questions from the question bank.
-- [interactive.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/qbank.html): A page to add, remove and edit questions from the question bank.
+- [qbank.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/qbank.html): Page to add, remove and edit questions from the question bank.
+- [interactive.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/interactive.html): Page to convert exisiting quizzes into interactive quizzes and host them.
+- [lobby.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/lobby.html): Game lobby for all participants to join the interactive quiz.
+- [waiting.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/waiting.html): Waiting room for all participants before the interactive quiz starts.
+- [int_quiz_question.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/int_quiz_question.html): Main interactive quiz screen where the questions and answer choices are displayed, along with a leaderboard and other video game elements.
+- [int_quiz_answer.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/int_quiz_answer.html): Main interactive quiz screen where each participant selects their desired answer choice. Displays the points earned for each question.
+- [assets](https://github.com/julianganjs/interactive-quiz-platform/tree/main/assets): Contains all the styles, libraries, fonts, images and frameworks needed for the website to operate.
+- [swa-db-connections](https://github.com/julianganjs/interactive-quiz-platform/tree/main/swa-db-connections): Configuration file for Microsoft Azure SQL Database.
