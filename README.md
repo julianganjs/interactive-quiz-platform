@@ -27,8 +27,19 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 1. Quiz Creator and Editor
    - An integrated quiz creation tool with 6 different question types.
 2. Quiz Taker
-   - A screen to attempt quizzes. Equipped with a point allocation system, feedback system and timer.
+   - A tool to attempt the created quizzes. Equipped with a point allocation system, feedback system and timer.
 3. Question Bank
    - A structured repository to store questions for future quizzes. Equipped with import/export and search/filter functionalities.
 4. Interactive Quiz
    - An integrated tool to host interactive quizzes. Gamifies existing quizzes by adding video game elements.
+
+## Code Structure
+- [login.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/login.html): Login page for quiz platform.
+- [dashboard.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/dashboard.html): Home page to access to all the various features.
+- [index.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/index.html): Integrated quiz creation tool.
+- [editor.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/editor.html): A page to select an already uploaded quiz to be edited.
+- [quiz_edit.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/quiz_edit.html): Integrated quiz editing tool.
+- [tester.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/tester.html): A page to select an already uploaded quiz to be attempted.
+- [quiz_test.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/quiz_test.html): Integrated quiz taking tool.
+- [qbank.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/qbank.html): A page to add, remove and edit questions from the question bank.
+- [interactive.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/qbank.html): A page to add, remove and edit questions from the question bank.
