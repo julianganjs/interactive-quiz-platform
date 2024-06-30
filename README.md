@@ -27,8 +27,8 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 1. Quiz Creator and Editor
    - An integrated quiz creation tool with 6 different question types.
 2. Quiz Taker
-   - An integrated tool to attempt the quizzes created.
+   - A screen to attempt quizzes. Equipped with a point allocation system, feedback system and timer.
 3. Question Bank
    - A structured repository to store questions for future quizzes. Equipped with import/export and search/filter functionalities.
 4. Interactive Quiz
-   - An integrated tool to convert created quizzes into gamified quizzes which can be hosted.
+   - An integrated tool to host interactive quizzes. Gamifies existing quizzes by adding video game elements.
