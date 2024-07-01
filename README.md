@@ -5,9 +5,7 @@ This repository contains the source code for a web-based quiz platform. The plat
 Currently there are already existing quiz platforms available. However, there is a lack for a singular product that incorporates both regular and gamified quizzes to cater for either professional or entertainment applications. Hence, this project aims to provides a versatile one-stop solution that addresses this problem. Its main objective is to enhance student participation and improve learning outcomes in classrooms. 
 
 ## Database and Website Hosting
-The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. In order to attain the lowest latency and fastest load times, the server's geological location was set to East Asia, which is the best option for Malaysia.
-
-The website is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend coding. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
+The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. The website itself is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend coding. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
 
 The website can be accessed through the following link:<br />
 https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
@@ -55,9 +53,9 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 2. Download all HTML files and the 'assets' folder into the same directory.
 3. Inspect all HTML files, and remove all occurences of the following code snippet:
    ```ruby
-   const endpoint# = '/data-api/rest/#';
-   const response# = await fetch(endpoint#);
-   const data# = await response#.json();
+   const endpoint = '/data-api/rest/#';
+   const response = await fetch(endpoint);
+   const data = await response.json();
    ```
    where '#' can be any value. This code allows the web app to query data from the database in JSON format.
 5. Replace all `data` variables with a dummy JSON object. For example:
@@ -70,6 +68,74 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 9. If you do not wish to download the files on your local machine, you may proceed to test the platform using the link: https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 
 ## Examples
+### Login Page
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f767f175-be58-460a-b6e9-08a69f752a6d" width="500vw">
+
+### Dashboard
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/eb7e3e56-f42a-4b4f-9fe2-3b3f9d05e2c3" width="500vw">
+
+### Quiz Creator
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/1e91daae-2b4e-4947-b4db-4fd78f3e4940" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/07784a0f-b32b-491f-9698-7cb719d8b41e" width="500vw">
+
+#### Question Types
+- #### Multiple Choice
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/3db944cd-46f5-4b18-b823-d58a735d088e" width="500vw">
+- #### True/False
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/7bb5ceab-f0ef-43e6-86b1-17b85c2977c4" width="500vw">
+- #### Short Answer
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/893f8516-c274-43ed-8972-b2e61f3f2df2" width="500vw">
+- #### Essay
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4cabd2b2-05ad-45c9-bbe4-7f7b0b1e7e81" width="500vw"><br />
+  The correct answer is in the form of keywords. The total mark for the question is divided by the number of keywords the educator has set. Thus, the quiz taker will be awarded a portion of the total marks for each correct keyword he/she has included in his/her essay answer.
+- #### Calculated
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/9c2d558d-224f-4ef2-8d80-1a0ca9fa923c" width="500vw"><br />
+  Calculated questions are able to generate random numeric values which populate the questions, using a mathematical formula keyed in by the educator. This prevents academic misconduct among students as they cannot copy each other's answer, due to all values will be different. The answer only accepts numerical values.
+- #### Calculated Multichoice
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/10a80c94-9e26-43b4-9a4f-719093e65853" width="500vw"><br />
+  Same concept as calculated questions, except the quiz takers are provided with 4 answer choices to choose from.
+
+- ##### Get From Question Bank
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c160851c-e021-4f48-a786-9941f032d1d6" width="500vw"><br />
+  The quiz creator can access, retrieve and duplicate questions directly from the question bank.
+
+### Quiz Editor
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/17990153-d927-45a0-a1b6-68f6a07419db" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/fdfe1ae4-9b84-47a6-b04f-d337b1ebbf0a" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0efe6cb8-8d3f-43b4-bf20-be349eb36243" width="500vw">
+
+### Quiz Tester
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/98aad201-7c13-44e8-be23-9b558f021851" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/6bcf21a7-ed0f-4337-9c7f-e3a586795757" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f7760f85-a815-41c1-b2a2-ea0f6f115195" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0bfa66e9-afae-4a2e-b3ab-cbb6d8e097ef" width="500vw">
+
+### Question Bank
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/8b70bffe-4ba5-41b8-95aa-0c122c4cdb5c" width="500vw"><br />
+The interface of the question bank is similar to the quiz creator tool, except that the existing questions in the bank are loaded beforehand.
+
+### Interactive Quiz
+- #### Starting Page
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/57e3b41c-778a-4b72-a432-6dcc01dc5775" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f33cb17d-c54f-4cb6-9083-17fe412e3c90" width="500vw"><br/>
+  This page is where the educator can host an interactive quiz session using existing quizzes, or where participants can join ongoing interactive quizzes using the provided unique quiz PIN.
+
+- #### Lobby
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/2fbe67af-2265-474f-ad60-3d0dfbd31647" width="500vw"><br />
+  The lobby screen displays the unique quiz PIN to join the session, along with each participant's name. This allows the educator to wait for all students to join the quiz before starting the session.
+
+- #### Waiting Room
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4e0f1df0-adfb-425a-9e95-59087f02387d" width="500vw"><br />
+  This screen acts as a waiting room for all participants before the game session starts.
+
+- #### Game Session (Educator's Screen)
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/38425617-27da-4a3d-931e-d39d89e08f9e" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f3cbf67-4740-4b71-8cfd-1f1775912637" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f4b20301-0b03-4f8c-b5ce-b3c7d53a096f" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/05df1185-81cf-42d3-a299-b6757fd2bc77" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/892f3ca7-3f23-400a-a44f-be557a18496d" width="500vw">
+
+
 
 
 
