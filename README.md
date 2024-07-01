@@ -52,14 +52,14 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 
 ## Usage
 1. Clone this repository.
-2. Download all HTML files and the assets folder into the same directory.
+2. Download all HTML files and the 'assets' folder into the same directory.
 3. Inspect all HTML files, and remove all occurences of the following code snippet:
    ```ruby
-   const endpoint = '/data-api/rest/####';
-   const response = await fetch(endpoint);
-   const data = await response.json();
+   const endpoint# = '/data-api/rest/#';
+   const response# = await fetch(endpoint#);
+   const data# = await response#.json();
    ```
-   where '####' can be any value. This code allows the web app to query data from the database in JSON format.
+   where '#' can be any value. This code allows the web app to query data from the database in JSON format.
 5. Replace all `data` variables with a dummy JSON object. For example:
    ```ruby
    data = {"value":[{"id":24,"course_id":"ENG1","quiz_id":"QZENG4","q_id":"2","q_type":"calc_multi"},{"id":25,"course_id":"ENG1","quiz_id":"QZENG4","q_id":"1","q_type":"calc"},{"id":26,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"3","q_type":"sa"},{"id":27,"course_id":"ENG1","quiz_id":"QZENG1","q_id":"4","q_type":"essay"}]};
