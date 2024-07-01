@@ -66,7 +66,7 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
    ```
 6. Refer to the subsequent code below each `data` variable to identify the key/value pairs needed.
 7. Open dashboard.html using your default browser.
-8. Access your desired features in the quiz platform.
+8. Access the desired feature by selecting any one of the cards in the home page.
 9. If you do not wish to download the files on your local machine, you may proceed to test the platform using the link: https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 
 ## Examples
