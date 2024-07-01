@@ -48,4 +48,10 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 - [int_quiz_question.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/int_quiz_question.html): Main interactive quiz screen where the questions and answer choices are displayed, along with a leaderboard and other video game elements.
 - [int_quiz_answer.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/int_quiz_answer.html): Main interactive quiz screen where each participant selects their desired answer choice, and the points earned for each question are displayed.
 - [assets](https://github.com/julianganjs/interactive-quiz-platform/tree/main/assets): Contains all the styles, libraries, fonts, images and frameworks needed for the website to operate.
-- [swa-db-connections](https://github.com/julianganjs/interactive-quiz-platform/tree/main/swa-db-connections): Configuration file for Microsoft Azure SQL Database.
+- [swa-db-connections](https://github.com/julianganjs/interactive-quiz-platform/tree/main/swa-db-connections): Configuration file for Static Web Apps to Microsoft Azure SQL Database connection.
+
+
+
+
+## License
+This project is licensed under the MIT License.
