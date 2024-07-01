@@ -71,7 +71,7 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 ### Login Page
 <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f767f175-be58-460a-b6e9-08a69f752a6d" width="500vw">
 
-### Dashboard
+### Home Page (Dashboard)
 <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/eb7e3e56-f42a-4b4f-9fe2-3b3f9d05e2c3" width="500vw">
 
 ### Quiz Creator
