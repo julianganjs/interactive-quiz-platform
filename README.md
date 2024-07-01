@@ -1,6 +1,6 @@
 #  Interactive Web-Based Quiz Platform
 
-This repository contains the source code for a web-based quiz platform. The platform is equipped with an integrated quiz creation tool, quiz taker, question bank and a gamification feature for interactive quizzes. This platform was developed as part of the final year project for my Electrical and Electronic Engineering degree.
+This repository contains the source code for a web-based quiz platform. The platform is equipped with an integrated quiz creation tool, quiz taker, question bank and a gamification feature for interactive quizzes. This was developed as part of the final year project for my Electrical and Electronic Engineering degree.
 
 Currently there are already existing quiz platforms available. However, there is a lack for a singular product that incorporates both regular and gamified quizzes to cater for either professional or entertainment applications. Hence, this project aims to provides a versatile one-stop solution that addresses this problem. Its main objective is to enhance student participation and improve learning outcomes in classrooms. 
 
@@ -25,11 +25,11 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 1. Quiz Creator and Editor
    - An integrated quiz creation tool with 6 different question types.
 2. Quiz Taker
-   - A tool to attempt the created quizzes. Equipped with a point allocation system, feedback system and timer.
+   - A tool to attempt the created quizzes. It's equipped with a point allocation system, feedback system and timer.
 3. Question Bank
-   - A structured repository to store questions for future quizzes. Equipped with import/export and search/filter functionalities.
+   - A structured repository to store questions for future quizzes. It's equipped with import/export and search/filter functionalities.
 4. Interactive Quiz
-   - An integrated tool to host interactive quizzes. Gamifies existing quizzes by adding video game elements.
+   - An integrated tool to host interactive quizzes. It gamifies existing quizzes by adding video game and interactive elements.
 
 ## Code Structure
 - [login.html](https://github.com/julianganjs/interactive-quiz-platform/blob/main/login.html): Login page for quiz platform.
@@ -135,9 +135,13 @@ The interface of the question bank is similar to the quiz creator tool, except t
   <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/05df1185-81cf-42d3-a299-b6757fd2bc77" width="500vw">
   <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/892f3ca7-3f23-400a-a44f-be557a18496d" width="500vw">
 
-
-
-
+- #### Game Session (Student's Screen)
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ee404bca-392e-4b08-8a88-dbd509c9c11b" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/165fc0c3-4ec3-4ce1-8bee-942ff9aa6056" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c7974125-7b8f-4eb2-a850-7c5de62fe9f9" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/5f0171a9-6163-418f-a090-fc4ffa0c3ffc" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ed949c1f-a19a-4cd8-b26e-bb8d562e0346" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f71a0cd-0e7a-4c73-bad2-b094a5c212c4" width="500vw">
 
 ## License
 This project is licensed under the MIT License.
