@@ -12,7 +12,7 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 > *Username:*&nbsp;&nbsp;teacher<br />*Password:*&nbsp;&nbsp;&nbsp;teacher
 
 > ### Note
-> The Azure SQL Database was set up using a free student package, which only has a one year trial period. Hence, the online quiz platform will only be operational till 13/11/2024, after which the database will then be offline indefinitely.
+> As the database is currently offline, please wait for 1-2 minutes after the first login attempt, then refresh the login page and try again. The database will be awakened after the first login attempt, and the username and password can then be authenticated.<br /><br />The Azure SQL Database was set up using a free student package, which only has a one year trial period. Hence, the online quiz platform will only be operational till 13/11/2024, after which the database will then be offline indefinitely.
 
 ## JavaScript Libraries/Framework
 - Bootstrap 5
