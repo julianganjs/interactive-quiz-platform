@@ -65,83 +65,86 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 6. Refer to the subsequent code below each `data` variable to identify the key/value pairs needed.
 7. Open dashboard.html using your default browser.
 8. Access the desired feature by selecting any one of the cards in the home page.
-9. If you do not wish to download the files on your local machine, you may proceed to test the platform using the link: https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
+9. If you do not wish to download the files onto your local machine, you may proceed to test the platform using the link: https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 
 ## Examples
 ### Login Page
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f767f175-be58-460a-b6e9-08a69f752a6d" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f767f175-be58-460a-b6e9-08a69f752a6d" width="600vw">
 
 ### Home Page (Dashboard)
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/eb7e3e56-f42a-4b4f-9fe2-3b3f9d05e2c3" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/eb7e3e56-f42a-4b4f-9fe2-3b3f9d05e2c3" width="600vw">
 
 ### Quiz Creator
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/1e91daae-2b4e-4947-b4db-4fd78f3e4940" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/07784a0f-b32b-491f-9698-7cb719d8b41e" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/1e91daae-2b4e-4947-b4db-4fd78f3e4940" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/07784a0f-b32b-491f-9698-7cb719d8b41e" width="600vw"><br />
+Up to 6 different question types are made available to the educator.
 
 #### Question Types
 - #### Multiple Choice
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/3db944cd-46f5-4b18-b823-d58a735d088e" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/3db944cd-46f5-4b18-b823-d58a735d088e" width="650vw">
 - #### True/False
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/7bb5ceab-f0ef-43e6-86b1-17b85c2977c4" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/7bb5ceab-f0ef-43e6-86b1-17b85c2977c4" width="650vw">
 - #### Short Answer
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/893f8516-c274-43ed-8972-b2e61f3f2df2" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/893f8516-c274-43ed-8972-b2e61f3f2df2" width="650vw">
 - #### Essay
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4cabd2b2-05ad-45c9-bbe4-7f7b0b1e7e81" width="500vw"><br />
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4cabd2b2-05ad-45c9-bbe4-7f7b0b1e7e81" width="650vw"><br />
   The correct answer is in the form of keywords. The total mark for the question is divided by the number of keywords the educator has set. Thus, the quiz taker will be awarded a portion of the total marks for each correct keyword he/she has included in his/her essay answer.
 - #### Calculated
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/9c2d558d-224f-4ef2-8d80-1a0ca9fa923c" width="500vw"><br />
-  Calculated questions are able to generate random numeric values which populate the questions, using a mathematical formula keyed in by the educator. This prevents academic misconduct among students as they cannot copy each other's answer, due to all values will be different. The answer only accepts numerical values.
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/9c2d558d-224f-4ef2-8d80-1a0ca9fa923c" width="650vw"><br />
+  Calculated questions are able to generate random numeric values which populate the questions, using a mathematical formula keyed in by the educator. This prevents academic misconduct among students as they cannot copy each other's answer, due to all values will be different. The answer only accepts numerical values. The range of numbers which the random values are generated from is also set by the educator.
 - #### Calculated Multichoice
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/10a80c94-9e26-43b4-9a4f-719093e65853" width="500vw"><br />
-  Same concept as calculated questions, except the quiz takers are provided with 4 answer choices to choose from.
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/10a80c94-9e26-43b4-9a4f-719093e65853" width="650vw"><br />
+  Same concept as calculated questions, except the quiz takers are provided with 4 answer choices to choose from. The educator can set the format of which the answer choices are displayed in.
 
 - ##### Get From Question Bank
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c160851c-e021-4f48-a786-9941f032d1d6" width="500vw"><br />
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c160851c-e021-4f48-a786-9941f032d1d6" width="650vw"><br />
   The quiz creator can access, retrieve and duplicate questions directly from the question bank.
 
 ### Quiz Editor
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/17990153-d927-45a0-a1b6-68f6a07419db" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/fdfe1ae4-9b84-47a6-b04f-d337b1ebbf0a" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0efe6cb8-8d3f-43b4-bf20-be349eb36243" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/17990153-d927-45a0-a1b6-68f6a07419db" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/fdfe1ae4-9b84-47a6-b04f-d337b1ebbf0a" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0efe6cb8-8d3f-43b4-bf20-be349eb36243" width="600vw"><br />
+The quiz editor has the exact same layout as the quiz creator, except that it is only used to make changes to existing quizzes or delete them.
 
 ### Quiz Tester
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/98aad201-7c13-44e8-be23-9b558f021851" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/6bcf21a7-ed0f-4337-9c7f-e3a586795757" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f7760f85-a815-41c1-b2a2-ea0f6f115195" width="500vw">
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0bfa66e9-afae-4a2e-b3ab-cbb6d8e097ef" width="500vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/98aad201-7c13-44e8-be23-9b558f021851" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/6bcf21a7-ed0f-4337-9c7f-e3a586795757" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f7760f85-a815-41c1-b2a2-ea0f6f115195" width="600vw">
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/0bfa66e9-afae-4a2e-b3ab-cbb6d8e097ef" width="600vw"><br />
+The quiz tester screen is equipped with a quiz navigation box to navigate between each question, a timer, and an automated feedback card system to display the correct answers when the quiz has ended.
 
 ### Question Bank
-<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/8b70bffe-4ba5-41b8-95aa-0c122c4cdb5c" width="500vw"><br />
-The interface of the question bank is similar to the quiz creator tool, except that the existing questions in the bank are loaded beforehand.
+<img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/8b70bffe-4ba5-41b8-95aa-0c122c4cdb5c" width="600vw"><br />
+The interface of the question bank is similar to the quiz creator tool, except that the existing questions in the bank are loaded beforehand. It is also equipped with a search and filter functionality.
 
 ### Interactive Quiz
 - #### Starting Page
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/57e3b41c-778a-4b72-a432-6dcc01dc5775" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f33cb17d-c54f-4cb6-9083-17fe412e3c90" width="500vw"><br/>
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/57e3b41c-778a-4b72-a432-6dcc01dc5775" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f33cb17d-c54f-4cb6-9083-17fe412e3c90" width="650vw"><br/>
   This page is where the educator can host an interactive quiz session using existing quizzes, or where participants can join ongoing interactive quizzes using the provided unique quiz PIN.
 
 - #### Lobby
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/2fbe67af-2265-474f-ad60-3d0dfbd31647" width="500vw"><br />
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/2fbe67af-2265-474f-ad60-3d0dfbd31647" width="650vw"><br />
   The lobby screen displays the unique quiz PIN to join the session, along with each participant's name. This allows the educator to wait for all students to join the quiz before starting the session.
 
 - #### Waiting Room
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4e0f1df0-adfb-425a-9e95-59087f02387d" width="500vw"><br />
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4e0f1df0-adfb-425a-9e95-59087f02387d" width="650vw"><br />
   This screen acts as a waiting room for all participants before the game session starts.
 
 - #### Game Session (Educator's Screen)
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/38425617-27da-4a3d-931e-d39d89e08f9e" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f3cbf67-4740-4b71-8cfd-1f1775912637" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f4b20301-0b03-4f8c-b5ce-b3c7d53a096f" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/05df1185-81cf-42d3-a299-b6757fd2bc77" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/892f3ca7-3f23-400a-a44f-be557a18496d" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/38425617-27da-4a3d-931e-d39d89e08f9e" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f3cbf67-4740-4b71-8cfd-1f1775912637" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/f4b20301-0b03-4f8c-b5ce-b3c7d53a096f" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/05df1185-81cf-42d3-a299-b6757fd2bc77" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/892f3ca7-3f23-400a-a44f-be557a18496d" width="650vw">
 
 - #### Game Session (Student's Screen)
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ee404bca-392e-4b08-8a88-dbd509c9c11b" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/165fc0c3-4ec3-4ce1-8bee-942ff9aa6056" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c7974125-7b8f-4eb2-a850-7c5de62fe9f9" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/5f0171a9-6163-418f-a090-fc4ffa0c3ffc" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ed949c1f-a19a-4cd8-b26e-bb8d562e0346" width="500vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f71a0cd-0e7a-4c73-bad2-b094a5c212c4" width="500vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ee404bca-392e-4b08-8a88-dbd509c9c11b" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/165fc0c3-4ec3-4ce1-8bee-942ff9aa6056" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c7974125-7b8f-4eb2-a850-7c5de62fe9f9" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/5f0171a9-6163-418f-a090-fc4ffa0c3ffc" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ed949c1f-a19a-4cd8-b26e-bb8d562e0346" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f71a0cd-0e7a-4c73-bad2-b094a5c212c4" width="650vw">
 
 ## License
 This project is licensed under the MIT License.
