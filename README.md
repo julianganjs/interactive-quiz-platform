@@ -5,7 +5,7 @@ This repository contains the source code for a web-based quiz platform. The plat
 Currently there are already existing quiz platforms available. However, there is a lack for a singular product that incorporates both regular and gamified quizzes to cater for either professional or entertainment applications. Hence, this project aims to provides a versatile one-stop solution that addresses this problem. Its main objective is to enhance student participation and improve learning outcomes in classrooms. 
 
 ## Database and Website Hosting
-The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. The website itself is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend coding. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
+The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. The website itself is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend coding, and retrieves data using **REST API**. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
 
 The website can be accessed through the following link:<br />
 https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
