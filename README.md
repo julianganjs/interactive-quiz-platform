@@ -144,7 +144,8 @@ The interface of the question bank is similar to the quiz creator tool, except t
   <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/c7974125-7b8f-4eb2-a850-7c5de62fe9f9" width="650vw">
   <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/5f0171a9-6163-418f-a090-fc4ffa0c3ffc" width="650vw">
   <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/ed949c1f-a19a-4cd8-b26e-bb8d562e0346" width="650vw">
-  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f71a0cd-0e7a-4c73-bad2-b094a5c212c4" width="650vw">
+  <img src="https://github.com/julianganjs/interactive-quiz-platform/assets/127673790/4f71a0cd-0e7a-4c73-bad2-b094a5c212c4" width="650vw"><br/>
+  The points earned for each question is calculated using a custom algorithm. For each question, a maximum amount of 1000 points is available. The student is awarded an amount of points based on the time remaining to answer the question (a quick answer = more points). This amount is then multiplied by a multiplier, which is determined based on the student's correct answer streak (if the student has answered 3 questions correctly in a row, then the points for the next question will be multiplied by x1.3). No points will be awarded for wrong answers and the student's answer streak will end.
 
 ## License
 This project is licensed under the MIT License.
