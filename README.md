@@ -8,10 +8,10 @@ Currently there are already existing quiz platforms available. However, there is
 The platform utilizes a **Microsoft Azure SQL Database** to store all quiz data. The website itself is hosted using **Microsoft Azure Static Web Apps**. These web apps have an integrated feature that allows them to connect seamlessly to an **Azure SQL Database** without needing any backend coding, and retrieves data using **REST API**. The quiz platform is deployed online as a web application, and the source files are stored in a GitHub repository.
 
 The website can be accessed through the following link:<br />
-https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
+~~https://green-mud-023b7ab00.4.azurestaticapps.net/login.html~~ <sub>The website is currently offline.</sub>
 > *Username:*&nbsp;&nbsp;teacher<br />*Password:*&nbsp;&nbsp;&nbsp;teacher
 
-> ### Note
+> [!NOTE] 
 > As the database is currently offline, please wait for 1-2 minutes after the first login attempt, then refresh the login page and try again. The database will be awakened after the first login attempt, and the username and password can then be authenticated.<br /><br />The Azure SQL Database was set up using a free student package, which only has a one year trial period. Hence, the online quiz platform will only be operational till 13/11/2024, after which the database will then be offline indefinitely.
 
 ## JavaScript Libraries/Framework
@@ -65,7 +65,7 @@ https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
 6. Refer to the subsequent code below each `data` variable to identify the key/value pairs needed.
 7. Open dashboard.html using your default browser.
 8. Access the desired feature by selecting any one of the cards in the home page.
-9. If you do not wish to download the files onto your local machine, you may proceed to test the platform using the link: https://green-mud-023b7ab00.4.azurestaticapps.net/login.html
+9. If you do not wish to download the files onto your local machine, you may proceed to test the platform using the link: ~~https://green-mud-023b7ab00.4.azurestaticapps.net/login.html~~ <sub>The website is currently offline.</sub>
 
 ## Examples
 ### Login Page
